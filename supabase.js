@@ -17,13 +17,13 @@ async function signOut() {
 
 // Check if a user is signed in (Session Management)
 async function checkSession() {
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getSession();
 
-    if (user) {
+    if (data) {
         console.log("User signed in:", user);
         window.location.href = "/Web-App";
+    } else if (error) {
+        console.error("Session Check Error:", error.message);
     } else {
         console.log("No user signed in.");
         if (window.location.pathname == "/Web-App/") {
