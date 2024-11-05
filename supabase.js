@@ -20,7 +20,7 @@ async function checkSession() {
     const { data, error } = await supabase.auth.getSession();
 
     if (data) {
-        console.log("User signed in:", data.session.user);
+        console.log("User signed in:", data.session);
         if (window.location.pathname !== "/Web-App/") {
             window.location.href = "/Web-App";
         }
