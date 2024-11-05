@@ -55,6 +55,7 @@ async function checkSession() {
 
     if (user) {
         console.log("User logged in:", user);
+        window.location.href = "/";
     } else {
         console.log("No user logged in.");
         if (window.location.pathname == "/") {
