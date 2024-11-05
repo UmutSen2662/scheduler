@@ -21,8 +21,8 @@ async function signOut() {
 async function checkSession() {
     const { data, error } = await supabase.auth.getSession();
 
-    if (data) {
-        console.log("User signed in:", data);
+    if (data.session) {
+        console.log("User signed in:", data.session.user.email);
         userid = data.session.user.id;
         if (window.location.pathname !== "/Web-App/") {
             window.location.href = "/Web-App";
