@@ -27,7 +27,7 @@ async function checkSession() {
     } else {
         console.log("No user logged in.");
         if (window.location.pathname == "/Web-App/") {
-            window.location.href = "/Web-App/auth/login.html";
+            window.location.href = "/Web-App/auth/signin.html";
         }
     }
 }
