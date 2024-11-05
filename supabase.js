@@ -1,6 +1,6 @@
 const supabase = createClient(
-    "https://qfhslzgmkljwsgclxzpi.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaHNsemdta2xqd3NnY2x4enBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4MTk3MzMsImV4cCI6MjA0NjM5NTczM30.7xCgTNh4dj7NnJoO3qRNl0LQogru5mVKCnTJ_UlYd4M"
+    "https://gpprfxmjjjowyuqgvwzr.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q"
 );
 
 // Sign Out
@@ -11,21 +11,21 @@ async function signOut() {
         alert("Error signing out: " + error.message);
     } else {
         alert("Sign-out successful!");
-        checkSession(); // Optional: check if a user is logged in
+        checkSession(); // Optional: check if a user is signed in
     }
 }
 
-// Check if a user is logged in (Session Management)
+// Check if a user is signed in (Session Management)
 async function checkSession() {
     const {
         data: { user },
     } = await supabase.auth.getUser();
 
     if (user) {
-        console.log("User logged in:", user);
+        console.log("User signed in:", user);
         window.location.href = "/Web-App";
     } else {
-        console.log("No user logged in.");
+        console.log("No user signed in.");
         if (window.location.pathname == "/Web-App/") {
             window.location.href = "/Web-App/auth/signin.html";
         }
