@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Web App</title>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+            const { createClient } = supabase;
+        </script>
+        <script src="/Web-App/supabase.js" defer></script>
+        <script>
+            // Sign In
+            async function signIn() {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                const { user, error } = await supabase.auth.signInWithPassword({ email, password });
+
+                if (error) {
+                    console.error("Sign In Error:", error.message);
+                    alert("Error signing in: " + error.message);
+                } else {
+                    alert("Sign-in successful!");
+                    checkSession(); // Optional: check if a user is logged in
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <h2>Sign In</h2>
+            <input type="email" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="Password" />
+            <button onclick="signIn()">Sign In</button>
+        </div>
+    </body>
+</html>
