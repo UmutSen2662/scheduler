@@ -55,11 +55,11 @@ async function checkSession() {
 
     if (user) {
         console.log("User logged in:", user);
-        window.location.href = "/";
+        window.location.href = "/Web-App";
     } else {
         console.log("No user logged in.");
         if (window.location.pathname == "/") {
-            window.location.href = "/auth/login.html";
+            window.location.href = "/Web-App/auth/login.html";
         }
     }
 }
