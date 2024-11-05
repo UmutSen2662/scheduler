@@ -21,7 +21,9 @@ async function checkSession() {
 
     if (data) {
         console.log("User signed in:", user);
-        window.location.href = "/Web-App";
+        if (window.location.pathname !== "/Web-App/") {
+            window.location.href = "/Web-App";
+        }
     } else if (error) {
         console.error("Session Check Error:", error.message);
     } else {
