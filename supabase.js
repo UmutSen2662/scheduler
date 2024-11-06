@@ -17,7 +17,7 @@ async function signOut() {
 
 // Check if a user is signed in
 function checkSession() {
-    let userid = null;
+    let userid = undefined;
     supabase.auth.getSession().then(({ data, error }) => {
         if (data.session) {
             console.log("User signed in:", data.session.user.email);
