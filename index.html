@@ -52,13 +52,17 @@
     </body>
 
     <!-- main script -->
-    <script>
+    <script type="text/javascript">
         // check if a user is signed in otherwise redirect to signin
-        const userid = await checkSession();
+        const userid = checkSession();
         if (userid) {
             console.log(userid);
         } else {
             window.location.href = "/Web-App/auth/signin.html";
+        }
+
+        function getData() {
+            
         }
     </script>
 </html>
