@@ -62,7 +62,19 @@
         }
 
         function getData() {
-            
+            supabase
+                .from("course")
+                .select("*")
+                .eq("userid", userid)
+                .then(({ data: course, error }) => {
+                    if (error) {
+                        console.error("Error:", error.message);
+                    } else {
+                        console.log("Data:", course);
+                    }
+                });
         }
+
+        getData();
     </script>
 </html>
