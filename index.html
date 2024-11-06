@@ -53,16 +53,16 @@
                 <th id="08">15:40</th>
             </tr>
             <tr id="9">
-                <th id="08">15:40</th>
+                <th id="09">15:40</th>
             </tr>
-            <tr id="10">
-                <th id="08">15:40</th>
+            <tr id="A">
+                <th id="0A">15:40</th>
             </tr>
-            <tr id="11">
-                <th id="08">15:40</th>
+            <tr id="B">
+                <th id="0B">15:40</th>
             </tr>
-            <tr id="12">
-                <th id="08">15:40</th>
+            <tr id="C">
+                <th id="0C">15:40</th>
             </tr>
         </table>
     </body>
@@ -97,16 +97,16 @@
             const table = document.getElementById("table");
 
             for (let i = 1; i < 13; i++) {
-                const tr = document.getElementById(`${i}`);
+                const tr = document.getElementById(i.toString(16));
                 for (let j = 1; j < 8; j++) {
                     const th = document.createElement("th");
-                    th.id = `${j}${i}`;
+                    th.id = `${j}${i.toString(16)}`;
                     tr.appendChild(th);
                 }
             }
 
             data.forEach((course) => {
-                const th = document.getElementById(`${course.col}${course.row}`);
+                const th = document.getElementById(`${course.col}${course.row.toString(16)}`);
                 th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
                 th.style.backgroundColor = course.color;
             });
