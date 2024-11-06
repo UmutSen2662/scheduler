@@ -83,7 +83,7 @@
             
             const schedule = document.getElementById("schedule");
             window.addEventListener("resize", async function () {
-                schedule.style.fontSize = window.innerWidth / 50 + "px";
+                schedule.style.fontSize = min(window.innerWidth / 50, 24) + "px";
             });
         });
 

@@ -38,17 +38,17 @@ table {
 }
 
 th {
-    padding: 0.4rem;
-    max-width: 6.4rem;
-    min-width: 6.4rem;
+    padding: 0.4em;
+    max-width: 6.4em;
+    min-width: 6.4em;
     text-align: center;
-    border: 0.1rem solid #222;
+    border: 0.1em solid #222;
 }
 
 th:first-child {
-    max-width: 3.4rem;
-    min-width: 3.4rem;
-    padding: 0.2rem 0.4rem;
+    max-width: 3.4em;
+    min-width: 3.4em;
+    padding: 0.2em 0.4em;
 }
 
 tr:nth-child(odd) {
@@ -72,9 +72,9 @@ button:active {
     background-color: #1e5799;
 }
 
-@media screen and (max-width: 767px) {    
-html,
-body {
-    font-size: 14px;
-}
+@media screen and (max-width: 767px) {
+    html,
+    body {
+        font-size: 14px;
+    }
 }
