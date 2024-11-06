@@ -8,7 +8,7 @@
         <script>
             const { createClient } = supabase;
         </script>
-        <script src="/Web-App/supabase.js" defer></script>
+        <script src="/Web-App/supabase.js"></script>
     </head>
     <body>
         <h1>This is the main page</h1>
@@ -32,11 +32,12 @@
 
     <!-- main script -->
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
+        // check if a user is signed in otherwise redirect to signin
+        const userid = await checkSession();
+        if (userid) {
             console.log(userid);
-        });
-
-
-
+        } else {
+            window.location.href = "/Web-App/auth/signin.html";
+        }
     </script>
 </html>
