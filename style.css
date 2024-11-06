@@ -42,7 +42,7 @@ th {
     max-width: 6.4rem;
     min-width: 6.4rem;
     text-align: center;
-    border: 1px solid #222;
+    border: 2px solid #222;
 }
 
 th:first-child {
