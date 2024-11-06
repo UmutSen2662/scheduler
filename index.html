@@ -29,28 +29,40 @@
                 <th id="70">Sunday</th>
             </tr>
             <tr id="1">
-                <th id="01">08:40 09:30</th>
+                <th id="01">08:40</th>
             </tr>
             <tr id="2">
-                <th id="02">09:40 10:30</th>
+                <th id="02">09:40</th>
             </tr>
             <tr id="3">
-                <th id="03">10:40 11:30</th>
+                <th id="03">10:40</th>
             </tr>
             <tr id="4">
-                <th id="04">11:40 12:30</th>
+                <th id="04">11:40</th>
             </tr>
             <tr id="5">
-                <th id="05">12:40 13:30</th>
+                <th id="05">12:40</th>
             </tr>
             <tr id="6">
-                <th id="06">13:40 14:30</th>
+                <th id="06">13:40</th>
             </tr>
             <tr id="7">
-                <th id="07">14:40 15:30</th>
+                <th id="07">14:40</th>
             </tr>
             <tr id="8">
-                <th id="08">15:40 16:30</th>
+                <th id="08">15:40</th>
+            </tr>
+            <tr id="9">
+                <th id="08">15:40</th>
+            </tr>
+            <tr id="10">
+                <th id="08">15:40</th>
+            </tr>
+            <tr id="11">
+                <th id="08">15:40</th>
+            </tr>
+            <tr id="12">
+                <th id="08">15:40</th>
             </tr>
         </table>
     </body>
@@ -86,7 +98,7 @@
 
             for (let i = 1; i < 9; i++) {
                 const tr = document.getElementById(`${i}`);
-                for (let j = 1; j < 8; j++) {
+                for (let j = 1; j < 12; j++) {
                     const th = document.createElement("th");
                     th.id = `${j}${i}`;
                     tr.appendChild(th);
@@ -95,7 +107,7 @@
 
             data.forEach((course) => {
                 const th = document.getElementById(`${course.col}${course.row}`);
-                th.innerHTML = `${course.name}\n(${course.section})\n[${course.room}]`;
+                th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
                 th.style.backgroundColor = course.color;
             });
         }
