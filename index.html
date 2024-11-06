@@ -53,16 +53,16 @@
                 <th id="08">15:40</th>
             </tr>
             <tr id="9">
-                <th id="09">15:40</th>
+                <th id="09">16:40</th>
             </tr>
-            <tr id="A">
-                <th id="0A">15:40</th>
+            <tr id="a">
+                <th id="0a">17:40</th>
             </tr>
-            <tr id="B">
-                <th id="0B">15:40</th>
+            <tr id="b">
+                <th id="0b">18:40</th>
             </tr>
-            <tr id="C">
-                <th id="0C">15:40</th>
+            <tr id="c">
+                <th id="0c">19:40</th>
             </tr>
         </table>
     </body>
@@ -100,7 +100,7 @@
                 const tr = document.getElementById(i.toString(16));
                 for (let j = 1; j < 8; j++) {
                     const th = document.createElement("th");
-                    th.id = `${j}${i.toString(16)}`;
+                    th.id = j.toString(16) + i.toString(16);
                     tr.appendChild(th);
                 }
             }
