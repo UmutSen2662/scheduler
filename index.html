@@ -15,7 +15,7 @@
 
         <button onclick="signOut()">Sign Out</button>
 
-        <table>
+        <table id="table">
             <tr>
                 <th id="00"></th>
                 <th id="10">Monday</th>
@@ -62,10 +62,10 @@
                 window.location.href = "/Web-App/auth/signin.html";
             }
 
-            getData();
+            getData(userid);
         })
 
-        function getData() {
+        function getData(userid) {
             supabase
                 .from("course")
                 .select("*")
@@ -77,6 +77,11 @@
                         console.log("Data:", course);
                     }
                 });
+        }
+
+        async function buildTable(data) {
+            const table = document.getElementById("table");
+
         }
 
     </script>

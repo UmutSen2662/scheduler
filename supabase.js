@@ -10,8 +10,13 @@ async function signOut() {
         console.error("Sign Out Error:", error.message);
         alert("Error signing out: " + error.message);
     } else {
-        alert("Sign-out successful!");
-        checkSession(); // Optional: check if a user is signed in
+        const userid = await checkSession();
+        if (userid) {
+            alert("Could not Sign-out");
+        } else {
+            alert("Sign-out successful!");
+            window.location.href = "/Web-App/auth/signin.html";
+        }
     }
 }
 
