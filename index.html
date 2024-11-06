@@ -18,6 +18,10 @@
             <button onclick="signOut()">Sign Out</button>
         </div>
 
+        <div style="padding: 0.6rem">
+            <h2>Schedule</h2>
+        </div>
+
         <table id="schedule">
             <tr id="0">
                 <th id="00">Time</th>
@@ -82,20 +86,22 @@
             const schedule = document.getElementById("schedule");
             window.addEventListener(
                 "resize",
-                throttle(function () {
+                debounce(function () {
                     schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
                 }, 600)
             );
+            schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
         });
 
-        function throttle(func, interval) {
-            var lastCall = 0;
+        function debounce(func, interval) {
+            var lastCall = -1;
             return function () {
-                var now = Date.now();
-                if (lastCall + interval < now) {
-                    lastCall = now;
-                    return func.apply(this, arguments);
-                }
+                clearTimeout(lastCall);
+                var args = arguments;
+                var self = this;
+                lastCall = setTimeout(function () {
+                    func.apply(self, args);
+                }, interval);
             };
         }
 
