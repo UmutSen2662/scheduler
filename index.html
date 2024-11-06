@@ -17,7 +17,7 @@
         <button onclick="signOut()">Sign Out</button>
 
         <table id="table">
-            <tr>
+            <tr id="0">
                 <th id="00">Time</th>
                 <th id="10">Monday</th>
                 <th id="20">Tuesday</th>
@@ -27,28 +27,28 @@
                 <th id="60">Saturday</th>
                 <th id="70">Sunday</th>
             </tr>
-            <tr>
+            <tr id="1">
                 <th id="01">08:40 09:30</th>
             </tr>
-            <tr>
+            <tr id="2">
                 <th id="02">09:40 10:30</th>
             </tr>
-            <tr>
+            <tr id="3">
                 <th id="03">10:40 11:30</th>
             </tr>
-            <tr>
+            <tr id="4">
                 <th id="04">11:40 12:30</th>
             </tr>
-            <tr>
+            <tr id="5">
                 <th id="05">12:40 13:30</th>
             </tr>
-            <tr>
+            <tr id="6">
                 <th id="06">13:40 14:30</th>
             </tr>
-            <tr>
+            <tr id="7">
                 <th id="07">14:40 15:30</th>
             </tr>
-            <tr>
+            <tr id="8">
                 <th id="08">15:40 16:30</th>
             </tr>
         </table>
@@ -85,15 +85,17 @@
         async function buildTable(data) {
             const table = document.getElementById("table");
 
-            for (let i = 1; i < 8; i++) {
-                for (let j = 1; j < 9; j++) {
-                    let th = document.createElement("th");
-                    th.id = `${i}${j}`;
+            for (let i = 1; i < 9; i++) {
+                const tr = document.getElementById(`${i}`);
+                for (let j = 1; j < 8; j++) {
+                    const th = document.createElement("th");
+                    th.id = `${j}${i}`;
+                    tr.appendChild(th);
                 }
             }
 
             data.forEach((course) => {
-                let th = document.getElementById(`${course.col}${course.row}`);
+                const th = document.getElementById(`${course.col}${course.row}`);
                 th.innerHTML = `${course.name}\n(${course.section})\n[${course.room}]`;
                 th.style.backgroundColor = course.color;
             })
