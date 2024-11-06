@@ -18,7 +18,7 @@
 
         <table id="table">
             <tr>
-                <th id="00"></th>
+                <th id="00">Time</th>
                 <th id="10">Monday</th>
                 <th id="20">Tuesday</th>
                 <th id="30">Wednesday</th>
@@ -27,27 +27,29 @@
                 <th id="60">Saturday</th>
                 <th id="70">Sunday</th>
             </tr>
-
             <tr>
-                <th id="01"></th>
-                <th id="11"></th>
-                <th id="21"></th>
-                <th id="31"></th>
-                <th id="41"></th>
-                <th id="51"></th>
-                <th id="61"></th>
-                <th id="71"></th>
+                <th id="01">08:40 09:30</th>
             </tr>
-
             <tr>
-                <th id="02"></th>
-                <th id="12"></th>
-                <th id="22"></th>
-                <th id="32"></th>
-                <th id="42"></th>
-                <th id="52"></th>
-                <th id="62"></th>
-                <th id="72"></th>
+                <th id="02">09:40 10:30</th>
+            </tr>
+            <tr>
+                <th id="03">10:40 11:30</th>
+            </tr>
+            <tr>
+                <th id="04">11:40 12:30</th>
+            </tr>
+            <tr>
+                <th id="05">12:40 13:30</th>
+            </tr>
+            <tr>
+                <th id="06">13:40 14:30</th>
+            </tr>
+            <tr>
+                <th id="07">14:40 15:30</th>
+            </tr>
+            <tr>
+                <th id="08">15:40 16:30</th>
             </tr>
         </table>
     </body>
@@ -70,17 +72,31 @@
             let { data: course, error } = await supabase
                 .from("course")
                 .select("*")
-                .eq("userid", userid);
 
             if (error) {
                 console.error("Error:", error.message);
             } else {
                 console.log("Data:", course);
             }
+
+            buildTable(course);
         }
 
         async function buildTable(data) {
             const table = document.getElementById("table");
+
+            for (let i = 1; i < 8; i++) {
+                for (let j = 1; j < 9; j++) {
+                    let th = document.createElement("th");
+                    th.id = `${i}${j}`;
+                }
+            }
+
+            data.forEach((course) => {
+                let th = document.getElementById(`${course.col}${course.row}`);
+                th.innerHTML = `${course.name}\n(${course.section})\n[${course.room}]`;
+                th.style.backgroundColor = course.color;
+            })
         }
     </script>
 </html>
