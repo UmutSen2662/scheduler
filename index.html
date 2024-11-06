@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="#" />
         <title>Web App</title>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
@@ -63,26 +64,23 @@
             }
 
             getData(userid);
-        })
+        });
 
-        function getData(userid) {
-            supabase
+        async function getData(userid) {
+            let { data: course, error } = await supabase
                 .from("course")
                 .select("*")
-                .eq("userid", userid)
-                .then(({ data: course, error }) => {
-                    if (error) {
-                        console.error("Error:", error.message);
-                    } else {
-                        console.log("Data:", course);
-                    }
-                });
+                .eq("userid", userid);
+
+            if (error) {
+                console.error("Error:", error.message);
+            } else {
+                console.log("Data:", course);
+            }
         }
 
         async function buildTable(data) {
             const table = document.getElementById("table");
-
         }
-
     </script>
 </html>
