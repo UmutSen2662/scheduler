@@ -40,15 +40,15 @@ table {
 
 th {
     padding: 8px;
-    width: 6.4rem;
+    max-width: 6.4rem;
     min-width: 6.4rem;
     text-align: center;
     border: 1px solid #ccc;
 }
 
 th:first-child {
-    width: 2rem;
-    min-width: 2rem;
+    max-width: 3.4rem;
+    min-width: 3.4rem;
     padding: 4px 8px;
 }
 
