@@ -54,12 +54,16 @@
     <!-- main script -->
     <script type="text/javascript">
         // check if a user is signed in otherwise redirect to signin
-        const userid = checkSession();
-        if (userid) {
-            console.log(userid);
-        } else {
-            window.location.href = "/Web-App/auth/signin.html";
-        }
+        document.addEventListener("DOMContentLoaded", async function () {
+            const userid = await checkSession();
+            if (userid) {
+                console.log(userid);
+            } else {
+                window.location.href = "/Web-App/auth/signin.html";
+            }
+
+            getData();
+        })
 
         function getData() {
             supabase
@@ -75,6 +79,5 @@
                 });
         }
 
-        getData();
     </script>
 </html>
