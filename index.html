@@ -18,7 +18,7 @@
             <button onclick="signOut()">Sign Out</button>
         </div>
 
-        <table>
+        <table id="schedule">
             <tr id="0">
                 <th id="00">Time</th>
                 <th id="10">Monday</th>
@@ -80,7 +80,14 @@
             }
 
             getData(userid);
+            
+            const schedule = document.getElementById("schedule");
+            window.addEventListener("resize", async function () {
+                schedule.style.fontSize = window.innerWidth / 50 + "px";
+            });
         });
+
+        
 
         async function getData(userid) {
             let { data: course, error } = await supabase.from("course").select("*");
