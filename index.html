@@ -17,7 +17,7 @@
 
         <button onclick="signOut()">Sign Out</button>
 
-        <table id="table">
+        <table>
             <tr id="0">
                 <th id="00">Time</th>
                 <th id="10">Monday</th>
@@ -90,12 +90,10 @@
                 console.log("Data:", course);
             }
 
-            buildTable(course);
+            buildSchedule(course);
         }
 
-        async function buildTable(data) {
-            const table = document.getElementById("table");
-
+        async function buildSchedule(data) {
             for (let i = 1; i < 13; i++) {
                 const tr = document.getElementById(i.toString(16));
                 for (let j = 1; j < 8; j++) {

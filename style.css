@@ -34,7 +34,6 @@ img {
 }
 
 table {
-    width: 100%;
     border-collapse: collapse;
 }
 
@@ -43,7 +42,7 @@ th {
     max-width: 6.4rem;
     min-width: 6.4rem;
     text-align: center;
-    border: 1px solid #ccc;
+    border: 1px solid #222;
 }
 
 th:first-child {
@@ -52,8 +51,8 @@ th:first-child {
     padding: 4px 8px;
 }
 
-tr:nth-child(even) {
-    background-color: #f0f0f0;
+tr:nth-child(odd) {
+    background-color: #ddd;
 }
 
 button {
