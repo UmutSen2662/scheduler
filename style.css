@@ -4,15 +4,18 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: 20px;
+    line-height: 1.25;
     color: #222;
     background-color: #f5f5f5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3 {
     font-weight: 700;
 }
 
@@ -35,17 +38,19 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th {
     padding: 8px;
-    border: 1px solid #ddd;
+    width: 6.4rem;
+    text-align: center;
+    border: 1px solid #ccc;
 }
 
-th {
-    text-align: left;
+tr:first-child {
+    width: 4rem;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f0f0f0;
 }
 
 button {
@@ -66,20 +71,4 @@ button:active {
 }
 
 @media screen and (max-width: 767px) {
-    html, body {
-        font-size: 14px;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        font-size: 1.2em;
-    }
-
-    table {
-        font-size: 0.8em;
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
 }

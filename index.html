@@ -4,7 +4,7 @@
         <title>Web App</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/Web-App/style.css">        
+        <link rel="stylesheet" href="/Web-App/style.css" />
         <link rel="shortcut icon" href="#" />
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
@@ -70,9 +70,7 @@
         });
 
         async function getData(userid) {
-            let { data: course, error } = await supabase
-                .from("course")
-                .select("*")
+            let { data: course, error } = await supabase.from("course").select("*");
 
             if (error) {
                 console.error("Error:", error.message);
@@ -99,7 +97,7 @@
                 const th = document.getElementById(`${course.col}${course.row}`);
                 th.innerHTML = `${course.name}\n(${course.section})\n[${course.room}]`;
                 th.style.backgroundColor = course.color;
-            })
+            });
         }
     </script>
 </html>
