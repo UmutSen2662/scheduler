@@ -12,7 +12,7 @@
         </script>
         <script src="/Web-App/supabase.js"></script>
     </head>
-    <body>
+    <body style="display: flex; justify-content: center;">
         <div style="display: flex; justify-content: space-between; padding: 0.5rem">
             <h1>This is the main page</h1>
             <button onclick="signOut()">Sign Out</button>
@@ -83,8 +83,8 @@
             window.addEventListener(
                 "resize",
                 throttle(function () {
-                    schedule.style.fontSize = Math.min(window.innerWidth / 50, 24) + "px";
-                }, 100)
+                    schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
+                }, 600)
             );
         });
 
