@@ -22,7 +22,10 @@
                     alert("Error signing up: " + error.message);
                 } else {
                     alert("Sign-up successful!");
-                    checkSession(); // Optional: check if a user is logged in
+                    const userid = checkSession();
+                    if (userid) {
+                        window.location.href = "/Web-App/";
+                    }
                 }
             }
         </script>
