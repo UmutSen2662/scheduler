@@ -272,6 +272,11 @@
 
             Modal.set("id", id);
             Modal.set("color", color);
+            colors.childNodes.forEach((btn) => {
+                if (btn.style.backgroundColor == color) {
+                    btn.classList.add("active");
+                }
+            })
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="Name" value="${name}">
                 <input type="text" id="modalSection" placeholder="Section" value="${section}">

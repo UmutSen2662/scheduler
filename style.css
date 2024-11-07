@@ -85,6 +85,9 @@ dialog input {
     border: 0.1rem solid #222;
     margin-bottom: 0.4rem;
 }
+dialog input:last-child {
+    margin-bottom: 0;
+}
 
 dialog form {
     display: flex;
@@ -101,6 +104,9 @@ dialog form {
 
 .colors button {
     border: 0.1rem solid #222;
+}
+.colors button .active {
+    border-style: dashed;
 }
 
 @media screen and (max-width: 767px) {
