@@ -217,7 +217,7 @@
             const modal = document.getElementById("modal");
             const inside = document.getElementById("modalInside");
 
-            modal.id = "m" + id;
+            modal.classList = [id];
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="name" value="${name}">
                 <input type="text" id="modalSection" placeholder="section" value="${section}">
@@ -235,7 +235,7 @@
             const sectionInput = document.getElementById("modalSection");
             const roomInput = document.getElementById("modalRoom");
 
-            const id = modal.id.slice(1);
+            const id = modal.classList[0].slice(1);
             const name = nameInput.value;
             const section = sectionInput.value;
             const room = roomInput.value;
