@@ -153,10 +153,12 @@
             window.addEventListener(
                 "resize",
                 debounce(function () {
-                    schedule.style.fontSize = Math.min(document.documentElement.clientWidth / 40, 24) + "px";
+                    schedule.style.fontSize =
+                        Math.min(document.documentElement.clientWidth / 40, 24) + "px";
                 }, 100)
             );
-            schedule.style.fontSize = Math.min(document.documentElement.clientWidth / 40, 24) + "px";
+            schedule.style.fontSize =
+                Math.min(document.documentElement.clientWidth / 40, 24) + "px";
         });
 
         function debounce(func, interval) {
@@ -215,14 +217,12 @@
             const modal = document.getElementById("modal");
             const inside = document.createElement("div");
             modal.firstElementChild.remove();
+            modal.id = "m" + id;
 
-            const nameInput = document.createElement("input");
-            const sectionInput = document.createElement("input");
-            const roomInput = document.createElement("input");
             inside.innerHTML = `
-                <p>Name: ${name}</p>
-                <p>Section: ${section}</p>
-                <p>Room: ${room}</p>
+                <input type="text" id="modalName" placeholder="name" value="${name}">
+                <input type="text" id="modalSection" placeholder="section" value="${section}">
+                <input type="text" id="modalRoom" placeholder="room" value="${room}">
             `;
 
             modal.style.backgroundColor = color;
@@ -231,7 +231,30 @@
         }
 
         function modalSave() {
-            console.log("saved changes");
+            const modal = document.getElementById("modal");
+            const nameInput = document.getElementById("modalName");
+            const sectionInput = document.getElementById("modalSection");
+            const roomInput = document.getElementById("modalRoom");
+
+            const id = modal.id.slice(1);
+            const name = nameInput.value;
+            const section = sectionInput.value;
+            const room = roomInput.value;
+
+            const th = document.getElementById(id);
+            th.innerHTML = `${name} (${section}) [${room}]`;
+            th.style.backgroundColor = modal.style.backgroundColor;
+
+            const { error } = supabase
+                .from("course")
+                .upsert({
+                    name: name,
+                    section: section,
+                    room: room,
+                    color: modal.style.backgroundColor,
+                })
+                .eq("col", id[0])
+                .eq("row", parseInt(id[1], 16));
         }
     </script>
 </html>
