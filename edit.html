@@ -197,17 +197,15 @@
 
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
-            modal.showModal();
-
-            const modalContent = document.getElementById("modal-content");
-            modalContent.innerHTML = `
+            
+            modal.style.backgroundColor = color;
+            modal.innerHTML = `
                 <h2>${name}</h2>
                 <p>Section: ${section}</p>
                 <p>Room: ${room}</p>
                 <button onclick="closeModal(${id})">Close</button>
             `;
-
-            modal.appendChild(modalContent);
+            modal.showModal();
         }
     </script>
 </html>
