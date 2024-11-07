@@ -196,6 +196,7 @@
             document.querySelectorAll("th").forEach((th) => {
                 if (th.id[0] == "0" || th.id[1] == "0") return;
                 th.addEventListener("click", () => {
+                    th.style.cursor = 'pointer';
                     clicked.call(th);
                 });
             });
