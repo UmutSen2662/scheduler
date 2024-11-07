@@ -235,13 +235,12 @@
             const sectionInput = document.getElementById("modalSection");
             const roomInput = document.getElementById("modalRoom");
 
-            const id = modal.classList[0].slice(1);
+            const id = modal.classList[0];
             const name = nameInput.value;
             const section = sectionInput.value;
             const room = roomInput.value;
 
             const th = document.getElementById(id);
-            console.log(th);
             th.innerHTML = `${name} (${section}) [${room}]`;
             th.style.backgroundColor = modal.style.backgroundColor;
 
