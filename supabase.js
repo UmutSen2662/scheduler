@@ -22,13 +22,13 @@ async function signOut() {
 
 // Check if a user is signed in
 async function checkSession() {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.getUser();
 
-    if (data.session) {
-        console.log("User signed in:", data.session.user.email);
-        return data.session.user.id;
-    } else if (error) {
-        console.error("Session Check Error:", error.message);
+    if (error) {
+        console.error("Session Check Error:", error);
+    } else if (data) {
+        console.log("User signed in:", data.user.email);
+        return data.user.id;
     } else {
         console.log("No user signed in.");
     }
