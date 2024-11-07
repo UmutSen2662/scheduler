@@ -33,17 +33,17 @@ table {
 }
 
 th {
-    padding: 0.4em;
-    max-width: 6.4em;
-    min-width: 6.4em;
+    padding: 0.3em;
+    max-width: 7em;
+    min-width: 7em;
     text-align: center;
     border: 0.1em solid #222;
 }
 
 th:first-child {
-    max-width: 3.4em;
-    min-width: 3.4em;
-    padding: 0.2em 0.4em;
+    max-width: 3.6em;
+    min-width: 3.6em;
+    padding: 0.2em 0.3em;
 }
 
 tr:nth-child(odd) {
