@@ -125,7 +125,12 @@
             </tr>
         </table>
 
-        <dialog id="modal"></dialog>
+        <dialog id="modal">
+            <form method="dialog">
+                <button onclick="modalSave()">Save</button>
+                <button onclick="">Cancel</button>
+            </form>
+        </dialog>
     </body>
 
     <!-- main script -->
@@ -203,17 +208,20 @@
 
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
+            const inside = document.createElement("div");
+            inside.innerHTML = `
+                <h2>${name}</h2>
+                <p>Section: ${section}</p>
+                <p>Room: ${room}</p>
+            `;
 
             modal.style.backgroundColor = color;
-            modal.innerHTML = `
-                <form method="dialog">
-                    <h2>${name}</h2>
-                    <p>Section: ${section}</p>
-                    <p>Room: ${room}</p>
-                    <button>Save</button>
-                </form>
-            `;
+            modal.prepend(inside)
             modal.showModal();
+        }
+
+        function modalSave() {
+            console.log("saved changes")
         }
     </script>
 </html>
