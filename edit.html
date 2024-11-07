@@ -191,7 +191,7 @@
             document.querySelectorAll("th").forEach((th) => {
                 let name = th.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/);
                 let section = th.innerHTML.match(/\(\w+\)/);
-                let room = th.innerHTML.match(/[\w+]/);
+                let room = th.innerHTML.match(/\[\w+-\d+\]/);
 
                 name = name == null ? "" : name[0];
                 section = section == null ? "" : section[0].slice(1, -1);
