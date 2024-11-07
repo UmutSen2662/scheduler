@@ -79,6 +79,13 @@ dialog {
     translate: -50% -50%;
 }
 
+dialog input {
+    width: 100%;
+    padding: 0.4rem;
+    border: 0.1rem solid #222;
+    margin-bottom: 0.4rem;
+}
+
 dialog form {
     display: flex;
     justify-content: space-between;
