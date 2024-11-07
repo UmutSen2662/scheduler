@@ -195,8 +195,8 @@
 
             document.querySelectorAll("th").forEach((th) => {
                 if (th.id[0] == "0" || th.id[1] == "0") return;
+                th.style.cursor = "pointer";
                 th.addEventListener("click", () => {
-                    th.style.cursor = 'pointer';
                     clicked.call(th);
                 });
             });
@@ -223,7 +223,7 @@
             const sectionInput = document.createElement("input");
             const roomInput = document.createElement("input");
             inside.innerHTML = `
-                <h2>${name}</h2>
+                <p>Name: ${name}</p>
                 <p>Section: ${section}</p>
                 <p>Room: ${room}</p>
             `;
