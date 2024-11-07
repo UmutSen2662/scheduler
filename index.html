@@ -153,10 +153,10 @@
             window.addEventListener(
                 "resize",
                 debounce(function () {
-                    schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
+                    schedule.style.fontSize = Math.min(document.documentElement.clientWidth / 40, 24) + "px";
                 }, 100)
             );
-            schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
+            schedule.style.fontSize = Math.min(document.documentElement.clientWidth / 40, 24) + "px";
         });
 
         function debounce(func, interval) {
