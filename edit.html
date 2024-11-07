@@ -189,7 +189,10 @@
             });
 
             document.querySelectorAll("th").forEach((th) => {
-                th.addEventListener("click", () => {clicked.call(th);});
+                if (th.id[0] == "0" || th.id[1] == "0") return;
+                th.addEventListener("click", () => {
+                    clicked.call(th);
+                });
             });
         }
 

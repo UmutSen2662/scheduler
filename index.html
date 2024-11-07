@@ -129,6 +129,14 @@
                 <th id="5c"></th>
             </tr>
         </table>
+
+        <dialog id="modal">
+            <div></div>
+            <form method="dialog">
+                <button onclick="modalSave()">Save</button>
+                <button onclick="">Cancel</button>
+            </form>
+        </dialog>
     </body>
 
     <!-- main script -->
@@ -184,6 +192,48 @@
                 th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
                 th.style.backgroundColor = course.color;
             });
+
+            document.querySelectorAll("th").forEach((th) => {
+                if (th.id[0] == "0" || th.id[1] == "0") return;
+                th.addEventListener("click", () => {
+                    clicked.call(th);
+                });
+            });
+        }
+
+        function clicked() {
+            let name = this.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/);
+            let section = this.innerHTML.match(/\(\w+\)/);
+            let room = this.innerHTML.match(/\[\w+-\d+\]/);
+
+            name = name == null ? "" : name[0];
+            section = section == null ? "" : section[0].slice(1, -1);
+            room = room == null ? "" : room[0].slice(1, -1);
+
+            openModal(name, section, room, this.style.backgroundColor, this.id);
+        }
+
+        function openModal(name, section, room, color, id) {
+            const modal = document.getElementById("modal");
+            const inside = document.createElement("div");
+            modal.firstElementChild.remove();
+
+            const nameInput = document.createElement("input");
+            const sectionInput = document.createElement("input");
+            const roomInput = document.createElement("input");
+            inside.innerHTML = `
+                <h2>${name}</h2>
+                <p>Section: ${section}</p>
+                <p>Room: ${room}</p>
+            `;
+
+            modal.style.backgroundColor = color;
+            modal.prepend(inside);
+            modal.showModal();
+        }
+
+        function modalSave() {
+            console.log("saved changes");
         }
     </script>
 </html>
