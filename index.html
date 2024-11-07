@@ -132,43 +132,43 @@
             <div id="modalColor" class="colors">
                 <button
                     style="background-color: #f0f0f0"
-                    onclick="Modal.set('color', ''); modalButtons();"
+                    onclick="Modal.set('color', ''); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #ff2a2a"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #ff9515"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #ffff00"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #80d810"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #00b020"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #00f5c0"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #0abeff"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #2c73dd"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
                     style="background-color: #9752cb"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons();"
+                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
             </div>
             <form method="dialog">
@@ -268,7 +268,7 @@
             };
         })();
 
-        function modalButtons() {
+        function modalButtons(color) {
             const colors = document.getElementById("modalColor");
             Array.from(colors.children)
                 .filter((node) => node.tagName == "BUTTON")
@@ -282,7 +282,7 @@
             const modal = document.getElementById("modal");
             const inside = document.getElementById("modalInside");
 
-            modalButtons();
+            modalButtons(color);
             Modal.set("id", id);
             Modal.set("color", color);
             inside.innerHTML = `
