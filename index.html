@@ -202,11 +202,11 @@
         }
 
         function clicked() {
-            let name = this.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/);
-            let section = this.innerHTML.match(/\(\w+\)/);
-            let room = this.innerHTML.match(/\[\w+-\d+\]/);
+            let name = this.innerHTML.match(/.+ \(/);
+            let section = this.innerHTML.match(/\(.+\)/);
+            let room = this.innerHTML.match(/\[.+\]/);
 
-            name = name == null ? "" : name[0];
+            name = name == null ? "" : name[0].slice(0, -2);
             section = section == null ? "" : section[0].slice(1, -1);
             room = room == null ? "" : room[0].slice(1, -1);
 
