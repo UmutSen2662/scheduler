@@ -190,7 +190,7 @@
             getData(userid);
 
             const schedule = document.getElementById("schedule");
-            window.addEventListener("resize", debounce(resize, schedule, 100));
+            window.addEventListener("resize", debounce(resize, 100)(schedule));
 
             resize(schedule);
         });
@@ -200,12 +200,14 @@
                 Math.min(document.documentElement.clientWidth / 40, 20) + "px";
         }
 
-        function debounce(func, args, interval) {
+        function debounce(func, interval) {
             var lastCall = -1;
             return function () {
                 clearTimeout(lastCall);
+                var args = arguments;
+                var self = this;
                 lastCall = setTimeout(function () {
-                    func.apply(this, args);
+                    func.apply(self, args);
                 }, interval);
             };
         }
