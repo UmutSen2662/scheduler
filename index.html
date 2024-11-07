@@ -130,42 +130,45 @@
         <dialog id="modal" class="00 00">
             <div id="modalInside"></div>
             <div id="modalColor" class="colors">
-                <button style="background-color: #f0f0f0" onclick="Modal.set('color', '')"></button>
+                <button
+                    style="background-color: #f0f0f0"
+                    onclick="modalButtons(); Modal.set('color', '')"
+                ></button>
                 <button
                     style="background-color: #ff2a2a"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ff9515"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ffff00"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #80d810"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #00b020"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #00f5c0"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #0abeff"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #2c73dd"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #9752cb"
-                    onclick="Modal.set('color', this.style.backgroundColor)"
+                    onclick="modalButtons(); Modal.set('color', this.style.backgroundColor)"
                 ></button>
             </div>
             <form method="dialog">
@@ -265,18 +268,23 @@
             };
         })();
 
+        function modalButtons() {
+            const colors = document.getElementById("modalColor");
+            Array.from(colors.children)
+                .filter((node) => node.tagName == "BUTTON")
+                .forEach((btn) => {
+                    if (btn.style.backgroundColor == color) btn.classList.add("active");
+                    else btn.classList.remove("active");
+                });
+        }
+
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
             const inside = document.getElementById("modalInside");
-            const colors = document.getElementById("modalColor");
 
+            modalButtons();
             Modal.set("id", id);
             Modal.set("color", color);
-            colors.childNodes.forEach((btn) => {
-                if (btn.style.backgroundColor == color) {
-                    btn.classList.add("active");
-                }
-            })
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="Name" value="${name}">
                 <input type="text" id="modalSection" placeholder="Section" value="${section}">
