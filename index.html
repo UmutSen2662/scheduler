@@ -132,43 +132,43 @@
             <div class="colors">
                 <button
                     style="background-color: #f0f0f0"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ffab91"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #a5d6a7"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #80deea"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ce93d8"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #f48fb1"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ffe082"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ffcc80"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #c5e1a5"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
                 <button
                     style="background-color: #ffeb3b"
-                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                    onclick="Modal.set('color', this.style.backgroundColor)"
                 ></button>
             </div>
             <form method="dialog">
@@ -256,36 +256,48 @@
             openModal(name, section, room, this.style.backgroundColor, this.id);
         }
 
+        const Modal = (function () {
+            const data = {};
+
+            return {
+                set(key, value) {
+                    data[key] = value;
+                },
+                get(key) {
+                    return data[key];
+                },
+            };
+        })();
+
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
             const inside = document.getElementById("modalInside");
 
-            modal.classList = [id, color];
+            Modal.set("id", id);
+            Modal.set("color", color);
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="name" value="${name}">
                 <input type="text" id="modalSection" placeholder="section" value="${section}">
                 <input type="text" id="modalRoom" placeholder="room" value="${room}">
             `;
 
-            modal.style.backgroundColor = color;
             modal.prepend(inside);
             modal.showModal();
         }
 
         async function modalSave() {
-            const modal = document.getElementById("modal");
             const nameInput = document.getElementById("modalName");
             const sectionInput = document.getElementById("modalSection");
             const roomInput = document.getElementById("modalRoom");
 
-            const id = modal.classList[0];
+            const id = Modal.get("id");
             const name = nameInput.value;
             const section = sectionInput.value;
             const room = roomInput.value;
 
             const th = document.getElementById(id);
             th.innerHTML = `${name} (${section}) [${room}]`;
-            th.style.backgroundColor = modal.classList[1];
+            th.style.backgroundColor = Modal.get("color");
 
             const { error } = await supabase.from("course").upsert({
                 userid: await checkSession(),
@@ -300,7 +312,7 @@
         }
 
         async function modalDelete() {
-            const id = modal.classList[0];
+            const id = Modal.get("id");
             const th = document.getElementById(id);
             th.style.backgroundColor = "";
             th.innerHTML = "";
