@@ -126,6 +126,9 @@
         </table>
 
         <dialog id="modal">
+            <form method="dialog">
+                <button>Save</button>
+            </form>
         </dialog>
     </body>
 
@@ -189,22 +192,29 @@
                     section: th.innerHTML.search("(\w+)"),
                     room: th.innerHTML.search("[\w+]"),
                 };
+                console.log(course);
                 th.addEventListener("click", () => {
-                    openModal(course.name, course.section, course.room, th.style.backgroundColor, th.id);
+                    openModal(
+                        course.name,
+                        course.section,
+                        course.room,
+                        th.style.backgroundColor,
+                        th.id
+                    );
                 });
             });
         }
 
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
-            
+
             modal.style.backgroundColor = color;
-            modal.innerHTML = `
+            modal.innerHTML =
+                `
                 <h2>${name}</h2>
                 <p>Section: ${section}</p>
                 <p>Room: ${room}</p>
-                <button onclick="closeModal(${id})">Close</button>
-            `;
+            ` + modal.innerHTML;
             modal.showModal();
         }
     </script>
