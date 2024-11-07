@@ -124,6 +124,9 @@
                 <th id="5c"></th>
             </tr>
         </table>
+
+        <dialog id="modal">
+        </dialog>
     </body>
 
     <!-- main script -->
@@ -174,21 +177,32 @@
         }
 
         async function fillSchedule(data) {
-            document.querySelectorAll("th").forEach((th) => {
-                const button = document.createElement("button");
-                button.classList.add("edit-button");
-                button.addEventListener("click", () => {
-                    openModal(course.name, course.section, course.room, course.color, th.id);
-                    window.location.href = `edit.html?id=${course.id}`;
-                });
-                th.appendChild(button);
-            });
-
             data.forEach((course) => {
                 const th = document.getElementById(`${course.col}${course.row.toString(16)}`);
                 th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
                 th.style.backgroundColor = course.color;
             });
+
+            document.querySelectorAll("th").forEach((th) => {
+                th.addEventListener("click", () => {
+                    openModal(course.name, course.section, course.room, course.color, th.id);
+                });
+            });
+        }
+
+        function openModal(name, section, room, color, id) {
+            const modal = document.getElementById("modal");
+            modal.showModal();
+
+            const modalContent = document.getElementById("modal-content");
+            modalContent.innerHTML = `
+                <h2>${name}</h2>
+                <p>Section: ${section}</p>
+                <p>Room: ${room}</p>
+                <button onclick="closeModal(${id})">Close</button>
+            `;
+
+            modal.appendChild(modalContent);
         }
     </script>
 </html>
