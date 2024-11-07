@@ -106,7 +106,7 @@ dialog form {
     border: 0.1rem solid #222;
 }
 .colors button.active {
-    border-style: dashed;
+    border: 0.2rem dashed #000;
 }
 
 @media screen and (max-width: 767px) {
