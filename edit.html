@@ -189,9 +189,9 @@
 
             document.querySelectorAll("th").forEach((th) => {
                 let course = {
-                    name: th.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/),
-                    section: th.innerHTML.search(/(\w+)/),
-                    room: th.innerHTML.search(/[\w+]/),
+                    name: th.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/)[0],
+                    section: th.innerHTML.match(/\(\w+\)/)[0].slice(1, -1),
+                    room: th.innerHTML.search(/\[\w+\]/)[0].slice(1, -1),
                 };
                 console.log(course);
                 th.addEventListener("click", () => {
@@ -209,6 +209,11 @@
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
             const inside = document.createElement("div");
+            modal.firstElementChild.remove();
+
+            const nameInput = document.createElement("input");
+            const sectionInput = document.createElement("input");
+            const roomInput = document.createElement("input");
             inside.innerHTML = `
                 <h2>${name}</h2>
                 <p>Section: ${section}</p>
