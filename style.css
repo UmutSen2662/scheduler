@@ -67,6 +67,19 @@ button:active {
     background-color: #1e5799;
 }
 
+dialog {
+    position: absolute;
+    inset: 50%;
+    width: 12rem;
+    padding: 1rem;
+    translate: -50% -50%;
+}
+
+dialog form {
+    display: flex;
+    justify-content: space-between;
+}
+
 @media screen and (max-width: 767px) {
     html,
     body {

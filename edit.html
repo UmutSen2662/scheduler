@@ -188,20 +188,16 @@
             });
 
             document.querySelectorAll("th").forEach((th) => {
-                let course = {
-                    name: th.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/)[0],
-                    section: th.innerHTML.match(/\(\w+\)/)[0].slice(1, -1),
-                    room: th.innerHTML.search(/\[\w+\]/)[0].slice(1, -1),
-                };
-                console.log(course);
+                let name = th.innerHTML.match(/\w{6,8}|\w{3,4} \d{3,4}/);
+                let section = th.innerHTML.match(/\(\w+\)/);
+                let room = th.innerHTML.match(/\[\w+\]/);
+
+                name = name == null ? "" : name[0];
+                section = section == null ? "" : section[0].slice(1, -1);
+                room = room == null ? "" : room[0].slice(1, -1);
+
                 th.addEventListener("click", () => {
-                    openModal(
-                        course.name,
-                        course.section,
-                        course.room,
-                        th.style.backgroundColor,
-                        th.id
-                    );
+                    openModal(name, section, room, th.style.backgroundColor, th.id);
                 });
             });
         }
@@ -221,12 +217,12 @@
             `;
 
             modal.style.backgroundColor = color;
-            modal.prepend(inside)
+            modal.prepend(inside);
             modal.showModal();
         }
 
         function modalSave() {
-            console.log("saved changes")
+            console.log("saved changes");
         }
     </script>
 </html>
