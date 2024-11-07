@@ -128,7 +128,7 @@
         </table>
 
         <dialog id="modal">
-            <div></div>
+            <div id="modalInside"></div>
             <form method="dialog">
                 <button onclick="modalSave()">Save</button>
                 <button onclick="">Cancel</button>
@@ -215,11 +215,9 @@
 
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
-            const inside = document.createElement("div");
-            document.getElementById("modalInside").remove();
+            const inside = document.getElementById("modalInside");
 
             modal.id = "m" + id;
-            inside.id = "modalInside";
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="name" value="${name}">
                 <input type="text" id="modalSection" placeholder="section" value="${section}">
