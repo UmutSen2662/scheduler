@@ -184,8 +184,13 @@
             });
 
             document.querySelectorAll("th").forEach((th) => {
+                let course = {
+                    name: th.innerHTML.match("\w{6,8}|\w{3,4} \d{3,4}"),
+                    section: th.innerHTML.search("(\w+)"),
+                    room: th.innerHTML.search("[\w+]"),
+                };
                 th.addEventListener("click", () => {
-                    openModal(course.name, course.section, course.room, course.color, th.id);
+                    openModal(course.name, course.section, course.room, th.style.backgroundColor, th.id);
                 });
             });
         }
