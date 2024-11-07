@@ -74,7 +74,7 @@ button:active {
 dialog {
     position: absolute;
     inset: 50%;
-    width: 12rem;
+    width: 18rem;
     padding: 1rem;
     translate: -50% -50%;
 }

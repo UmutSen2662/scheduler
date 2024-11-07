@@ -132,6 +132,7 @@
             <form method="dialog">
                 <button onclick="modalSave()">Save</button>
                 <button onclick="">Cancel</button>
+                <button onclick="modalDelete()">Delete</button>
             </form>
         </dialog>
     </body>
@@ -253,6 +254,17 @@
                 col: parseInt(id[0], 16),
                 row: parseInt(id[1], 16),
             });
+            console.log(error);
+        }
+
+        async function modalDelete() {
+            const id = modal.classList[0];
+            const { error } = await supabase
+                .from("course")
+                .delete()
+                .eq("userid", await checkSession())
+                .eq("col", parseInt(id[0], 16))
+                .eq("row", parseInt(id[1], 16));
             console.log(error);
         }
     </script>
