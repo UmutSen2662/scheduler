@@ -18,8 +18,9 @@
             <button onclick="signOut()">Sign Out</button>
         </div>
 
-        <div style="padding: 0.6rem">
+        <div style="padding: 0.6rem; display: flex">
             <h2>Schedule</h2>
+            <a href="/Web-App/edit.html" style="margin: auto; padding-left: 0.4rem">Edit</a>
         </div>
 
         <table id="schedule">
@@ -88,7 +89,7 @@
                 "resize",
                 debounce(function () {
                     schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
-                }, 600)
+                }, 100)
             );
             schedule.style.fontSize = Math.min(window.innerWidth / 40, 24) + "px";
         });
