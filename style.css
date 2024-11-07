@@ -41,9 +41,9 @@ th {
 }
 
 th:first-child {
-    max-width: 3.6em;
-    min-width: 3.6em;
-    padding: 0.2em 0.3em;
+    max-width: 3.5em;
+    min-width: 3.5em;
+    padding: 0.2em;
 }
 
 tr:nth-child(odd) {

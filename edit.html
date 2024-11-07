@@ -14,13 +14,8 @@
     </head>
     <body style="display: flex; align-items: center; flex-direction: column">
         <div style="display: flex; justify-content: space-between; padding: 0.5rem; width: 100%">
-            <h1>This is the main page</h1>
-            <button onclick="signOut()">Sign Out</button>
-        </div>
-
-        <div style="padding: 0.6rem; display: flex">
-            <h2>Schedule</h2>
-            <a href="/Web-App/edit.html" style="margin: auto; padding-left: 0.4rem">Edit</a>
+            <h1>This is the edit page</h1>
+            <button onclick="console.log('Changes saved')">Save</button>
         </div>
 
         <table id="schedule">
@@ -179,6 +174,16 @@
         }
 
         async function fillSchedule(data) {
+            document.querySelectorAll("th").forEach((th) => {
+                const button = document.createElement("button");
+                button.classList.add("edit-button");
+                button.addEventListener("click", () => {
+                    openModal(course.name, course.section, course.room, course.color, th.id);
+                    window.location.href = `edit.html?id=${course.id}`;
+                });
+                th.appendChild(button);
+            });
+
             data.forEach((course) => {
                 const th = document.getElementById(`${course.col}${course.row.toString(16)}`);
                 th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
