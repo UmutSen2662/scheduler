@@ -216,9 +216,10 @@
         function openModal(name, section, room, color, id) {
             const modal = document.getElementById("modal");
             const inside = document.createElement("div");
-            modal.firstElementChild.remove();
-            modal.id = "m" + id;
+            document.getElementById("modalInside").remove();
 
+            modal.id = "m" + id;
+            inside.id = "modalInside";
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="name" value="${name}">
                 <input type="text" id="modalSection" placeholder="section" value="${section}">
