@@ -92,6 +92,7 @@ dialog form {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
+    margin: 1rem 0;
 }
 
 .colors button {

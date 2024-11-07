@@ -128,56 +128,54 @@
         </table>
 
         <dialog id="modal" class="00 00">
-            <div style="display: flex; flex-direction: column; gap: 0.5rem">
-                <div id="modalInside"></div>
-                <div class="colors">
-                    <button
-                        style="background-color: #eeeeee"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #ffab91"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #a5d6a7"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #80deea"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #ce93d8"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #f48fb1"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #ffe082"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #ffcc80"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #c5e1a5"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                    <button
-                        style="background-color: #ffeb3b"
-                        onclick="() => this.parentElement.class[1] = this.style.backgroundColor"
-                    ></button>
-                </div>
-                <form method="dialog">
-                    <button onclick="modalSave()">Save</button>
-                    <button onclick="">Cancel</button>
-                    <button onclick="modalDelete()">Delete</button>
-                </form>
+            <div id="modalInside"></div>
+            <div class="colors">
+                <button
+                    style="background-color: #f0f0f0"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #ffab91"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #a5d6a7"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #80deea"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #ce93d8"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #f48fb1"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #ffe082"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #ffcc80"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #c5e1a5"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
+                <button
+                    style="background-color: #ffeb3b"
+                    onclick="() => this.parentElement.classList[1] = this.style.backgroundColor"
+                ></button>
             </div>
+            <form method="dialog">
+                <button onclick="modalSave()">Save</button>
+                <button onclick="">Cancel</button>
+                <button onclick="modalDelete()">Delete</button>
+            </form>
         </dialog>
     </body>
 
@@ -262,7 +260,7 @@
             const modal = document.getElementById("modal");
             const inside = document.getElementById("modalInside");
 
-            modal.classList = [id];
+            modal.classList = [id, color];
             inside.innerHTML = `
                 <input type="text" id="modalName" placeholder="name" value="${name}">
                 <input type="text" id="modalSection" placeholder="section" value="${section}">
