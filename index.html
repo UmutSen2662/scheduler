@@ -127,8 +127,50 @@
             </tr>
         </table>
 
-        <dialog id="modal">
+        <dialog id="modal" class="00 00">
             <div id="modalInside"></div>
+            <div class="colors">
+                <button
+                    style="background-color: ''"
+                    onclick="() => this.parentElement.class[1] = ''"
+                ></button>
+                <button
+                    style="background-color: #ffab91"
+                    onclick="() => this.parentElement.class[1] = '#FFAB91'"
+                ></button>
+                <button
+                    style="background-color: #a5d6a7"
+                    onclick="() => this.parentElement.class[1] = '#A5D6A7'"
+                ></button>
+                <button
+                    style="background-color: #80deea"
+                    onclick="() => this.parentElement.class[1] = '#80DEEA'"
+                ></button>
+                <button
+                    style="background-color: #ce93d8"
+                    onclick="() => this.parentElement.class[1] = '#CE93D8'"
+                ></button>
+                <button
+                    style="background-color: #f48fb1"
+                    onclick="() => this.parentElement.class[1] = '#F48FB1'"
+                ></button>
+                <button
+                    style="background-color: #ffe082"
+                    onclick="() => this.parentElement.class[1] = '#FFE082'"
+                ></button>
+                <button
+                    style="background-color: #ffcc80"
+                    onclick="() => this.parentElement.class[1] = '#FFCC80'"
+                ></button>
+                <button
+                    style="background-color: #c5e1a5"
+                    onclick="() => this.parentElement.class[1] = '#C5E1A5'"
+                ></button>
+                <button
+                    style="background-color: #ffeb3b"
+                    onclick="() => this.parentElement.class[1] = '#FFEB3B'"
+                ></button>
+            </div>
             <form method="dialog">
                 <button onclick="modalSave()">Save</button>
                 <button onclick="">Cancel</button>
@@ -243,14 +285,14 @@
 
             const th = document.getElementById(id);
             th.innerHTML = `${name} (${section}) [${room}]`;
-            th.style.backgroundColor = modal.style.backgroundColor;
+            th.style.backgroundColor = modal.classList[1];
 
             const { error } = await supabase.from("course").upsert({
                 userid: await checkSession(),
                 name: name,
                 section: section,
                 room: room,
-                color: modal.style.backgroundColor,
+                color: th.style.backgroundColor,
                 col: parseInt(id[0], 16),
                 row: parseInt(id[1], 16),
             });
@@ -259,6 +301,9 @@
 
         async function modalDelete() {
             const id = modal.classList[0];
+            const th = document.getElementById(id);
+            th.style.backgroundColor = "";
+            th.innerHTML = "";
             const { error } = await supabase
                 .from("course")
                 .delete()
