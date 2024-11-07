@@ -105,7 +105,7 @@ dialog form {
 .colors button {
     border: 0.1rem solid #222;
 }
-.colors button .active {
+.colors button.active {
     border-style: dashed;
 }
 
