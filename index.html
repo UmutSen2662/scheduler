@@ -229,7 +229,7 @@
             modal.showModal();
         }
 
-        function modalSave() {
+        async function modalSave() {
             const modal = document.getElementById("modal");
             const nameInput = document.getElementById("modalName");
             const sectionInput = document.getElementById("modalSection");
@@ -241,10 +241,11 @@
             const room = roomInput.value;
 
             const th = document.getElementById(id);
+            console.log(th)
             th.innerHTML = `${name} (${section}) [${room}]`;
             th.style.backgroundColor = modal.style.backgroundColor;
 
-            const { error } = supabase
+            const { error } = await supabase
                 .from("course")
                 .upsert({
                     name: name,
@@ -254,6 +255,7 @@
                 })
                 .eq("col", id[0])
                 .eq("row", parseInt(id[1], 16));
+            console.log(error)
         }
     </script>
 </html>
