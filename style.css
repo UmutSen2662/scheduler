@@ -90,7 +90,8 @@ dialog input {
     width: 100%;
     padding: 0.4rem;
     border: 0.1rem solid #222;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+    font-size: medium;
 }
 dialog input:last-child {
     margin-bottom: 0;
