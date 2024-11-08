@@ -127,7 +127,20 @@
             </tr>
         </table>
 
-        <dialog id="modal" class="00 00">
+        <input type="text" id="courseCodes" placeholder="Enter course codes">
+
+        <table id="exams">
+            <tr>
+                <th id="e0">Course Exam</th>
+                <th id="e1">Days Until</th>
+                <th id="e2">Days Between</th>
+                <th id="e3">Start Time</th>
+                <th id="e4">Classrooms</th>
+                <th id="e5">Grades</th>
+            </tr>
+        </table>
+
+        <dialog id="modal">
             <div id="modalInside"></div>
             <div id="modalColor" class="colors">
                 <button
@@ -147,7 +160,7 @@
                     onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
-                    style="background-color: #80d810"
+                    style="background-color: #a0da10"
                     onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
@@ -163,7 +176,7 @@
                     onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
-                    style="background-color: #2c73dd"
+                    style="background-color: #2a66e7"
                     onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
                 ></button>
                 <button
