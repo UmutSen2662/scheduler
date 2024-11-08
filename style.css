@@ -117,6 +117,16 @@ dialog form button {
 }
 #modalColor button.active {
     border: 0.2rem dashed #000;
+    outline: none;
+}
+#modalColor button:hover {
+    border: 0.1rem dashed rgba(32, 32, 32, 0.8);
+}
+#modalColor button:focus::before {
+    background-color: rgba(0, 0, 0, 0);
+}
+#modalColor button:active::before {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #courseCodes {
