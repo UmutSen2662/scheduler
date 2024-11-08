@@ -212,6 +212,7 @@
         });
 
         function resize(schedule) {
+            console.log(document.documentElement.clientWidth);
             schedule.style.fontSize =
                 Math.min(document.documentElement.clientWidth / 40, 20) + "px";
         }
@@ -247,7 +248,8 @@
                 th.style.backgroundColor = course.color;
             });
 
-            document.querySelectorAll("th").forEach((th) => {
+            const schedule = document.getElementById("schedule");
+            schedule.querySelectorAll("th").forEach((th) => {
                 if (th.id[0] == "0" || th.id[1] == "0") return;
                 th.style.cursor = "pointer";
                 th.addEventListener("click", () => {

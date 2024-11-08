@@ -115,7 +115,7 @@ dialog form {
 }
 
 #exams {
-    margin: 0 1rem;
+    margin: 0 1rem 3rem 1rem;
 }
 
 @media screen and (max-width: 767px) {
