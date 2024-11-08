@@ -7,7 +7,6 @@ const supabase = createClient(
 async function signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) {
-        console.error("Sign Out Error:", error.message);
         alert("Error signing out: " + error.message);
     } else {
         const userid = await checkSession();
@@ -27,7 +26,6 @@ async function checkSession() {
     if (error) {
         console.error("Session Check Error:", error);
     } else if (data) {
-        console.log("User signed in:", data.user.email);
         return data.user.id;
     } else {
         console.log("No user signed in.");

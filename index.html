@@ -206,7 +206,7 @@
             getData(userid);
 
             const schedule = document.getElementById("schedule");
-            window.addEventListener("resize", debounce(resize, 100)(schedule));
+            window.addEventListener("resize", () => debounce(resize, 120)(schedule));
 
             resize(schedule);
         });
