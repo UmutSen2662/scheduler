@@ -61,16 +61,16 @@ button {
     cursor: pointer;
 }
 
+button:focus,
 button:hover {
-    background-color: #23527c;
-}
-
-button:focus {
-    outline: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    mix-blend-mode: multiply;
 }
 
 button:active {
-    background-color: #1e5799;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
+    mix-blend-mode: multiply;
 }
 
 dialog {
@@ -108,7 +108,7 @@ dialog form button {
 }
 #ModalColor button {
     border: 0.1rem solid #222;
-    aspect-ratio: 1 / 1;
+    height: 2rem;
 }
 #ModalColor button.active {
     border: 0.2rem dashed #000;
