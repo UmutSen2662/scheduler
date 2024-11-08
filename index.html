@@ -142,7 +142,7 @@
 
         <dialog id="modal">
             <div id="modalInside"></div>
-            <div id="modalColor" class="colors">
+            <div id="modalColor">
                 <button
                     style="background-color: #f0f0f0"
                     onclick="Modal.set('color', ''); modalButtons(this.style.backgroundColor);"
@@ -185,9 +185,11 @@
                 ></button>
             </div>
             <form method="dialog">
-                <button onclick="modalSave()">Save</button>
-                <button onclick="">Cancel</button>
-                <button onclick="modalDelete()">Delete</button>
+                <button style="margin-right: auto; background-color: red" onclick="modalDelete()">
+                    Delete
+                </button>
+                <button style="margin-right: 0.4rem" onclick="modalSave()">Save</button>
+                <button style="background-color: grey" onclick="">Cancel</button>
             </form>
         </dialog>
     </body>

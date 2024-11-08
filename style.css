@@ -57,7 +57,6 @@ button {
     background-color: #337ab7;
     color: #fff;
     border: none;
-    padding: 0.5rem 1rem;
     font-size: 0.8rem;
     cursor: pointer;
 }
@@ -94,21 +93,24 @@ dialog input:last-child {
 
 dialog form {
     display: flex;
-    justify-content: space-between;
+    height: 2rem;
+}
+dialog form button {
+    width: 4rem;
 }
 
-.colors {
+#ModalColor {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
     margin: 1rem 0;
 }
-
-.colors button {
+#ModalColor button {
     border: 0.1rem solid #222;
+    aspect-ratio: 1 / 1;
 }
-.colors button.active {
+#ModalColor button.active {
     border: 0.2rem dashed #000;
 }
 
