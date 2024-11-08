@@ -89,7 +89,7 @@ dialog input {
     margin-bottom: 0.4rem;
 }
 dialog input:focus {
-    border: 0.2rem dashed #222;
+    border: 0.1rem dashed #222;
 }
 dialog input:last-child {
     margin-bottom: 0;
@@ -117,9 +117,9 @@ dialog form {
 
 #courseCodes {
     width: min(90%, 50rem);
-    margin: 2rem 0;
-    padding: 0.4rem;
+    margin: 3rem 0 1rem 0;
     font-size: large;
+    padding: 0.4rem;
 }
 
 #exams {
