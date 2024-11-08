@@ -55,7 +55,7 @@ tr:nth-child(odd) {
 
 button {
     position: relative;
-    background-color: #337ab7;
+    background-color: #2070d0;
     color: #fff;
     border: none;
     font-size: 0.8rem;
@@ -115,17 +115,18 @@ dialog form button {
 #modalColor button {
     border: 0.1rem solid #222;
     height: 2rem;
-}
-#modalColor button.active {
-    border: 0.2rem dashed #000;
     outline: none;
 }
-#modalColor button:hover {
-    border: 0.1rem dashed rgba(32, 32, 32, 0.8);
+#modalColor button:active,
+#modalColor button.active {
+    border: 0.2rem dashed #000;
 }
-#modalColor button:focus::before {
-    background-color: rgba(0, 0, 0, 0);
+#modalColor button:hover,
+#modalColor button:focus {
+    border: 0.2rem dashed rgba(32, 32, 32, 0.8);
 }
+#modalColor button:hover::before,
+#modalColor button:focus::before,
 #modalColor button:active::before {
     background-color: rgba(0, 0, 0, 0);
 }
