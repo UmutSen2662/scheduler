@@ -54,23 +54,28 @@ tr:nth-child(odd) {
 }
 
 button {
+    position: relative;
     background-color: #337ab7;
     color: #fff;
     border: none;
     font-size: 0.8rem;
     cursor: pointer;
 }
-
-button:focus,
-button:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    mix-blend-mode: multiply;
+button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
-
+button:focus::before,
+button:hover::before {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 button:active {
     outline: none;
+}
+button:active::before {
     background-color: rgba(0, 0, 0, 0.1);
-    mix-blend-mode: multiply;
 }
 
 dialog {
@@ -99,18 +104,18 @@ dialog form button {
     width: 4rem;
 }
 
-#ModalColor {
+#modalColor {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
     margin: 1rem 0;
 }
-#ModalColor button {
+#modalColor button {
     border: 0.1rem solid #222;
     height: 2rem;
 }
-#ModalColor button.active {
+#modalColor button.active {
     border: 0.2rem dashed #000;
 }
 
