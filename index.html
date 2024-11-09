@@ -216,7 +216,7 @@
             });
 
             const data = await supabase.from("course_codes").select("courses").data;
-            if (data.legth() > 0) document.getElementById("courseCodes").value = data[0].courses;
+            if (data.length > 0) document.getElementById("courseCodes").value = data[0].courses;
 
             const courseCodes = document.getElementById("courseCodes");
             courseCodes.addEventListener("input", () =>
