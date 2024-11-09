@@ -247,8 +247,30 @@
                 return;
             }
 
+            // Options for formatting the date
+            const options = {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                weekday: "short",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+            };
+            const exams = document.getElementById("exams");
             const { data: data } = await supabase.from("exams").select("*");
-            console.log(data);
+            data.forEach((exam) => {
+                const dateObj = new Date(exam.start_time);
+                const formattedDate = dateObj.toLocaleString("en-US", options).replace(",", "");
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td>${
+                    exam.course_exam
+                }</td><td>${0}</td><td>${0}</td><td>${formattedDate}</td><td>${
+                    exam.classrooms
+                }</td>`;
+                exams.appendChild(tr);
+            });
         }
 
         function resize(schedule) {
