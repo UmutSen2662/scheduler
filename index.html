@@ -140,56 +140,58 @@
         </table>
 
         <dialog id="modal">
-            <div id="modalInside"></div>
-            <div id="modalColor">
-                <button
-                    style="background-color: #f0f0f0"
-                    onclick="Modal.set('color', ''); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #ff2a2a"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #ff9515"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #ffff00"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #b6ff00"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #00b020"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #00ffc0"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #40d0ff"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #3060ff"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
-                <button
-                    style="background-color: #9752cb"
-                    onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
-                ></button>
+            <div style="padding: 1rem;">
+                <div id="modalInside"></div>
+                <div id="modalColor">
+                    <button
+                        style="background-color: #f0f0f0"
+                        onclick="Modal.set('color', ''); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #ff2a2a"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #ff9515"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #ffff00"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #b6ff00"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #00b020"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #00ffc0"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #40d0ff"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #3060ff"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                    <button
+                        style="background-color: #9752cb"
+                        onclick="Modal.set('color', this.style.backgroundColor); modalButtons(this.style.backgroundColor);"
+                    ></button>
+                </div>
+                <form method="dialog">
+                    <button style="margin-right: auto; background-color: #e00" onclick="modalDelete()">
+                        Delete
+                    </button>
+                    <button style="margin-right: 0.4rem" onclick="modalSave()">Save</button>
+                    <button style="background-color: #999" onclick="">Cancel</button>
+                </form>
             </div>
-            <form method="dialog">
-                <button style="margin-right: auto; background-color: #e00" onclick="modalDelete()">
-                    Delete
-                </button>
-                <button style="margin-right: 0.4rem" onclick="modalSave()">Save</button>
-                <button style="background-color: #999" onclick="">Cancel</button>
-            </form>
         </dialog>
     </body>
 
