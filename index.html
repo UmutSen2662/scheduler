@@ -206,9 +206,19 @@
 
             getData(userid);
 
+            const courseCodes = document.getElementById("courseCodes");
+            courseCodes.addEventListener("input", () => {
+                const set = new Set();
+                const str = courseCodes.value;
+                str.toUpperCase()
+                    .matchAll(/[A-Z]{3,4} \d{3,4}|[A-Z]{3,4}\d{3,4}/g)
+                    .forEach((r) => set.add(r[0].replace(" ", "")));
+
+                const exams = document.getElementById("exams");
+            });
+
             const schedule = document.getElementById("schedule");
             window.addEventListener("resize", () => debounce(resize, 120)(schedule));
-
             resize(schedule);
         });
 

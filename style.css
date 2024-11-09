@@ -117,13 +117,13 @@ dialog form button {
     height: 2rem;
     outline: none;
 }
-#modalColor button:active,
-#modalColor button.active {
-    border: 0.2rem dashed #000;
-}
 #modalColor button:hover,
 #modalColor button:focus {
-    border: 0.2rem dashed rgba(32, 32, 32, 0.8);
+    border: 0.2rem dashed rgba(32, 32, 32, 0.75);
+}
+#modalColor button:active,
+#modalColor button.active {
+    border: 0.2rem dashed #222;
 }
 #modalColor button:hover::before,
 #modalColor button:focus::before,
