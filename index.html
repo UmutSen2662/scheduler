@@ -215,7 +215,7 @@
                 if (event.target == modal) modal.close();
             });
 
-            const data = await supabase.from("course_codes").select("courses").data;
+            const { data: data } = await supabase.from("course_codes").select("courses");
             if (data.length > 0) document.getElementById("courseCodes").value = data[0].courses;
 
             const courseCodes = document.getElementById("courseCodes");
