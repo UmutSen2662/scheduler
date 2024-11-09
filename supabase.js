@@ -14,7 +14,7 @@ async function signOut() {
             alert("Could not Sign-out");
         } else {
             alert("Sign-out successful!");
-            window.location.href = "/Web-App/auth/signin.html";
+            window.location.href = "/Scheduler/auth/signin.html";
         }
     }
 }
