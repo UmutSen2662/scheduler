@@ -4,13 +4,13 @@
         <title>Scheduler</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/Web-App/style.css" />
-        <link rel="shortcut icon" href="/Web-App/favicon.ico" />
+        <link rel="stylesheet" href="/Scheduler/style.css" />
+        <link rel="shortcut icon" href="/Scheduler/favicon.ico" />
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
             const { createClient } = supabase;
         </script>
-        <script src="/Web-App/supabase.js" defer></script>
+        <script src="/Scheduler/supabase.js" defer></script>
         <script>
             // Sign Up
             async function signUp() {
@@ -25,7 +25,7 @@
                 } else {
                     const userid = checkSession();
                     if (userid) {
-                        window.location.href = "/Web-App/";
+                        window.location.href = "/Scheduler/";
                     }
                 }
             }
@@ -39,7 +39,7 @@
             <input type="password" id="confirm_password" placeholder="Confirm Password" required />
             <button style="padding: 0.6rem" onclick="signUp()">Sign up</button>
         </div>
-        <p>Already have an account? <a href="/Web-App/auth/signin.html">Sign in</a></p>
+        <p>Already have an account? <a href="/Scheduler/auth/signin.html">Sign in</a></p>
     </body>
     <style>
         body {
