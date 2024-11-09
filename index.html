@@ -29,100 +29,100 @@
                 <th id="50">Friday</th>
             </tr>
             <tr id="1">
-                <th id="01">08:40</th>
-                <th id="11"></th>
-                <th id="21"></th>
-                <th id="31"></th>
-                <th id="41"></th>
-                <th id="51"></th>
+                <td id="01">08:40</td>
+                <td id="11"></td>
+                <td id="21"></td>
+                <td id="31"></td>
+                <td id="41"></td>
+                <td id="51"></td>
             </tr>
             <tr id="2">
-                <th id="02">09:40</th>
-                <th id="12"></th>
-                <th id="22"></th>
-                <th id="32"></th>
-                <th id="42"></th>
-                <th id="52"></th>
+                <td id="02">09:40</td>
+                <td id="12"></td>
+                <td id="22"></td>
+                <td id="32"></td>
+                <td id="42"></td>
+                <td id="52"></td>
             </tr>
             <tr id="3">
-                <th id="03">10:40</th>
-                <th id="13"></th>
-                <th id="23"></th>
-                <th id="33"></th>
-                <th id="43"></th>
-                <th id="53"></th>
+                <td id="03">10:40</td>
+                <td id="13"></td>
+                <td id="23"></td>
+                <td id="33"></td>
+                <td id="43"></td>
+                <td id="53"></td>
             </tr>
             <tr id="4">
-                <th id="04">11:40</th>
-                <th id="14"></th>
-                <th id="24"></th>
-                <th id="34"></th>
-                <th id="44"></th>
-                <th id="54"></th>
+                <td id="04">11:40</td>
+                <td id="14"></td>
+                <td id="24"></td>
+                <td id="34"></td>
+                <td id="44"></td>
+                <td id="54"></td>
             </tr>
             <tr id="5">
-                <th id="05">12:40</th>
-                <th id="15"></th>
-                <th id="25"></th>
-                <th id="35"></th>
-                <th id="45"></th>
-                <th id="55"></th>
+                <td id="05">12:40</td>
+                <td id="15"></td>
+                <td id="25"></td>
+                <td id="35"></td>
+                <td id="45"></td>
+                <td id="55"></td>
             </tr>
             <tr id="6">
-                <th id="06">13:40</th>
-                <th id="16"></th>
-                <th id="26"></th>
-                <th id="36"></th>
-                <th id="46"></th>
-                <th id="56"></th>
+                <td id="06">13:40</td>
+                <td id="16"></td>
+                <td id="26"></td>
+                <td id="36"></td>
+                <td id="46"></td>
+                <td id="56"></td>
             </tr>
             <tr id="7">
-                <th id="07">14:40</th>
-                <th id="17"></th>
-                <th id="27"></th>
-                <th id="37"></th>
-                <th id="47"></th>
-                <th id="57"></th>
+                <td id="07">14:40</td>
+                <td id="17"></td>
+                <td id="27"></td>
+                <td id="37"></td>
+                <td id="47"></td>
+                <td id="57"></td>
             </tr>
             <tr id="8">
-                <th id="08">15:40</th>
-                <th id="18"></th>
-                <th id="28"></th>
-                <th id="38"></th>
-                <th id="48"></th>
-                <th id="58"></th>
+                <td id="08">15:40</td>
+                <td id="18"></td>
+                <td id="28"></td>
+                <td id="38"></td>
+                <td id="48"></td>
+                <td id="58"></td>
             </tr>
             <tr id="9">
-                <th id="09">16:40</th>
-                <th id="19"></th>
-                <th id="29"></th>
-                <th id="39"></th>
-                <th id="49"></th>
-                <th id="59"></th>
+                <td id="09">16:40</td>
+                <td id="19"></td>
+                <td id="29"></td>
+                <td id="39"></td>
+                <td id="49"></td>
+                <td id="59"></td>
             </tr>
             <tr id="a">
-                <th id="0a">17:40</th>
-                <th id="1a"></th>
-                <th id="2a"></th>
-                <th id="3a"></th>
-                <th id="4a"></th>
-                <th id="5a"></th>
+                <td id="0a">17:40</td>
+                <td id="1a"></td>
+                <td id="2a"></td>
+                <td id="3a"></td>
+                <td id="4a"></td>
+                <td id="5a"></td>
             </tr>
             <tr id="b">
-                <th id="0b">18:40</th>
-                <th id="1b"></th>
-                <th id="2b"></th>
-                <th id="3b"></th>
-                <th id="4b"></th>
-                <th id="5b"></th>
+                <td id="0b">18:40</td>
+                <td id="1b"></td>
+                <td id="2b"></td>
+                <td id="3b"></td>
+                <td id="4b"></td>
+                <td id="5b"></td>
             </tr>
             <tr id="c">
-                <th id="0c">19:40</th>
-                <th id="1c"></th>
-                <th id="2c"></th>
-                <th id="3c"></th>
-                <th id="4c"></th>
-                <th id="5c"></th>
+                <td id="0c">19:40</td>
+                <td id="1c"></td>
+                <td id="2c"></td>
+                <td id="3c"></td>
+                <td id="4c"></td>
+                <td id="5c"></td>
             </tr>
         </table>
 
@@ -302,17 +302,17 @@
 
         async function fillSchedule(data) {
             data.forEach((course) => {
-                const th = document.getElementById(`${course.col}${course.row.toString(16)}`);
-                th.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
-                th.style.backgroundColor = course.color;
+                const td = document.getElementById(`${course.col}${course.row.toString(16)}`);
+                td.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
+                td.style.backgroundColor = course.color;
             });
 
             const schedule = document.getElementById("schedule");
-            schedule.querySelectorAll("th").forEach((th) => {
-                if (th.id[0] == "0" || th.id[1] == "0") return;
-                th.style.cursor = "pointer";
-                th.addEventListener("click", () => {
-                    clicked.call(th);
+            schedule.querySelectorAll("td").forEach((td) => {
+                if (td.id[0] == "0" || td.id[1] == "0") return;
+                td.style.cursor = "pointer";
+                td.addEventListener("click", () => {
+                    clicked.call(td);
                 });
             });
         }
@@ -377,16 +377,16 @@
             const section = sectionInput.value;
             const room = roomInput.value;
 
-            const th = document.getElementById(id);
-            th.innerHTML = `${name} (${section}) [${room}]`;
-            th.style.backgroundColor = Modal.get("color");
+            const td = document.getElementById(id);
+            td.innerHTML = `${name} (${section}) [${room}]`;
+            td.style.backgroundColor = Modal.get("color");
 
             const { error } = await supabase.from("course").upsert({
                 userid: window.userid,
                 name: name,
                 section: section,
                 room: room,
-                color: th.style.backgroundColor,
+                color: td.style.backgroundColor,
                 col: parseInt(id[0], 16),
                 row: parseInt(id[1], 16),
             });
@@ -395,9 +395,9 @@
 
         async function modalDelete() {
             const id = Modal.get("id");
-            const th = document.getElementById(id);
-            th.style.backgroundColor = "";
-            th.innerHTML = "";
+            const td = document.getElementById(id);
+            td.style.backgroundColor = "";
+            td.innerHTML = "";
             const { error } = await supabase
                 .from("course")
                 .delete()
