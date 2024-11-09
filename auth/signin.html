@@ -23,7 +23,6 @@
                     console.error("Sign In Error:", error.message);
                     alert("Error signing in: " + error.message);
                 } else {
-                    alert("Sign-in successful!");
                     const userid = checkSession();
                     if (userid) {
                         window.location.href = "/Web-App/";
@@ -39,13 +38,16 @@
             <input type="password" id="password" placeholder="Password" required />
             <button style="padding: 0.6rem" onclick="signIn()">Sign In</button>
         </div>
+        <p>"New to the app? "<a href="/Web-App/auth/signup.html">Sign up</a></p>
     </body>
     <style>
         body {
             display: flex;
             align-items: center;
+            flex-direction: column;
             justify-content: center;
             height: 100dvh;
+            gap: 1rem;
         }
 
         #main {
@@ -62,6 +64,10 @@
             width: 16rem;
             padding: 0.4rem;
             font-size: 0.8rem;
+        }
+
+        a {
+            color: #2070d0;
         }
     </style>
 </html>
