@@ -130,12 +130,11 @@
 
         <table id="exams">
             <tr>
-                <th id="e0">Course Exam</th>
-                <th id="e1">Days Until</th>
-                <th id="e2">Days Between</th>
-                <th id="e3">Start Time</th>
-                <th id="e4">Classrooms</th>
-                <th id="e5">Grades</th>
+                <th>Course Exam</th>
+                <th>Days Until</th>
+                <th>Days Between</th>
+                <th>Start Time</th>
+                <th>Classrooms</th>
             </tr>
         </table>
 
@@ -234,10 +233,10 @@
             const set = new Set();
             courseCodes
                 .toUpperCase()
-                .matchAll(/[A-Z]{3,4} \d{3,4}|[A-Z]{3,4}\d{3,4}/g)
-                .forEach((r) => set.add(r[0].replace(" ", "")));
+                .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
+                .forEach((r) => set.add(r[1] + "" + r[2] + ", "));
 
-            const str = Array.from(set).join(" ");
+            const str = Array.from(set).join(" ").slice(0, -2);
             console.log(str);
             const { error } = await supabase
                 .from("course_codes")
