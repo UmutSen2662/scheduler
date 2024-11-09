@@ -204,6 +204,10 @@
                 window.location.href = "/Web-App/auth/signin.html";
             }
 
+            const modal = document.getElementById("modal");
+            modal.addEventListener("click", (event) => {
+                if (event.target == modal) modal.close();
+            });
             getData(userid);
 
             const courseCodes = document.getElementById("courseCodes");
