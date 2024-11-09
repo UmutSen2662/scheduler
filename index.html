@@ -235,10 +235,9 @@
             courseCodes
                 .toUpperCase()
                 .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
-                .forEach((r) => set.add(r[1] + r[2] + " "));
+                .forEach((r) => set.add(r[1] + r[2]));
 
             const str = Array.from(set).join(" ").slice(0, -1);
-            console.log(str);
             const { error } = await supabase
                 .from("course_codes")
                 .upsert({ userid: window.userid, courses: str });
@@ -246,6 +245,7 @@
                 console.log(error);
                 return;
             }
+            console.log(set);
 
             // Options for formatting the date
             const options = {
