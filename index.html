@@ -250,21 +250,10 @@
         }
 
         function debounce(func, interval) {
-            var lastCall = -1;
-            return function () {
-                const args = arguments;
-                const self = this;
-
-                // Clear the previous call
-                clearTimeout(lastCall);
-
-                // Set the new call
-                lastCall = setTimeout(async function () {
-                    // Call the function
-                    await func.apply(self, args);
-                    // Reset the last call
-                    lastCall = -1;
-                }, interval);
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), interval);
             };
         }
 
