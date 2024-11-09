@@ -260,7 +260,8 @@
             const exams = document.getElementById("exams");
             const { data: data } = await supabase.from("exams").select("*");
             data.forEach((exam) => {
-                if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0])) return;
+                if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0].replace(" ", "")))
+                    return; // skip if the course code is not in the set
                 const dateObj = new Date(exam.start_time);
                 const formattedDate = dateObj.toLocaleString("en-US", options).replace(",", "");
 
