@@ -221,7 +221,7 @@
 
             const courseCodes = document.getElementById("courseCodes");
             courseCodes.addEventListener("input", () =>
-                debounce(evalCourseCodes, 120)(courseCodes.value)
+                debounce(evalCourseCodes, 1000)(courseCodes.value)
             );
 
             const schedule = document.getElementById("schedule");
@@ -236,9 +236,12 @@
                 .matchAll(/[A-Z]{3,4} \d{3,4}|[A-Z]{3,4}\d{3,4}/g)
                 .forEach((r) => set.add(r[0].replace(" ", "")));
 
-            console.log(set);
             const str = Array.from(set).join(" ");
-            supabase.from("course_codes").upsert({ userid: await checkSession(), courses: str });
+            console.log(str);
+            const { error } = await supabase
+                .from("course_codes")
+                .upsert({ userid: await checkSession(), courses: str });
+            console.log(error);
         }
 
         function resize(schedule) {
