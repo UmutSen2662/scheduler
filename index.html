@@ -222,6 +222,7 @@
             courseCodes.addEventListener("input", () => {
                 debouncedEvalCourseCodes(courseCodes.value);
             });
+            evalCourseCodes(courseCodes.value);
 
             const schedule = document.getElementById("schedule");
             const debouncedResize = debounce(resize, 300);
@@ -234,14 +235,17 @@
             courseCodes
                 .toUpperCase()
                 .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
-                .forEach((r) => set.add(r[1] + "" + r[2] + ", "));
+                .forEach((r) => set.add(r[1] + r[2] + " "));
 
-            const str = Array.from(set).join(" ").slice(0, -2);
+            const str = Array.from(set).join(" ").slice(0, -1);
             console.log(str);
             const { error } = await supabase
                 .from("course_codes")
                 .upsert({ userid: window.userid, courses: str });
-            console.log(error);
+            if (error) {
+                console.log(error);
+                return;
+            }
         }
 
         function resize(schedule) {
