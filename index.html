@@ -246,6 +246,9 @@
                 console.log(error);
                 return;
             }
+
+            const { data: data } = await supabase.from("exams").select("*");
+            console.log(data);
         }
 
         function resize(schedule) {
@@ -263,7 +266,7 @@
         }
 
         async function getData() {
-            let { data: course, error } = await supabase.from("course").select("*");
+            const { data: course, error } = await supabase.from("course").select("*");
 
             if (error) {
                 console.error("Error:", error.message);

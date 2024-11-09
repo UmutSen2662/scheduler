@@ -1,5 +1,6 @@
 from supabase import create_client, Client
-import csv, os
+from datetime import datetime
+import csv, os, sys
 
 
 def update_exams(file_path):
@@ -19,7 +20,7 @@ def update_exams(file_path):
                 exams.append(
                     {
                         "course_exam": row[0],
-                        "start_time": row[1] + " " + row[2][:5],
+                        "start_time": datetime.strptime(row[1] + " " + row[2][:5], "%Y-%m-%d %A %H:%M").isoformat(),
                         "classrooms": row[3],
                         "is_final": True,
                     }
@@ -27,7 +28,14 @@ def update_exams(file_path):
         else:
             supabase.table("exams").delete().eq("is_final", False).execute()
             for row in csv_reader:
-                exams.append({"course_exam": row[0], "start_time": row[1], "classrooms": row[3], "is_final": False})
+                exams.append(
+                    {
+                        "course_exam": row[0],
+                        "start_time": datetime.strptime(row[1], "%Y-%m-%d %A %H:%M").isoformat(),
+                        "classrooms": row[3],
+                        "is_final": False,
+                    }
+                )
 
         print("Updating exams...")
         supabase.table("exams").insert(exams).execute()
@@ -35,7 +43,7 @@ def update_exams(file_path):
 
 
 if __name__ == "__main__":
-    file_path = None
+    file_path = sys.argv[1] if len(sys.argv) > 1 else None
     while file_path == None:
         file_path = input("Enter path to csv file: ")
         if not os.path.exists(file_path):
