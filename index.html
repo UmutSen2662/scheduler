@@ -140,7 +140,7 @@
         </table>
 
         <dialog id="modal">
-            <div style="padding: 1rem;">
+            <div style="padding: 1rem">
                 <div id="modalInside"></div>
                 <div id="modalColor">
                     <button
@@ -185,7 +185,10 @@
                     ></button>
                 </div>
                 <form method="dialog">
-                    <button style="margin-right: auto; background-color: #e00" onclick="modalDelete()">
+                    <button
+                        style="margin-right: auto; background-color: #e00"
+                        onclick="modalDelete()"
+                    >
                         Delete
                     </button>
                     <button style="margin-right: 0.4rem" onclick="modalSave()">Save</button>
@@ -206,27 +209,36 @@
                 window.location.href = "/Web-App/auth/signin.html";
             }
 
+            getData(userid);
+
             const modal = document.getElementById("modal");
             modal.addEventListener("click", (event) => {
                 if (event.target == modal) modal.close();
             });
-            getData(userid);
+
+            const str = await supabase.from("course_codes").select("courses");
+            if (str.data) document.getElementById("courseCodes").value = str.data.courses;
 
             const courseCodes = document.getElementById("courseCodes");
-            courseCodes.addEventListener("input", () => {
-                const set = new Set();
-                const str = courseCodes.value;
-                str.toUpperCase()
-                    .matchAll(/[A-Z]{3,4} \d{3,4}|[A-Z]{3,4}\d{3,4}/g)
-                    .forEach((r) => set.add(r[0].replace(" ", "")));
-
-                const exams = document.getElementById("exams");
-            });
+            courseCodes.addEventListener("input", () =>
+                debounce(saveCourseCodes, 120)(courseCodes.value)
+            );
 
             const schedule = document.getElementById("schedule");
             window.addEventListener("resize", () => debounce(resize, 120)(schedule));
             resize(schedule);
         });
+
+        async function saveCourseCodes(courseCodes) {
+            const set = new Set();
+            courseCodes
+                .toUpperCase()
+                .matchAll(/[A-Z]{3,4} \d{3,4}|[A-Z]{3,4}\d{3,4}/g)
+                .forEach((r) => set.add(r[0].replace(" ", "")));
+
+            const str = Array.from(set).join(" ");
+            supabase.from("course_codes").upsert({ userid: await checkSession(), courses: str });
+        }
 
         function resize(schedule) {
             console.log(document.documentElement.clientWidth);
