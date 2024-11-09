@@ -269,10 +269,10 @@
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `<td>${exam.course_exam}</td><td>${Math.max(
-                    Math.ceil((now - dateObj) / (1000 * 60 * 60 * 24)),
+                    Math.floor((dateObj - now) / (1000 * 60 * 60 * 24)),
                     0
                 )}</td><td>${Math.max(
-                    Math.ceil((dateObj - prevDate) / (1000 * 60 * 60 * 24)),
+                    Math.floor((dateObj - prevDate) / (1000 * 60 * 60 * 24)),
                     0
                 )}</td><td>${formattedDate}</td><td>${exam.classrooms}</td>`;
                 exams.appendChild(tr);
