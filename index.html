@@ -202,14 +202,13 @@
     <script type="text/javascript">
         // check if a user is signed in otherwise redirect to signin
         document.addEventListener("DOMContentLoaded", async function () {
-            const userid = await checkSession();
-            if (userid) {
-                console.log(userid);
+            window.userid = await checkSession();
+            if (window.userid) {
+                console.log(window.userid);
             } else {
                 window.location.href = "/Web-App/auth/signin.html";
             }
-
-            getData(userid);
+            getData();
 
             const modal = document.getElementById("modal");
             modal.addEventListener("click", (event) => {
@@ -240,7 +239,7 @@
             console.log(str);
             const { error } = await supabase
                 .from("course_codes")
-                .upsert({ userid: await checkSession(), courses: str });
+                .upsert({ userid: window.userid, courses: str });
             console.log(error);
         }
 
@@ -262,7 +261,7 @@
             };
         }
 
-        async function getData(userid) {
+        async function getData() {
             let { data: course, error } = await supabase.from("course").select("*");
 
             if (error) {
@@ -356,7 +355,7 @@
             th.style.backgroundColor = Modal.get("color");
 
             const { error } = await supabase.from("course").upsert({
-                userid: await checkSession(),
+                userid: window.userid,
                 name: name,
                 section: section,
                 room: room,
@@ -375,7 +374,7 @@
             const { error } = await supabase
                 .from("course")
                 .delete()
-                .eq("userid", await checkSession())
+                .eq("userid", window.userid)
                 .eq("col", parseInt(id[0], 16))
                 .eq("row", parseInt(id[1], 16));
             console.log(error);
