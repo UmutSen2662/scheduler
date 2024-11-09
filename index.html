@@ -237,7 +237,7 @@
                 .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
                 .forEach((r) => set.add(r[1] + r[2]));
 
-            const str = Array.from(set).join(" ").slice(0, -1);
+            const str = Array.from(set).join(" ");
             const { error } = await supabase
                 .from("course_codes")
                 .upsert({ userid: window.userid, courses: str });
@@ -248,7 +248,9 @@
             console.log(set);
 
             const exams = document.getElementById("exams");
+            exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
             const { data: data } = await supabase.from("exams").select("*");
+            let prevDate = new Date();
             data.forEach((exam) => {
                 if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0].replace(" ", "")))
                     return; // skip if the course code is not in the set
@@ -263,14 +265,18 @@
                 const minute = String(dateObj.getMinutes()).padStart(2, "0");
                 // Format the string
                 const formattedDate = `${year}-${month}-${day} ${weekday} ${hour}:${minute}`;
+                const now = new Date();
 
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${
-                    exam.course_exam
-                }</td><td>${0}</td><td>${0}</td><td>${formattedDate}</td><td>${
-                    exam.classrooms
-                }</td>`;
+                tr.innerHTML = `<td>${exam.course_exam}</td><td>${Math.max(
+                    Math.ceil((now - dateObj) / (1000 * 60 * 60 * 24)),
+                    0
+                )}</td><td>${Math.max(
+                    Math.ceil((dateObj - prevDate) / (1000 * 60 * 60 * 24)),
+                    0
+                )}</td><td>${formattedDate}</td><td>${exam.classrooms}</td>`;
                 exams.appendChild(tr);
+                prevDate = dateObj;
             });
         }
 
