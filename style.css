@@ -144,9 +144,9 @@ dialog form button {
 #examsContainer {
     width: 96%;
     display: flex;
-    justify-content: center;
     overflow-x: auto;
     margin-bottom: 3rem;
+    justify-content: space-around;
 }
 
 #exams td {
@@ -160,5 +160,8 @@ dialog form button {
     html,
     body {
         font-size: 14px;
+    }
+    #exams td:last-child {
+        text-wrap: nowrap;
     }
 }
