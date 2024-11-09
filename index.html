@@ -247,23 +247,22 @@
             }
             console.log(set);
 
-            // Options for formatting the date
-            const options = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                weekday: "short",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-            };
             const exams = document.getElementById("exams");
             const { data: data } = await supabase.from("exams").select("*");
             data.forEach((exam) => {
                 if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0].replace(" ", "")))
                     return; // skip if the course code is not in the set
+
                 const dateObj = new Date(exam.start_time);
-                const formattedDate = dateObj.toLocaleString("en-US", options).replace(",", "");
+                // Get the components of the date
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Month is zero-indexed, so add 1
+                const day = String(dateObj.getDate()).padStart(2, "0");
+                const weekday = dateObj.toLocaleString("en-US", { weekday: "short" });
+                const hour = String(dateObj.getHours()).padStart(2, "0");
+                const minute = String(dateObj.getMinutes()).padStart(2, "0");
+                // Format the string
+                const formattedDate = `${year}-${month}-${day} ${weekday} ${hour}:${minute}`;
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `<td>${
