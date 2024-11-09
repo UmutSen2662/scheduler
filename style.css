@@ -140,8 +140,9 @@ dialog form button {
     padding: 0.4rem;
 }
 
-#exams {
+#examsDiv {
     margin-bottom: 3rem;
+    overflow-x: auto;
     width: 96%;
 }
 
