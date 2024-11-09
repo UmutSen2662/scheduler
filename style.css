@@ -136,14 +136,17 @@ dialog form button {
 #courseCodes {
     border: 0.1rem solid #222;
     width: min(90%, 50rem);
-    margin: 3rem 0 1rem 0;
+    margin: 4rem 0 1rem 0;
     font-size: 1rem;
     padding: 0.4rem;
 }
 
-#exams {
-    margin-bottom: 3rem;
+#examsContainer {
     width: 96%;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin-bottom: 3rem;
 }
 
 #exams td {
