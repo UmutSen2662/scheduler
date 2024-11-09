@@ -224,7 +224,7 @@
             );
 
             const schedule = document.getElementById("schedule");
-            window.addEventListener("resize", () => debounce(resize, 120)(schedule));
+            window.addEventListener("resize", () => debounce(resize, 300)(schedule));
             resize(schedule);
         });
 
@@ -252,11 +252,18 @@
         function debounce(func, interval) {
             var lastCall = -1;
             return function () {
+                const args = arguments;
+                const self = this;
+
+                // Clear the previous call
                 clearTimeout(lastCall);
-                var args = arguments;
-                var self = this;
-                lastCall = setTimeout(function () {
-                    func.apply(self, args);
+
+                // Set the new call
+                lastCall = setTimeout(async function () {
+                    // Call the function
+                    await func.apply(self, args);
+                    // Reset the last call
+                    lastCall = -1;
                 }, interval);
             };
         }
