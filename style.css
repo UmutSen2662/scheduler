@@ -90,7 +90,7 @@ dialog input {
     padding: 0.4rem;
     border: 0.1rem solid #222;
     margin-bottom: 0.6rem;
-    font-size: medium;
+    font-size: 0.8rem;
 }
 dialog input:last-child {
     margin-bottom: 0;
@@ -134,7 +134,7 @@ dialog form button {
     border: 0.1rem solid #222;
     width: min(90%, 50rem);
     margin: 3rem 0 1rem 0;
-    font-size: large;
+    font-size: 1rem;
     padding: 0.4rem;
 }
 
