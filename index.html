@@ -219,12 +219,14 @@
             if (data.length > 0) document.getElementById("courseCodes").value = data[0].courses;
 
             const courseCodes = document.getElementById("courseCodes");
-            courseCodes.addEventListener("input", () =>
-                debounce(evalCourseCodes, 1000)(courseCodes.value)
-            );
+            const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
+            courseCodes.addEventListener("input", () => {
+                debouncedEvalCourseCodes(courseCodes.value);
+            });
 
             const schedule = document.getElementById("schedule");
-            window.addEventListener("resize", () => debounce(resize, 300)(schedule));
+            const debouncedResize = debounce(resize, 300);
+            window.addEventListener("resize", () => debouncedResize(schedule));
             resize(schedule);
         });
 
