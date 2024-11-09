@@ -140,10 +140,16 @@ dialog form button {
     padding: 0.4rem;
 }
 
-#examsDiv {
+#exams {
     margin-bottom: 3rem;
-    overflow-x: auto;
     width: 96%;
+}
+
+#exams td {
+    text-wrap: nowrap;
+}
+#exams td:last-child {
+    text-wrap: wrap;
 }
 
 @media screen and (max-width: 767px) {
