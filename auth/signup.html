@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/Web-App/style.css" />
-        <link rel="shortcut icon" href="#">
+        <link rel="shortcut icon" href="#" />
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
             const { createClient } = supabase;
@@ -33,11 +33,30 @@
         </script>
     </head>
     <body>
-        <div>
+        <div id="main">
             <h2>Sign up</h2>
-            <input type="email" id="email" placeholder="Email" />
-            <input type="password" id="password" placeholder="Password" />
-            <button onclick="signUp()">Sign up</button>
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+            <button style="padding: 0 0.6rem" onclick="signUp()">Sign up</button>
         </div>
     </body>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        input {
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </html>
