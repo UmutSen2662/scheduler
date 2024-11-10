@@ -9,7 +9,13 @@
     "icons": [
         {
             "purpose": "maskable",
-            "src": "scheduler.png",
+            "src": "scheduler maskable.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "src": "scheduler any.png",
             "sizes": "512x512",
             "type": "image/png"
         }
