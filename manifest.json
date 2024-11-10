@@ -8,6 +8,7 @@
     "scope": "https://umutsen2662.github.io/Scheduler/",
     "icons": [
         {
+            "purpose": "maskable",
             "src": "scheduler.png",
             "sizes": "512x512",
             "type": "image/png"
