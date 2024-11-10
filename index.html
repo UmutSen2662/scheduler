@@ -265,13 +265,15 @@
                 // Format the string
                 const formattedDate = `${year}-${month}-${day} ${weekday} ${hour}:${minute}`;
                 const now = new Date();
+                const today = now.getTime() - (now.getTime() % 86400000);
+                const date = dateObj.getTime() - (dateObj.getTime() % 86400000);
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `<td>${exam.course_exam}</td><td>${Math.max(
-                    Math.floor((dateObj - now) / (1000 * 60 * 60 * 24)),
+                    Math.floor(dateObj / 86400000) - Math.floor(today / 86400000),
                     0
-                )}</td><td>${Math.max(
-                    Math.floor((dateObj - prevDate) / (1000 * 60 * 60 * 24)),
+                )}}</td><td>${Math.max(
+                    Math.floor(dateObj / 86400000) - Math.floor(prevDate / 86400000),
                     0
                 )}</td><td>${formattedDate}</td><td>${exam.classrooms}</td>`;
                 exams.appendChild(tr);
