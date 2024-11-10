@@ -13,7 +13,6 @@ async function signOut() {
         if (userid) {
             alert("Could not Sign-out");
         } else {
-            alert("Sign-out successful!");
             window.location.href = "/Scheduler/auth/signin.html";
         }
     }

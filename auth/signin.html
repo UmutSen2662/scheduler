@@ -29,6 +29,15 @@
                     }
                 }
             }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const main = document.getElementById("main");
+                main.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter") {
+                        signIn();
+                    }
+                })
+            })
         </script>
     </head>
     <body>
