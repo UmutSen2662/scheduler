@@ -210,7 +210,7 @@
                 signInOut.style.backgroundColor = "#888";
                 signInOut.innerHTML = "Sign Out";
             }
-            if (!localStorage.getItem("course")) localStorage.setItem("course", {});
+            if (!localStorage.getItem("course")) localStorage.setItem("course", JSON.stringify([]));
             if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
             await getData();
 
@@ -304,7 +304,7 @@
         async function getData() {
             if (window.userid) {
                 const { data: course } = await supabase.from("course").select("*");
-                if (course) localStorage.setItem("course", course);
+                if (course) localStorage.setItem("course", JSON.stringify(course));
 
                 const { data: data } = await supabase.from("course_codes").select("courses");
                 if (data)
@@ -312,7 +312,7 @@
             }
             document.getElementById("courseCodes").value = localStorage.getItem("course_codes");
 
-            fillSchedule(localStorage.getItem("course"));
+            fillSchedule(JSON.parse(localStorage.getItem("course")));
         }
 
         async function fillSchedule(data) {
@@ -409,7 +409,7 @@
                 console.log(error);
             } else {
                 let found = false;
-                const course = localStorage.getItem("course");
+                const course = JSON.parse(localStorage.getItem("course"));
                 course.forEach((c) => {
                     if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
                         c.name = name;
@@ -429,7 +429,7 @@
                         });
                     }
                 });
-                localStorage.setItem("course", course);
+                localStorage.setItem("course", JSON.stringify(course));
             }
         }
 
@@ -448,13 +448,13 @@
                     .eq("row", parseInt(id[1], 16));
                 console.log(error);
             } else {
-                const course = localStorage.getItem("course");
+                const course = JSON.parse(localStorage.getItem("course"));
                 course.forEach((c) => {
                     if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
                         course.remove(c);
                     }
                 });
-                localStorage.setItem("course", course);
+                localStorage.setItem("course", JSON.stringify(course));
             }
         }
     </script>
