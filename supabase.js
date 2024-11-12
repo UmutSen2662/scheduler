@@ -12,6 +12,7 @@ async function signInOut() {
             alert("Error signing out: " + error.message);
         } else {
             window.location.href = "/Scheduler/"; // redirect to home page
+            return;
         }
     }
     window.location.href = "/Scheduler/auth/signin.html";
