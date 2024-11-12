@@ -10,6 +10,8 @@ async function signInOut() {
         const { error } = await supabase.auth.signOut();
         if (error) {
             alert("Error signing out: " + error.message);
+        } else {
+            window.location.href = "/Scheduler/"; // redirect to home page
         }
     }
     window.location.href = "/Scheduler/auth/signin.html";
