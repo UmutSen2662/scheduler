@@ -210,6 +210,8 @@
                 signInOut.style.backgroundColor = "#888";
                 signInOut.innerHTML = "Sign Out";
             }
+            if (!localStorage.getItem("course")) localStorage.setItem("course", {});
+            if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
             await getData();
 
             const modal = document.getElementById("modal");
