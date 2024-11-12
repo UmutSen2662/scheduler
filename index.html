@@ -16,7 +16,7 @@
     <body style="display: flex; align-items: center; flex-direction: column">
         <div style="display: flex; justify-content: space-between; padding: 0.5rem; width: 100%">
             <h2>METU Schedule and CEF</h2>
-            <button style="padding: 0.6rem" onclick="signOut()">Sign Out</button>
+            <button id="signInOut" style="padding: 0.6rem" onclick="signInOut()">Sign In</button>
         </div>
 
         <h2 style="padding: 0.5rem">Schedule</h2>
@@ -206,19 +206,16 @@
         document.addEventListener("DOMContentLoaded", async function () {
             window.userid = await checkSession();
             if (window.userid) {
-                console.log(window.userid);
-            } else {
-                window.location.href = "/Scheduler/auth/signin.html";
+                const signInOut = document.getElementById("signInOut");
+                signInOut.style.backgroundColor = "#888";
+                signInOut.innerHTML = "Sign Out";
             }
-            getData();
+            await getData();
 
             const modal = document.getElementById("modal");
             modal.addEventListener("click", (event) => {
                 if (event.target == modal) modal.close();
             });
-
-            const { data: data } = await supabase.from("course_codes").select("courses");
-            if (data.length > 0) document.getElementById("courseCodes").value = data[0].courses;
 
             const courseCodes = document.getElementById("courseCodes");
             const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
@@ -241,17 +238,20 @@
                 .forEach((r) => set.add(r[1] + r[2]));
 
             const str = Array.from(set).join(" ");
-            const { error } = await supabase
-                .from("course_codes")
-                .upsert({ userid: window.userid, courses: str });
-            if (error) {
-                console.log(error);
-                return;
+
+            // Depending on if the user is signed in or not, store the course codes in either the local storage or the database
+            localStorage.setItem("course_codes", str);
+            if (window.userid) {
+                const { error } = await supabase
+                    .from("course_codes")
+                    .upsert({ userid: window.userid, courses: str });
+                if (error) {
+                    console.error(error);
+                }
             }
-            console.log(set);
 
             const exams = document.getElementById("exams");
-            const { data: data } = await supabase.from("exams").select("*");
+            const { data: data } = await supabase.from("exams").select("*"); // this is not user dependent no need to check userid
             let prevDate = new Date();
             exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
             data.forEach((exam) => {
@@ -300,15 +300,17 @@
         }
 
         async function getData() {
-            const { data: course, error } = await supabase.from("course").select("*");
+            if (window.userid) {
+                const { data: course } = await supabase.from("course").select("*");
+                if (course) localStorage.setItem("course", course);
 
-            if (error) {
-                console.error("Error:", error.message);
-            } else {
-                console.log("Data:", course);
+                const { data: data } = await supabase.from("course_codes").select("courses");
+                if (data)
+                    if (data.length > 0) localStorage.setItem("course_codes", data[0].courses);
             }
+            document.getElementById("courseCodes").value = localStorage.getItem("course_codes");
 
-            fillSchedule(course);
+            fillSchedule(localStorage.getItem("course"));
         }
 
         async function fillSchedule(data) {
@@ -392,16 +394,41 @@
             td.innerHTML = `${name} (${section}) [${room}]`;
             td.style.backgroundColor = Modal.get("color");
 
-            const { error } = await supabase.from("course").upsert({
-                userid: window.userid,
-                name: name,
-                section: section,
-                room: room,
-                color: td.style.backgroundColor,
-                col: parseInt(id[0], 16),
-                row: parseInt(id[1], 16),
-            });
-            console.log(error);
+            if (window.userid) {
+                const { error } = await supabase.from("course").upsert({
+                    userid: window.userid,
+                    name: name,
+                    section: section,
+                    room: room,
+                    color: td.style.backgroundColor,
+                    col: parseInt(id[0], 16),
+                    row: parseInt(id[1], 16),
+                });
+                console.log(error);
+            } else {
+                let found = false;
+                const course = localStorage.getItem("course");
+                course.forEach((c) => {
+                    if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
+                        c.name = name;
+                        c.section = section;
+                        c.room = room;
+                        c.color = td.style.backgroundColor;
+                        found = true;
+                    }
+                    if (!found) {
+                        course.push({
+                            name: name,
+                            section: section,
+                            room: room,
+                            color: td.style.backgroundColor,
+                            col: parseInt(id[0], 16),
+                            row: parseInt(id[1], 16),
+                        });
+                    }
+                });
+                localStorage.setItem("course", course);
+            }
         }
 
         async function modalDelete() {
@@ -409,13 +436,24 @@
             const td = document.getElementById(id);
             td.style.backgroundColor = "";
             td.innerHTML = "";
-            const { error } = await supabase
-                .from("course")
-                .delete()
-                .eq("userid", window.userid)
-                .eq("col", parseInt(id[0], 16))
-                .eq("row", parseInt(id[1], 16));
-            console.log(error);
+
+            if (window.userid) {
+                const { error } = await supabase
+                    .from("course")
+                    .delete()
+                    .eq("userid", window.userid)
+                    .eq("col", parseInt(id[0], 16))
+                    .eq("row", parseInt(id[1], 16));
+                console.log(error);
+            } else {
+                const course = localStorage.getItem("course");
+                course.forEach((c) => {
+                    if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
+                        course.remove(c);
+                    }
+                });
+                localStorage.setItem("course", course);
+            }
         }
     </script>
 </html>
