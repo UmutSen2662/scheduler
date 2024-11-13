@@ -254,7 +254,7 @@
 
             const exams = document.getElementById("exams");
             const { data: data } = await supabase.from("exams").select("*"); // this is not user dependent no need to check userid
-            let prevDate = new Date();
+            let prevDate = Date.now();
             exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
             data.forEach((exam) => {
                 if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0].replace(" ", "")))
@@ -270,7 +270,7 @@
                 const minute = String(dateObj.getMinutes()).padStart(2, "0");
                 // Format the string
                 const formattedDate = `${year}-${month}-${day} ${weekday} ${hour}:${minute}`;
-                const now = new Date();
+                const now = Date.now() - new Date().getTimezoneOffset() * 60000;
                 const today = now.getTime() - (now.getTime() % 86400000);
                 const date = dateObj.getTime() - (dateObj.getTime() % 86400000);
 
