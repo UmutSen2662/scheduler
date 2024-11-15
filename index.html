@@ -458,7 +458,7 @@
                     .eq("userid", window.userid)
                     .eq("col", parseInt(id[0], 16))
                     .eq("row", parseInt(id[1], 16));
-                console.log(error);
+                if (error) console.log(error);
             }
             const course = JSON.parse(localStorage.getItem("course"));
             const filtered = course.filter(
