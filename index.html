@@ -308,7 +308,7 @@
                 const { data: course } = await supabase.from("course").select("*");
                 if (course)
                     if (course.length > 0) {
-                        const course = course.filter((c) => {
+                        const filtered = course.filter((c) => {
                             name: c.name;
                             section: c.section;
                             room: c.room;
@@ -316,7 +316,7 @@
                             row: c.row;
                             col: c.col;
                         });
-                        localStorage.setItem("course", JSON.stringify(course));
+                        localStorage.setItem("course", JSON.stringify(filtered));
                     }
 
                 const { data: data } = await supabase.from("course_codes").select("courses");
