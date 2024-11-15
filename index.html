@@ -308,15 +308,16 @@
                 const { data: course } = await supabase.from("course").select("*");
                 if (course)
                     if (course.length > 0) {
-                        const course = course.filter((c) => {
-                            name: c.name;
-                            section: c.section;
-                            room: c.room;
-                            color: c.color;
-                            row: c.row;
-                            col: c.col;
-                        });
-                        localStorage.setItem("course", JSON.stringify(course));
+                        const filtered = course.map((c) => ({
+                            name: c.name,
+                            section: c.section,
+                            room: c.room,
+                            color: c.color,
+                            row: c.row,
+                            col: c.col,
+                        }));
+                        console.log(filtered);
+                        localStorage.setItem("course", JSON.stringify(filtered));
                     }
 
                 const { data: data } = await supabase.from("course_codes").select("courses");
@@ -419,7 +420,7 @@
                     col: parseInt(id[0], 16),
                     row: parseInt(id[1], 16),
                 });
-                console.log(error);
+                if (error) console.log(error);
             }
             let found = false;
             const course = JSON.parse(localStorage.getItem("course"));
