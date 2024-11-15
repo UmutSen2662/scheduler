@@ -307,7 +307,17 @@
             if (window.userid) {
                 const { data: course } = await supabase.from("course").select("*");
                 if (course)
-                    if (course.length > 0) localStorage.setItem("course", JSON.stringify(course));
+                    if (course.length > 0) {
+                        const course = course.filter((c) => {
+                            name: c.name;
+                            section: c.section;
+                            room: c.room;
+                            color: c.color;
+                            row: c.row;
+                            col: c.col;
+                        });
+                        localStorage.setItem("course", JSON.stringify(course));
+                    }
 
                 const { data: data } = await supabase.from("course_codes").select("courses");
                 if (data)
@@ -410,30 +420,29 @@
                     row: parseInt(id[1], 16),
                 });
                 console.log(error);
-            } else {
-                let found = false;
-                const course = JSON.parse(localStorage.getItem("course"));
-                course.forEach((c) => {
-                    if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
-                        c.name = name;
-                        c.section = section;
-                        c.room = room;
-                        c.color = td.style.backgroundColor;
-                        found = true;
-                    }
-                    if (!found) {
-                        course.push({
-                            name: name,
-                            section: section,
-                            room: room,
-                            color: td.style.backgroundColor,
-                            col: parseInt(id[0], 16),
-                            row: parseInt(id[1], 16),
-                        });
-                    }
-                });
-                localStorage.setItem("course", JSON.stringify(course));
             }
+            let found = false;
+            const course = JSON.parse(localStorage.getItem("course"));
+            course.forEach((c) => {
+                if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
+                    c.name = name;
+                    c.section = section;
+                    c.room = room;
+                    c.color = td.style.backgroundColor;
+                    found = true;
+                }
+                if (!found) {
+                    course.push({
+                        name: name,
+                        section: section,
+                        room: room,
+                        color: td.style.backgroundColor,
+                        col: parseInt(id[0], 16),
+                        row: parseInt(id[1], 16),
+                    });
+                }
+            });
+            localStorage.setItem("course", JSON.stringify(course));
         }
 
         async function modalDelete() {
@@ -450,15 +459,14 @@
                     .eq("col", parseInt(id[0], 16))
                     .eq("row", parseInt(id[1], 16));
                 console.log(error);
-            } else {
-                const course = JSON.parse(localStorage.getItem("course"));
-                course.forEach((c) => {
-                    if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
-                        course.remove(c);
-                    }
-                });
-                localStorage.setItem("course", JSON.stringify(course));
             }
+            const course = JSON.parse(localStorage.getItem("course"));
+            course.forEach((c) => {
+                if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
+                    course.remove(c);
+                }
+            });
+            localStorage.setItem("course", JSON.stringify(course));
         }
     </script>
 </html>
