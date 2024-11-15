@@ -213,7 +213,7 @@
                 signInOut.style.backgroundColor = "#888";
                 signInOut.innerHTML = "Sign Out";
             }
-            if (!localStorage.getItem("course")) localStorage.setItem("course", JSON.stringify([]));
+            if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
             if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
             await getData();
 
@@ -306,7 +306,8 @@
         async function getData() {
             if (window.userid) {
                 const { data: course } = await supabase.from("course").select("*");
-                if (course) localStorage.setItem("course", JSON.stringify(course));
+                if (course)
+                    if (course.length > 0) localStorage.setItem("course", JSON.stringify(course));
 
                 const { data: data } = await supabase.from("course_codes").select("courses");
                 if (data)
