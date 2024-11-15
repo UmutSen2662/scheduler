@@ -461,12 +461,10 @@
                 console.log(error);
             }
             const course = JSON.parse(localStorage.getItem("course"));
-            course.forEach((c) => {
-                if (c.col == parseInt(id[0], 16) && c.row == parseInt(id[1], 16)) {
-                    course.remove(c);
-                }
-            });
-            localStorage.setItem("course", JSON.stringify(course));
+            const filtered = course.filter(
+                (c) => c.col != parseInt(id[0], 16) || c.row != parseInt(id[1], 16)
+            );
+            localStorage.setItem("course", JSON.stringify(filtered));
         }
     </script>
 </html>
