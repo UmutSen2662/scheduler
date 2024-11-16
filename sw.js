@@ -1,4 +1,4 @@
-const cacheName = "v2";
+const cacheName = "v3";
 const urlsToCache = [
     "/Scheduler/",
     "/Scheduler/style.css",
@@ -29,7 +29,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+            return response || (navigator.onLine ? fetch(event.request) : undefined);
         })
     );
 });

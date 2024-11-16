@@ -223,8 +223,7 @@
         <script type="text/javascript">
             // Get supabase
             async function signInOut() {
-                const userid = await checkSession();
-                if (userid) {
+                if (window.userid) {
                     const { error } = await window.supabase.auth.signOut();
                     if (error) {
                         alert("Error signing out: " + error.message);
@@ -286,9 +285,12 @@
                 }
 
                 const exams = document.getElementById("exams");
-                let { data: data } = await window.supabase.from("exams").select("*"); // this is not user dependent no need to check userid
+                // this is not user dependent no need to check userid
+                let { data: data } = window.supabase
+                    ? await window.supabase.from("exams").select("*")
+                    : { data: JSON.parse(localStorage.getItem("exams")) };
                 if (data) localStorage.setItem("exams", JSON.stringify(data));
-                else data = JSON.parse(localStorage.getItem("exams"));
+
                 let prevDate = Date.now();
                 exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
                 data.forEach((exam) => {
@@ -355,7 +357,9 @@
                             localStorage.setItem("course", JSON.stringify(mapped));
                         }
 
-                    const { data: data } = await window.supabase.from("course_codes").select("courses");
+                    const { data: data } = await window.supabase
+                        .from("course_codes")
+                        .select("courses");
                     if (data)
                         if (data.length > 0) localStorage.setItem("course_codes", data[0].courses);
                 }
