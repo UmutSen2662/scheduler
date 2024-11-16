@@ -31,8 +31,11 @@
                 if (error) {
                     console.error("Sign In Error:", error.message);
                     alert("Error signing in: " + error.message);
-                } else {
+                } else if (user) {
+                    console.log("Sign In Success:", user);
                     window.location.href = "/Scheduler/"; // redirect to home page
+                } else {
+                    console.log("User could not be signed in.");
                 }
             }
 

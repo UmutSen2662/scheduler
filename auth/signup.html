@@ -32,8 +32,11 @@
                 if (error) {
                     console.error("Sign Up Error:", error.message);
                     alert("Error signing up: " + error.message);
-                } else {
+                } else if (user) {
+                    console.log("Sign up Success:", user);
                     window.location.href = "/Scheduler/"; // redirect to home page
+                } else {
+                    console.log("User could not be signed up.");
                 }
             }
 
