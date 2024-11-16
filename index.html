@@ -221,21 +221,7 @@
 
         <!-- Main script -->
         <script type="text/javascript">
-            // Get supabase
-            async function signInOut() {
-                if (window.userid) {
-                    const { error } = await window.supabase.auth.signOut();
-                    if (error) {
-                        alert("Error signing out: " + error.message);
-                    } else {
-                        window.location.href = "/Scheduler/"; // redirect to home page
-                        return;
-                    }
-                }
-                window.location.href = "/Scheduler/auth/signin.html";
-            }
-
-            // check if a user is signed in otherwise redirect to signin
+            console.log("User ID:", window.userid + " ");
             document.addEventListener("DOMContentLoaded", async function () {
                 if (window.userid) {
                     const signInOut = document.getElementById("signInOut");
@@ -505,6 +491,19 @@
                     (c) => c.col != parseInt(id[0], 16) || c.row != parseInt(id[1], 16)
                 );
                 localStorage.setItem("course", JSON.stringify(filtered));
+            }
+
+            async function signInOut() {
+                if (window.userid) {
+                    const { error } = await window.supabase.auth.signOut();
+                    if (error) {
+                        alert("Error signing out: " + error.message);
+                    } else {
+                        window.location.href = "/Scheduler/"; // redirect to home page
+                        return;
+                    }
+                }
+                window.location.href = "/Scheduler/auth/signin.html";
             }
         </script>
     </body>
