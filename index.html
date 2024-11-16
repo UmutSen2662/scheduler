@@ -19,9 +19,9 @@
                     const signInOut = document.getElementById("signInOut");
                     signInOut.style.backgroundColor = "#D32F2F";
                     signInOut.innerHTML = "Offline";
-                })
+                });
             };
-            if (true) handle_offline();
+            if (!await isOnline()) handle_offline();
             window.addEventListener("offline", () => {
                 handle_offline();
             });

@@ -12,8 +12,25 @@ async function checkSession() {
     return null;
 }
 
+async function isOnline() {
+    if (!window.navigator.onLine) return false;
+
+    // avoid CORS errors with a request to your own origin
+    const url = new URL(window.location.origin + "/Scheduler/isOnline");
+
+    // random value to prevent cached responses
+    url.searchParams.set("rand", Math.random().toString(36).substring(2, 15));
+
+    try {
+        const response = await fetch(url.toString(), { method: "HEAD" });
+        return response.ok;
+    } catch {
+        return false;
+    }
+}
+
 // If offline set supabase and userid to null else check session
-if (false) {
+if (await isOnline()) {
     await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm")
         .then(async ({ createClient }) => {
             window.supabase = await createClient(
