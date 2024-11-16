@@ -27,7 +27,7 @@
                 const password = document.getElementById("password").value;
 
                 const { user, error } = await window.supabase.auth.signInWithPassword({ email, password });
-
+                console.log(user, error);
                 if (error) {
                     console.error("Sign In Error:", error.message);
                     alert("Error signing in: " + error.message);
