@@ -14,7 +14,6 @@ async function checkSession() {
 
 // If offline set supabase and userid to null else check session
 if (navigator.onLine) {
-    console.log("online");
     import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm")
         .then(async ({ createClient }) => {
             window.supabase = await createClient(
@@ -27,7 +26,6 @@ if (navigator.onLine) {
             console.error(error);
         });
 } else {
-    console.log("offline");
     window.supabase = null;
     window.userid = null;
 }

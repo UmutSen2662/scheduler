@@ -1,4 +1,4 @@
-const cacheName = "v2";
+const cacheName = "v3";
 const urlsToCache = [
     "/Scheduler/",
     "/Scheduler/style.css",
@@ -27,12 +27,6 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-    if (event.request.url.includes("supabase")) {
-        if (!navigator.onLine) {
-            event.respondWith(new Response("", { status: 204 }));
-            return;
-        }
-    }
     event.respondWith(
         caches.match(event.request).then((response) => {
             return response || fetch(event.request);
