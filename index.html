@@ -221,34 +221,49 @@
 
         <!-- Main script -->
         <script type="text/javascript">
-            console.log("User ID:", window.userid + " ");
-            document.addEventListener("DOMContentLoaded", async function () {
-                if (window.userid) {
-                    const signInOut = document.getElementById("signInOut");
-                    signInOut.style.backgroundColor = "#888";
-                    signInOut.innerHTML = "Sign Out";
-                }
-                if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
-                if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
-                await getData();
-
-                const modal = document.getElementById("modal");
-                modal.addEventListener("click", (event) => {
-                    if (event.target == modal) modal.close();
-                });
-
-                const courseCodes = document.getElementById("courseCodes");
-                const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
-                courseCodes.addEventListener("input", () => {
-                    debouncedEvalCourseCodes(courseCodes.value);
-                });
-                evalCourseCodes(courseCodes.value);
-
-                const schedule = document.getElementById("schedule");
-                const debouncedResize = debounce(resize, 300);
-                window.addEventListener("resize", () => debouncedResize(schedule));
-                resize(schedule);
+            // Track whether each condition is met
+            let isDomLoaded = false;
+            let isSupabaseSet = window.userid !== undefined;
+            document.addEventListener("DOMContentLoaded", () => {
+                isDomLoaded = true;
+                tryRunMainLogic();
             });
+            window.addEventListener("userid-set", () => {
+                isSupabaseSet = true;
+                tryRunMainLogic();
+            });
+
+            // This function makes sure the main logic is run after the DOM is loaded and supabase is set
+            async function tryRunMainLogic() {
+                if (isDomLoaded && isSupabaseSet) {
+                    if (window.userid) {
+                        const signInOut = document.getElementById("signInOut");
+                        signInOut.style.backgroundColor = "#888";
+                        signInOut.innerHTML = "Sign Out";
+                    }
+                    if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
+                    if (!localStorage.getItem("course_codes"))
+                        localStorage.setItem("course_codes", "");
+                    await getData();
+
+                    const modal = document.getElementById("modal");
+                    modal.addEventListener("click", (event) => {
+                        if (event.target == modal) modal.close();
+                    });
+
+                    const courseCodes = document.getElementById("courseCodes");
+                    const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
+                    courseCodes.addEventListener("input", () => {
+                        debouncedEvalCourseCodes(courseCodes.value);
+                    });
+                    evalCourseCodes(courseCodes.value);
+
+                    const schedule = document.getElementById("schedule");
+                    const debouncedResize = debounce(resize, 300);
+                    window.addEventListener("resize", () => debouncedResize(schedule));
+                    resize(schedule);
+                }
+            }
 
             async function evalCourseCodes(courseCodes) {
                 const set = new Set();

@@ -25,3 +25,5 @@ if (navigator.onLine) {
     window.supabase = null;
     window.userid = null;
 }
+
+window.dispatchEvent(new CustomEvent("supabase-set"));

@@ -41,14 +41,29 @@
                 }
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const main = document.getElementById("main");
-                main.addEventListener("keydown", (event) => {
-                    if (event.key === "Enter") {
-                        signIn();
-                    }
-                });
+            // Track whether each condition is met
+            let isDomLoaded = false;
+            let isSupabaseSet = window.userid !== undefined;
+            document.addEventListener("DOMContentLoaded", () => {
+                isDomLoaded = true;
+                tryRunMainLogic();
             });
+            window.addEventListener("userid-set", () => {
+                isSupabaseSet = true;
+                tryRunMainLogic();
+            });
+
+            // This function makes sure the main logic is run after the DOM is loaded and supabase is set
+            async function tryRunMainLogic() {
+                if (isDomLoaded && isSupabaseSet) {
+                    const main = document.getElementById("main");
+                    main.addEventListener("keydown", (event) => {
+                        if (event.key === "Enter") {
+                            signUp();
+                        }
+                    });
+                }
+            }
         </script>
     </body>
     <style>
