@@ -222,11 +222,10 @@
         <!-- Main script -->
         <script type="text/javascript">
             // Get supabase
-            const supabase = window.supabase;
             async function signInOut() {
                 const userid = await checkSession();
                 if (userid) {
-                    const { error } = await supabase.auth.signOut();
+                    const { error } = await window.supabase.auth.signOut();
                     if (error) {
                         alert("Error signing out: " + error.message);
                     } else {
@@ -278,7 +277,7 @@
                 // Depending on if the user is signed in or not, store the course codes in either the local storage or the database
                 localStorage.setItem("course_codes", str);
                 if (window.userid) {
-                    const { error } = await supabase
+                    const { error } = await window.supabase
                         .from("course_codes")
                         .upsert({ userid: window.userid, courses: str });
                     if (error) {
@@ -287,7 +286,7 @@
                 }
 
                 const exams = document.getElementById("exams");
-                let { data: data } = await supabase.from("exams").select("*"); // this is not user dependent no need to check userid
+                let { data: data } = await window.supabase.from("exams").select("*"); // this is not user dependent no need to check userid
                 if (data) localStorage.setItem("exams", JSON.stringify(data));
                 else data = JSON.parse(localStorage.getItem("exams"));
                 let prevDate = Date.now();
@@ -342,7 +341,7 @@
 
             async function getData() {
                 if (window.userid) {
-                    const { data: course } = await supabase.from("course").select("*");
+                    const { data: course } = await window.supabase.from("course").select("*");
                     if (course)
                         if (course.length > 0) {
                             const mapped = course.map((c) => ({
@@ -356,7 +355,7 @@
                             localStorage.setItem("course", JSON.stringify(mapped));
                         }
 
-                    const { data: data } = await supabase.from("course_codes").select("courses");
+                    const { data: data } = await window.supabase.from("course_codes").select("courses");
                     if (data)
                         if (data.length > 0) localStorage.setItem("course_codes", data[0].courses);
                 }
@@ -447,7 +446,7 @@
                 td.style.backgroundColor = Modal.get("color");
 
                 if (window.userid) {
-                    const { error } = await supabase.from("course").upsert({
+                    const { error } = await window.supabase.from("course").upsert({
                         userid: window.userid,
                         name: name,
                         section: section,
@@ -489,7 +488,7 @@
                 td.innerHTML = "";
 
                 if (window.userid) {
-                    const { error } = await supabase
+                    const { error } = await window.supabase
                         .from("course")
                         .delete()
                         .eq("userid", window.userid)
