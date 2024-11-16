@@ -221,6 +221,22 @@
 
         <!-- Main script -->
         <script type="text/javascript">
+            // Get supabase
+            const supabase = window.supabase;
+            async function signInOut() {
+                const userid = await checkSession();
+                if (userid) {
+                    const { error } = await supabase.auth.signOut();
+                    if (error) {
+                        alert("Error signing out: " + error.message);
+                    } else {
+                        window.location.href = "/Scheduler/"; // redirect to home page
+                        return;
+                    }
+                }
+                window.location.href = "/Scheduler/auth/signin.html";
+            }
+
             // check if a user is signed in otherwise redirect to signin
             document.addEventListener("DOMContentLoaded", async function () {
                 if (window.userid) {
