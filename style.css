@@ -152,6 +152,13 @@ dialog form button {
     text-wrap: wrap;
 }
 
+#overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
 @media screen and (max-width: 767px) {
     html,
     body {

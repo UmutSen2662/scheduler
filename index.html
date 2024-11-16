@@ -12,9 +12,22 @@
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker.register("/Scheduler/sw.js");
             }
+            // handle offline
+            const handle_offline = () => {
+                document.getElementById("overlay").style.display = "block";
+                const signInOut = document.getElementById("signInOut");
+                signInOut.style.backgroundColor = "#D32F2F";
+                signInOut.innerHTML = "Sign Out";
+            };
+            if (!navigator.onLine) handle_offline();
+            window.addEventListener("offline", () => {
+                handle_offline();
+            });
         </script>
     </head>
     <body style="display: flex; align-items: center; flex-direction: column">
+        <div id="overlay"></div>
+
         <div style="display: flex; justify-content: space-between; padding: 0.5rem; width: 100%">
             <h2>METU Schedule and CEF</h2>
             <button id="signInOut" style="padding: 0.6rem" onclick="signInOut()">Sign In</button>
