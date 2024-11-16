@@ -1,4 +1,4 @@
-const cacheName = "v1";
+const cacheName = "v2";
 const urlsToCache = [
     "/Scheduler/",
     "/Scheduler/style.css",
@@ -16,7 +16,15 @@ self.addEventListener("install", (event) => {
     );
 });
 
-self.addEventListener("activate", (event) => {});
+self.addEventListener("activate", (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(
+                keys.filter((key) => key !== cacheName).map((key) => caches.delete(key))
+            );
+        })
+    );
+});
 
 self.addEventListener("fetch", (event) => {
     event.respondWith(
