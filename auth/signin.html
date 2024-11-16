@@ -32,10 +32,7 @@
                     console.error("Sign In Error:", error.message);
                     alert("Error signing in: " + error.message);
                 } else {
-                    const userid = checkSession();
-                    if (userid) {
-                        window.location.href = "/Scheduler/";
-                    }
+                    window.location.href = "/Scheduler/"; // redirect to home page
                 }
             }
 
