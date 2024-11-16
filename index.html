@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="/Scheduler/style.css" />
         <link rel="manifest" href="/Scheduler/manifest.json" />
         <link rel="shortcut icon" href="/Scheduler/scheduler any.png" />
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("/Scheduler/sw.js");
+            }
+        </script>
     </head>
     <body style="display: flex; align-items: center; flex-direction: column">
         <div style="display: flex; justify-content: space-between; padding: 0.5rem; width: 100%">
