@@ -3,15 +3,10 @@
     <head>
         <title>Scheduler</title>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="manifest" href="/Scheduler/manifest.json" />
         <link rel="stylesheet" href="/Scheduler/style.css" />
         <link rel="shortcut icon" href="/Scheduler/scheduler any.png" />
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script>
-            const { createClient } = supabase;
-        </script>
-        <script src="/Scheduler/supabase.js"></script>
     </head>
     <body style="display: flex; align-items: center; flex-direction: column">
         <div style="display: flex; justify-content: space-between; padding: 0.5rem; width: 100%">
@@ -467,4 +462,9 @@
             localStorage.setItem("course", JSON.stringify(filtered));
         }
     </script>
+    <script src="/Scheduler/supabase.js"></script>
+    <script>
+        const { createClient } = supabase;
+    </script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
 </html>
