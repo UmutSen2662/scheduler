@@ -1,13 +1,27 @@
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js");
+const cacheName = "v1";
+const urlsToCache = [
+    "/Scheduler/",
+    "/Scheduler/style.css",
+    "/Scheduler/supabase.js",
+    "/Scheduler/manifest.json",
+    "/Scheduler/scheduler any.png",
+    "/Scheduler/scheduler maskable.png",
+];
 
-if (workbox) {
-    // Precache and route static files
-    workbox.precaching.precacheAndRoute([
-        { url: "/Scheduler/", revision: null },
-        { url: "/Scheduler/index.html", revision: "1" },
-        { url: "/Scheduler/style.css", revision: "1" },
-        { url: "/Scheduler/manifest.json", revision: "1" },
-        { url: "/Scheduler/scheduler any.png", revision: "1" },
-        { url: "/Scheduler/scheduler maskable.png", revision: "1" },
-    ]);
-}
+self.addEventListener("install", (event) => {
+    event.waitUntil(
+        caches.open(cacheName).then((cache) => {
+            cache.addAll(urlsToCache);
+        })
+    );
+});
+
+self.addEventListener("activate", (event) => {});
+
+self.addEventListener("fetch", (event) => {
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
+});
