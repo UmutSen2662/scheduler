@@ -17,7 +17,7 @@
                 document.getElementById("overlay").style.display = "block";
                 const signInOut = document.getElementById("signInOut");
                 signInOut.style.backgroundColor = "#D32F2F";
-                signInOut.innerHTML = "Sign Out";
+                signInOut.innerHTML = "Offline";
             };
             if (!navigator.onLine) handle_offline();
             window.addEventListener("offline", () => {
@@ -279,7 +279,9 @@
                 }
 
                 const exams = document.getElementById("exams");
-                const { data: data } = await supabase.from("exams").select("*"); // this is not user dependent no need to check userid
+                let { data: data } = await supabase.from("exams").select("*"); // this is not user dependent no need to check userid
+                if (data) localStorage.setItem("exams", JSON.stringify(data));
+                else data = JSON.parse(localStorage.getItem("exams"));
                 let prevDate = Date.now();
                 exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
                 data.forEach((exam) => {

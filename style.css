@@ -139,6 +139,7 @@ dialog form button {
 
 #examsContainer {
     width: 96%;
+    z-index: 1000;
     display: flex;
     overflow-x: auto;
     margin-bottom: 3rem;
@@ -156,7 +157,7 @@ dialog form button {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 
 @media screen and (max-width: 767px) {
