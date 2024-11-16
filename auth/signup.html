@@ -6,12 +6,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/Scheduler/style.css" />
         <link rel="shortcut icon" href="/Scheduler/scheduler any.png" />
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-        <script defer>
-            const { createClient } = supabase;
+    </head>
+    <body>
+        <div id="main">
+            <h2>Sign up</h2>
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+            <button style="padding: 0.6rem" onclick="signUp()">Sign up</button>
+        </div>
+        <p>Already have an account? <a href="/Scheduler/auth/signin.html">Sign in</a></p>
+
+        <!-- helper scripts -->
+        <script type="module">
+            import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+            window.supabase = await createClient(
+                "https://gpprfxmjjjowyuqgvwzr.supabase.co",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q"
+            );
         </script>
         <script src="/Scheduler/supabase.js" defer></script>
-        <script>
+
+        <!-- main script -->
+        <script type="text/javascript">
             // Sign Up
             async function signUp() {
                 const email = document.getElementById("email").value;
@@ -39,16 +56,6 @@
                 });
             });
         </script>
-    </head>
-    <body>
-        <div id="main">
-            <h2>Sign up</h2>
-            <input type="email" id="email" placeholder="Email" required />
-            <input type="password" id="password" placeholder="Password" required />
-            <input type="password" id="confirm_password" placeholder="Confirm Password" required />
-            <button style="padding: 0.6rem" onclick="signUp()">Sign up</button>
-        </div>
-        <p>Already have an account? <a href="/Scheduler/auth/signin.html">Sign in</a></p>
     </body>
     <style>
         body {
