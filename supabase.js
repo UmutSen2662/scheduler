@@ -1,3 +1,5 @@
+const supabase = window.supabase;
+
 // Sign In/Out
 async function signInOut() {
     const userid = await checkSession();
