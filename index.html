@@ -14,12 +14,14 @@
             }
             // handle offline
             const handle_offline = () => {
-                document.getElementById("overlay").style.display = "block";
-                const signInOut = document.getElementById("signInOut");
-                signInOut.style.backgroundColor = "#D32F2F";
-                signInOut.innerHTML = "Offline";
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.getElementById("overlay").style.display = "block";
+                    const signInOut = document.getElementById("signInOut");
+                    signInOut.style.backgroundColor = "#D32F2F";
+                    signInOut.innerHTML = "Offline";
+                })
             };
-            if (!navigator.onLine) handle_offline();
+            if (true) handle_offline();
             window.addEventListener("offline", () => {
                 handle_offline();
             });
