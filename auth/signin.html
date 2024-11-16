@@ -26,13 +26,14 @@
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
 
-                const { user, error } = await window.supabase.auth.signInWithPassword({ email:email, password:password });
-                console.log(window.supabase ,user, error);
+                const { data, error } = await window.supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
                 if (error) {
                     console.error("Sign In Error:", error.message);
                     alert("Error signing in: " + error.message);
-                } else if (user) {
-                    console.log("Sign In Success:", user);
+                } else if (data) {
                     window.location.href = "/Scheduler/"; // redirect to home page
                 } else {
                     console.log("User could not be signed in.");
