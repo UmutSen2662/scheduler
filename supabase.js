@@ -38,7 +38,6 @@ if (await isOnline()) {
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q"
             );
             if (window.location.pathname == "/Scheduler/") window.userid = await checkSession();
-            console.log(window.userid + " ");
         })
         .catch((error) => {
             console.error(error);
@@ -48,5 +47,4 @@ if (await isOnline()) {
     window.userid = null;
 }
 
-console.log(window.userid + " ");
 window.dispatchEvent(new CustomEvent("supabase-set"));
