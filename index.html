@@ -460,9 +460,9 @@
                 const roomInput = document.getElementById("modalRoom");
 
                 const id = Modal.get("id");
-                const name = nameInput.value;
-                const section = sectionInput.value;
-                const room = roomInput.value;
+                const name = nameInput.value.toUpperCase();
+                const section = sectionInput.value.toUpperCase();
+                const room = roomInput.value.toUpperCase();
 
                 const td = document.getElementById(id);
                 td.innerHTML = `${name} (${section}) [${room}]`;
