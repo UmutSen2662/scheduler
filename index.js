@@ -30,8 +30,11 @@ async function tryRunMainLogic() {
         const tagsInput = document.getElementById("tagsInput");
         const tagsContainer = document.getElementById("tagsContainer");
         tagsInput.addEventListener("keyup", (e) => {
-            if (e.key !== "Enter") return;
-            evalCourseCodes(tagsInput, tagsContainer);
+            if (e.key === "Enter") evalCourseCodes(tagsInput, tagsContainer);
+            if (e.key === "Backspace") {
+                if (tagsInput.value == "")
+                    Array.from(tagsContainer.querySelectorAll(".tag")).slice(-1)[0].click();
+            }
         });
         tagsInput.value = localStorage.getItem("course_codes");
         evalCourseCodes(tagsInput, tagsContainer);

@@ -132,8 +132,8 @@ dialog form button {
     width: min(90%, 50rem);
     margin: 4rem 0 1rem 0;
 }
-#courseCodes span {
-    padding-bottom: 0.4rem;
+#courseCodes p {
+    padding-left: 0.4rem;
 }
 
 #tagsContainer {
@@ -154,6 +154,7 @@ dialog form button {
 }
 .tag {
     display: flex;
+    color: #fff;
     cursor: pointer;
     padding: 0.4rem;
     background: #888;
