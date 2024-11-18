@@ -147,6 +147,7 @@ dialog form button {
     flex: 1;
     border: none;
     outline: none;
+    font-size: 1rem;
     min-width: 6rem;
     line-height: 160%;
     background: #f5f5f5;

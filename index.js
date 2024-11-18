@@ -29,10 +29,9 @@ async function tryRunMainLogic() {
 
         const tagsInput = document.getElementById("tagsInput");
         const tagsContainer = document.getElementById("tagsContainer");
-        const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
         tagsInput.addEventListener("keyup", (e) => {
             if (e.key !== "Enter") return;
-            debouncedEvalCourseCodes(tagsInput, tagsContainer);
+            evalCourseCodes(tagsInput, tagsContainer);
         });
         tagsInput.value = localStorage.getItem("course_codes");
         evalCourseCodes(tagsInput, tagsContainer);
@@ -44,7 +43,7 @@ async function tryRunMainLogic() {
     }
 }
 
-async function evalCourseCodes(input, container) {
+async function evalCourseCodes(input, container, remove = false) {
     const set = new Set();
 
     let inputValid = false;
@@ -52,15 +51,17 @@ async function evalCourseCodes(input, container) {
         set.add(tag.innerHTML);
         tag.remove();
     });
-    input.value
-        .toUpperCase()
-        .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
-        .forEach((r) => {
-            set.add(r[1] + " " + r[2]);
-            inputValid = true;
-        });
-    if (inputValid) {
-        input.value = "";
+    if (!remove) {
+        input.value
+            .toUpperCase()
+            .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
+            .forEach((r) => {
+                set.add(r[1] + " " + r[2]);
+                inputValid = true;
+            });
+        if (inputValid) {
+            input.value = "";
+        }
     }
 
     // Create tags from the set
@@ -70,7 +71,7 @@ async function evalCourseCodes(input, container) {
         tag.innerHTML = course;
         tag.addEventListener("click", () => {
             tag.remove();
-            evalCourseCodes(input, container);
+            evalCourseCodes(input, container, true);
         });
         container.prepend(tag);
     }
