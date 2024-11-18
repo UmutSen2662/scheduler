@@ -1,6 +1,7 @@
-const cacheName = "v3";
+const cacheName = "v4";
 const urlsToCache = [
     "/Scheduler/",
+    "/Scheduler/index.js",
     "/Scheduler/style.css",
     "/Scheduler/supabase.js",
     "/Scheduler/manifest.json",
