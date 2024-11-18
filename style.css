@@ -15,6 +15,7 @@ body {
 
 input {
     text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
 h1,
@@ -57,6 +58,7 @@ button {
     border: none;
     font-size: 0.8rem;
     cursor: pointer;
+    color: #fff;
 }
 button::before {
     content: "";
@@ -87,7 +89,6 @@ dialog input {
     padding: 0.4rem;
     border: 0.1rem solid #222;
     margin-bottom: 0.6rem;
-    font-size: 0.8rem;
 }
 dialog input:last-child {
     margin-bottom: 0;
@@ -128,20 +129,21 @@ dialog form button {
 }
 
 #courseCodes {
-    font-size: 1rem;
-    padding: 0.4rem;
+    width: min(90%, 50rem);
+    margin: 4rem 0 1rem 0;
+}
+#courseCodes span {
+    padding-bottom: 0.4rem;
 }
 
-#courseCodes {
+#tagsContainer {
     gap: 0.6rem;
     display: flex;
     flex-wrap: wrap;
     padding: 0.4rem;
-    margin: 4rem 0 1rem 0;
-    width: min(90%, 50rem);
     border: 0.1rem solid #222;
 }
-#courseCodesInput {
+#tagsInput {
     flex: 1;
     border: none;
     outline: none;
