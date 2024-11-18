@@ -27,12 +27,15 @@ async function tryRunMainLogic() {
             if (event.target == modal) modal.close();
         });
 
-        const courseCodes = document.getElementById("courseCodes");
+        const tagsInput = document.getElementById("tagsInput");
+        const tagsContainer = document.getElementById("tagsContainer");
         const debouncedEvalCourseCodes = debounce(evalCourseCodes, 1000);
-        courseCodes.addEventListener("input", () => {
-            debouncedEvalCourseCodes(courseCodes.value);
+        tagsInput.addEventListener("keyup", (e) => {
+            if (e.key !== "Enter") return;
+            debouncedEvalCourseCodes(tagsInput, tagsContainer);
         });
-        evalCourseCodes(courseCodes.value);
+        tagsInput.value = localStorage.getItem("course_codes");
+        evalCourseCodes(tagsInput, tagsContainer);
 
         const schedule = document.getElementById("schedule");
         const debouncedResize = debounce(resize, 300);
@@ -41,16 +44,39 @@ async function tryRunMainLogic() {
     }
 }
 
-async function evalCourseCodes(courseCodes) {
+async function evalCourseCodes(input, container) {
     const set = new Set();
-    courseCodes
+
+    let inputValid = false;
+    container.querySelectorAll(".tag").forEach((tag) => {
+        set.add(tag.innerHTML);
+        tag.remove();
+    });
+    input.value
         .toUpperCase()
         .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
-        .forEach((r) => set.add(r[1] + r[2]));
+        .forEach((r) => {
+            set.add(r[1] + " " + r[2]);
+            inputValid = true;
+        });
+    if (inputValid) {
+        input.value = "";
+    }
 
-    const str = Array.from(set).join(" ");
+    // Create tags from the set
+    for (const course of Array.from(set).reverse()) {
+        const tag = document.createElement("span");
+        tag.classList.add("tag");
+        tag.innerHTML = course;
+        tag.addEventListener("click", () => {
+            tag.remove();
+            evalCourseCodes(input, container);
+        });
+        container.prepend(tag);
+    }
 
     // Depending on if the user is signed in or not, store the course codes in either the local storage or the database
+    const str = Array.from(set).join(",");
     localStorage.setItem("course_codes", str);
     if (window.userid) {
         const { error } = await window.supabase
@@ -71,7 +97,7 @@ async function evalCourseCodes(courseCodes) {
     let prevDate = Date.now();
     exams.querySelectorAll("tr:not(:first-child)").forEach((tr) => tr.remove());
     data.forEach((exam) => {
-        if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0].replace(" ", ""))) return; // skip if the course code is not in the set
+        if (!set.has(exam.course_exam.match(/[A-Z]{3,4}\s?\d{3,4}/g)[0])) return; // skip if the course code is not in the set
 
         const dateObj = new Date(exam.start_time);
         // Get the components of the date
@@ -131,7 +157,6 @@ async function getData() {
         const { data: data } = await window.supabase.from("course_codes").select("courses");
         if (data) if (data.length > 0) localStorage.setItem("course_codes", data[0].courses);
     }
-    document.getElementById("courseCodes").value = localStorage.getItem("course_codes");
 
     fillSchedule(JSON.parse(localStorage.getItem("course")));
 }

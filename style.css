@@ -148,13 +148,17 @@ dialog form button {
     border: none;
     outline: none;
     min-width: 6rem;
+    line-height: 160%;
+    background: #f5f5f5;
 }
-#tag {
+.tag {
     display: flex;
-    outline: none;
+    cursor: pointer;
     padding: 0.4rem;
     background: #888;
-    border: 0;
+}
+.tag:hover {
+    background: #e00;
 }
 
 #examsContainer {
