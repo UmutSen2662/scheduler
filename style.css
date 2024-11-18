@@ -147,12 +147,7 @@ dialog form button {
     outline: none;
     min-width: 6rem;
 }
-#tags {
-    gap: 0.6rem;
-    display: flex;
-    flex-wrap: wrap;
-}
-#tags button {
+#tag {
     display: flex;
     outline: none;
     padding: 0.4rem;
