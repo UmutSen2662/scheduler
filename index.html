@@ -162,7 +162,7 @@
         <div id="courseCodes">
             <p>Write course codes then press enter</p>
             <div id="tagsContainer">
-                <input type="text" id="tagsInput" />
+                <input type="text" id="tagsInput" list="courseCodes" />
             </div>
         </div>
         <div id="examsContainer">
@@ -231,6 +231,12 @@
                 </form>
             </div>
         </dialog>
+
+        <!-- These are used as autocomplete for course codes, sections, and classrooms -->
+        <datalist id="courseCodes"></datalist>
+        <datalist id="sections"></datalist>
+        <datalist id="classrooms"></datalist>
+
         <a style="margin: 1rem; margin-left: auto" href="https://github.com/UmutSen2662/Scheduler"
             >GitHub Page</a
         >

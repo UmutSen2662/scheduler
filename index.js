@@ -43,6 +43,8 @@ async function tryRunMainLogic() {
         const debouncedResize = debounce(resize, 300);
         window.addEventListener("resize", () => debouncedResize(schedule));
         resize(schedule);
+
+        updateDataLists();
     }
 }
 
@@ -225,9 +227,9 @@ function openModal(name, section, room, color, id) {
     Modal.set("id", id);
     Modal.set("color", color);
     inside.innerHTML = `
-    <input type="text" id="modalName" placeholder="Name" value="${name}">
-    <input type="text" id="modalSection" placeholder="Section" value="${section}">
-    <input type="text" id="modalRoom" placeholder="Room" value="${room}">
+    <input type="text" id="modalName" placeholder="Name" list="courseCodes" value="${name}">
+    <input type="text" id="modalSection" placeholder="Section" list="sections" value="${section}">
+    <input type="text" id="modalRoom" placeholder="Room" list="classrooms" value="${room}">
 `;
     modal.showModal();
 }
@@ -280,6 +282,7 @@ async function modalSave() {
         }
     });
     localStorage.setItem("course", JSON.stringify(course));
+    updateDataLists();
 }
 
 async function modalDelete() {
@@ -302,6 +305,7 @@ async function modalDelete() {
         (c) => c.col != parseInt(id[0], 16) || c.row != parseInt(id[1], 16)
     );
     localStorage.setItem("course", JSON.stringify(filtered));
+    updateDataLists();
 }
 
 async function signInOut() {
@@ -315,4 +319,16 @@ async function signInOut() {
         }
     }
     window.location.href = "/Scheduler/auth/signin.html";
+}
+
+async function updateDataLists() {
+    const courseCodes = document.getElementById("courseCodes");
+    const sections = document.getElementById("sections");
+    const classrooms = document.getElementById("classrooms");
+
+    window.localStorage.getItem("course").forEach((c) => {
+        courseCodes.innerHTML += `<option>${c.name}</option>`;
+        sections.innerHTML += `<option>${c.section}</option>`;
+        classrooms.innerHTML += `<option>${c.room}</option>`;
+    });
 }
