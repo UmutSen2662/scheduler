@@ -1,4 +1,4 @@
-const cacheName = "v1";
+const cacheName = "v4";
 const urlsToCache = [
     "/Scheduler/",
     "/Scheduler/index.js",

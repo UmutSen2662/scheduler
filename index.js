@@ -330,9 +330,26 @@ async function updateDataLists() {
     sections.innerHTML = "";
     classrooms.innerHTML = "";
 
-    localStorage.getItem("course").forEach((c) => {
-        courseCodes.innerHTML += `<option value="${c.name}"></option>`;
-        sections.innerHTML += `<option value="${c.section}"></option>`;
-        classrooms.innerHTML += `<option value="${c.room}"></option>`;
+    const course = JSON.parse(localStorage.getItem("course"));
+    const courseSet = new Set();
+    const sectionSet = new Set();
+    const classroomSet = new Set();
+
+    course.forEach((c) => {
+        courseSet.add(c.name);
+        sectionSet.add(c.section);
+        classroomSet.add(c.room);
+    });
+
+    courseSet.forEach((c) => {
+        courseCodes.innerHTML += `<option value="${c}"></option>`;
+    });
+
+    sectionSet.forEach((s) => {
+        sections.innerHTML += `<option value="${s}"></option>`;
+    });
+
+    classroomSet.forEach((c) => {
+        classrooms.innerHTML += `<option value="${c}"></option>`;
     });
 }
