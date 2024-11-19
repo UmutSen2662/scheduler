@@ -326,9 +326,13 @@ async function updateDataLists() {
     const sections = document.getElementById("sections");
     const classrooms = document.getElementById("classrooms");
 
-    window.localStorage.getItem("course").forEach((c) => {
-        courseCodes.innerHTML += `<option>${c.name}</option>`;
-        sections.innerHTML += `<option>${c.section}</option>`;
-        classrooms.innerHTML += `<option>${c.room}</option>`;
+    courseCodes.innerHTML = "";
+    sections.innerHTML = "";
+    classrooms.innerHTML = "";
+
+    localStorage.getItem("course").forEach((c) => {
+        courseCodes.innerHTML += `<option value="${c.name}"></option>`;
+        sections.innerHTML += `<option value="${c.section}"></option>`;
+        classrooms.innerHTML += `<option value="${c.room}"></option>`;
     });
 }
