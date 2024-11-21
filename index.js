@@ -57,13 +57,11 @@ async function evalCourseCodes(input, container, remove = false) {
         tag.remove();
     });
     if (!remove) {
-        input.value
-            .toUpperCase()
-            .matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)
-            .forEach((r) => {
-                set.add(r[1] + " " + r[2]);
-                inputValid = true;
-            });
+        Array.from(input.value.toUpperCase().matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)).forEach((r) => {
+            set.add(r[1] + " " + r[2]);
+            inputValid = true;
+        });
+
         if (inputValid) {
             input.value = "";
         }
