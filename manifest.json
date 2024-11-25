@@ -6,6 +6,7 @@
     "id": "this_is_the_id_for_scheduler",
     "start_url": "https://umutsen2662.github.io/Scheduler/",
     "scope": "https://umutsen2662.github.io/Scheduler/",
+    "orientation": "portrait",
     "icons": [
         {
             "purpose": "maskable",
@@ -20,8 +21,13 @@
             "type": "image/png"
         }
     ],
-    "categories": ["productivity", "utilities"],
+    "launch_handler": {
+        "client_mode": ["navigate-existing", "auto"]
+    },
     "display": "standalone",
     "display_override": ["standalone", "minimal-ui", "browser", "window-controls-overlay"],
+    "dir": "auto",
+    "lang": "en",
+    "categories": ["productivity", "utilities"],
     "description": "Scheduler is an app that allows you to create a schedule and see current exams"
 }
