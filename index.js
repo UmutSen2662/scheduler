@@ -15,6 +15,11 @@ async function preSupabaseLogic() {
     if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
     if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
 
+    const schedule = document.getElementById("schedule");
+    const debouncedResize = debounce(resize, 300);
+    window.addEventListener("resize", () => debouncedResize(schedule));
+    resize(schedule);
+
     getScheduleData();
 
     const tagsInput = document.getElementById("tagsInput");
@@ -49,11 +54,6 @@ async function tryRunMainLogic() {
         const tagsInput = document.getElementById("tagsInput");
         const tagsContainer = document.getElementById("tagsContainer");
         evalCourseCodes(tagsInput, tagsContainer);
-
-        const schedule = document.getElementById("schedule");
-        const debouncedResize = debounce(resize, 300);
-        window.addEventListener("resize", () => debouncedResize(schedule));
-        resize(schedule);
 
         // This is called here even though it's not supabase dependent because it is low priority
         updateDataLists();
