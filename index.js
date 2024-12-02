@@ -103,7 +103,7 @@ async function evalCourseCodes(input, container, remove = false) {
     const exams = document.getElementById("exams");
     // this is not user dependent no need to check userid
     let { data: data } = window.supabase
-        ? await window.supabase.from("exams").select("*")
+        ? await window.supabase.from("exams").select("course_exam, start_time, classrooms")
         : { data: JSON.parse(localStorage.getItem("exams")) };
     if (data) localStorage.setItem("exams", JSON.stringify(data));
 
