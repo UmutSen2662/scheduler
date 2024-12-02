@@ -1,8 +1,9 @@
 // Track whether each condition is met
-let isDomLoaded = false;
+let isMainLogicFinished = false;
 let isSupabaseSet = window.userid !== undefined;
-document.addEventListener("DOMContentLoaded", () => {
-    isDomLoaded = true;
+document.addEventListener("DOMContentLoaded", async () => {
+    await preSupabaseLogic();
+    isMainLogicFinished = true;
     tryRunMainLogic();
 });
 window.addEventListener("supabase-set", () => {
@@ -10,17 +11,35 @@ window.addEventListener("supabase-set", () => {
     tryRunMainLogic();
 });
 
+async function preSupabaseLogic() {
+    if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
+    if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
+
+    getScheduleData();
+
+    const tagsInput = document.getElementById("tagsInput");
+    const tagsContainer = document.getElementById("tagsContainer");
+    tagsInput.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") evalCourseCodes(tagsInput, tagsContainer);
+    });
+    tagsInput.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && tagsInput.value == "")
+            Array.from(tagsContainer.querySelectorAll(".tag")).slice(-1)[0].click();
+    });
+    tagsInput.value = localStorage.getItem("course_codes");
+    evalCourseCodes(tagsInput, tagsContainer);
+}
+
 // This function makes sure the main logic is run after the DOM is loaded and supabase is set
 async function tryRunMainLogic() {
-    if (isDomLoaded && isSupabaseSet) {
+    if (isMainLogicFinished && isSupabaseSet) {
         if (window.userid) {
             const signInOut = document.getElementById("signInOut");
             signInOut.style.backgroundColor = "#888";
             signInOut.innerHTML = "Sign Out";
         }
-        if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
-        if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
-        await getData();
+
+        getScheduleData(); // We call this funtion twice once without supabase once with supabase
 
         const modal = document.getElementById("modal");
         modal.addEventListener("click", (event) => {
@@ -29,14 +48,6 @@ async function tryRunMainLogic() {
 
         const tagsInput = document.getElementById("tagsInput");
         const tagsContainer = document.getElementById("tagsContainer");
-        tagsInput.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") evalCourseCodes(tagsInput, tagsContainer);
-        });
-        tagsInput.addEventListener("keydown", (e) => {
-            if (e.key === "Backspace" && tagsInput.value == "")
-                Array.from(tagsContainer.querySelectorAll(".tag")).slice(-1)[0].click();
-        });
-        tagsInput.value = localStorage.getItem("course_codes");
         evalCourseCodes(tagsInput, tagsContainer);
 
         const schedule = document.getElementById("schedule");
@@ -44,6 +55,7 @@ async function tryRunMainLogic() {
         window.addEventListener("resize", () => debouncedResize(schedule));
         resize(schedule);
 
+        // This is called here even though it's not supabase dependent because it is low priority
         updateDataLists();
     }
 }
@@ -142,7 +154,7 @@ function debounce(func, interval) {
     };
 }
 
-async function getData() {
+async function getScheduleData() {
     if (window.userid) {
         const { data: course } = await window.supabase.from("course").select("*");
         if (course)
