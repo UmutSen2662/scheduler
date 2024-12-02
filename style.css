@@ -132,7 +132,7 @@ dialog form button {
     width: min(90%, 50rem);
     margin: 4rem 0 1rem 0;
 }
-#tagsDiv p {
+#tagsDiv label {
     padding-left: 0.4rem;
 }
 
