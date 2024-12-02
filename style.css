@@ -24,8 +24,6 @@ h3 {
 }
 
 table {
-    width: min(40rem, 96%);
-    font-size: min(1rem, 2.4vw);
     border-collapse: collapse;
 }
 
@@ -35,18 +33,20 @@ td {
     border: 2px solid #222;
 }
 
+#schedule {
+    width: min(40rem, 96%);
+    font-size: min(1rem, 2.4vw);
+}
 #schedule th,
 #schedule td {
     width: 18%;
     text-align: center;
 }
-
 #schedule th:first-child,
 #schedule td:first-child {
     width: auto;
     padding: 0.2em;
 }
-
 tr:nth-child(odd) {
     background: #ddd;
 }
