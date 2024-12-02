@@ -15,11 +15,6 @@ async function preSupabaseLogic() {
     if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
     if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
 
-    /* const schedule = document.getElementById("schedule");
-    const debouncedResize = debounce(resize, 300);
-    window.addEventListener("resize", () => debouncedResize(schedule));
-    resize(schedule); */
-
     fillSchedule();
 
     const tagsInput = document.getElementById("tagsInput");
@@ -54,6 +49,7 @@ async function tryRunMainLogic() {
 
         const tagsInput = document.getElementById("tagsInput");
         const tagsContainer = document.getElementById("tagsContainer");
+        tagsInput.value = localStorage.getItem("course_codes");
         evalCourseCodes(tagsInput, tagsContainer);
 
         // This is called here even though it's not supabase dependent because it is low priority
@@ -141,18 +137,6 @@ async function evalCourseCodes(input, container, remove = false) {
         exams.appendChild(tr);
         prevDate = date;
     });
-}
-
-function resize(schedule) {
-    schedule.style.fontSize = Math.min(document.documentElement.clientWidth / 40, 20) + "px";
-}
-
-function debounce(func, interval) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), interval);
-    };
 }
 
 async function syncScheduleData() {
