@@ -24,26 +24,26 @@ h3 {
 }
 
 table {
+    width: min(40rem, 96%);
+    font-size: min(1rem, 2.4vw);
     border-collapse: collapse;
 }
 
 th,
 td {
     padding: 0.3em;
-    border: 0.1em solid #222;
+    border: 2px solid #222;
 }
 
 #schedule th,
 #schedule td {
-    max-width: 7em;
-    min-width: 7em;
+    width: 18%;
     text-align: center;
 }
 
 #schedule th:first-child,
 #schedule td:first-child {
-    max-width: 3.5em;
-    min-width: 3.5em;
+    width: auto;
     padding: 0.2em;
 }
 
@@ -86,7 +86,7 @@ dialog {
 dialog input {
     width: 100%;
     padding: 0.4rem;
-    border: 0.1rem solid #222;
+    border: 2px solid #222;
     margin-bottom: 0.6rem;
     text-transform: uppercase;
 }
@@ -110,17 +110,17 @@ dialog form button {
     margin: 1rem 0;
 }
 #modalColor button {
-    border: 0.1rem solid #222;
+    border: 2px solid #222;
     height: 2rem;
     outline: none;
 }
 #modalColor button:hover,
 #modalColor button:focus {
-    border: 0.2rem dashed rgba(32, 32, 32, 0.6);
+    border: 4px dashed rgba(32, 32, 32, 0.6);
 }
 #modalColor button:active,
 #modalColor button.active {
-    border: 0.2rem dashed #222;
+    border: 4px dashed #222;
 }
 #modalColor button:hover::before,
 #modalColor button:focus::before,
@@ -141,7 +141,7 @@ dialog form button {
     display: flex;
     flex-wrap: wrap;
     padding: 0.4rem;
-    border: 0.1rem solid #222;
+    border: 2px solid #222;
 }
 #tagsInput {
     flex: 1;

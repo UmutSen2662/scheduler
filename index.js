@@ -15,12 +15,12 @@ async function preSupabaseLogic() {
     if (!localStorage.getItem("course")) localStorage.setItem("course", "[]");
     if (!localStorage.getItem("course_codes")) localStorage.setItem("course_codes", "");
 
-    const schedule = document.getElementById("schedule");
+    /* const schedule = document.getElementById("schedule");
     const debouncedResize = debounce(resize, 300);
     window.addEventListener("resize", () => debouncedResize(schedule));
-    resize(schedule);
+    resize(schedule); */
 
-    getScheduleData();
+    fillSchedule();
 
     const tagsInput = document.getElementById("tagsInput");
     const tagsContainer = document.getElementById("tagsContainer");
@@ -44,7 +44,8 @@ async function tryRunMainLogic() {
             signInOut.innerHTML = "Sign Out";
         }
 
-        getScheduleData(); // We call this funtion twice once without supabase once with supabase
+        await syncScheduleData();
+        fillSchedule();
 
         const modal = document.getElementById("modal");
         modal.addEventListener("click", (event) => {
@@ -154,7 +155,7 @@ function debounce(func, interval) {
     };
 }
 
-async function getScheduleData() {
+async function syncScheduleData() {
     if (window.userid) {
         const { data: course } = await window.supabase.from("course").select("*");
         if (course)
@@ -173,11 +174,10 @@ async function getScheduleData() {
         const { data: data } = await window.supabase.from("course_codes").select("courses");
         if (data) if (data.length > 0) localStorage.setItem("course_codes", data[0].courses);
     }
-
-    fillSchedule(JSON.parse(localStorage.getItem("course")));
 }
 
-async function fillSchedule(data) {
+async function fillSchedule() {
+    const data = JSON.parse(localStorage.getItem("course"));
     data.forEach((course) => {
         const td = document.getElementById(`${course.col}${course.row.toString(16)}`);
         td.innerHTML = `${course.name} (${course.section}) [${course.room}]`;
