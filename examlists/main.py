@@ -1,12 +1,14 @@
 from supabase import create_client, Client
+from dotenv import load_dotenv
 from datetime import datetime
 import csv, os, sys
 
 
 def update_exams(file_path):
+    load_dotenv()
     supabase: Client = create_client(
-        "https://gpprfxmjjjowyuqgvwzr.supabase.co",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q",
+        os.environ["SUPABASE_URL"],
+        os.environ["SUPABASE_KEY"],
     )
 
     with open(file_path, "r", encoding="utf-8") as file:
