@@ -1,11 +1,14 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
+    font-family: Arial, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.25;
     font-weight: 400;
+    font-size: 20px;
 
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: #000000;
+    color-scheme: light;
+    background-color: #f5f5f5;
+
+    box-sizing: border-box;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -13,9 +16,36 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
+body {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    font-size: 1rem;
+}
+
+button {
+    position: relative;
+    background: #2070d0;
+    border: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #fff;
+}
+button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+}
+button:focus::before,
+button:hover::before {
+    background: rgba(0, 0, 0, 0.2);
+}
+button:active {
+    outline: none;
+}
+button:active::before {
+    background: rgba(0, 0, 0, 0.1);
 }
