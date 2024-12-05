@@ -20,5 +20,6 @@
         text-align: center;
         padding: 0.3em;
         width: 18%;
+        cursor: pointer;
     }
 </style>

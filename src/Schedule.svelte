@@ -9,12 +9,14 @@
             
             for (let j = 0; j < 5; j++) {
                 let found = false;
-                schedule.forEach((c) => {
-                    if (c.row == i && c.col == j) {
-                        row.push(c);
-                        found = true;
-                    }
-                })
+                if (schedule.length > 0) {
+                    schedule.forEach((c) => {
+                        if (c.row == i && c.col == j) {
+                            row.push(c);
+                            found = true;
+                        }
+                    })
+                }
                 if (!found) {
                     row.push("c" + i.toString(16) + j.toString(16));
                 }

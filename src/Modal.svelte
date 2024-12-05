@@ -85,7 +85,7 @@
             return s;
         });
 
-        $showModal = "";
+        dialog.close();
     }
 
     async function modalDelete() {
@@ -106,7 +106,7 @@
             return s;
         })
 
-        $showModal = "";
+        dialog.close();
     }
 </script>
 
@@ -114,7 +114,8 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
 	bind:this={dialog}
-	onclick={(e) => { if (e.target === dialog) $showModal = ""; }}
+    onclose={() => $showModal = ""}
+	onclick={(e) => { if (e.target === dialog) dialog.close(); }}
 >
     <div class="modal">
         <div class="inside">
@@ -129,9 +130,9 @@
             {/each}
         </div>
         <div class="buttons">
-            <button style="margin-right: auto; background: #e00" onclick={() => {modalDelete()}}>Delete</button>
-            <button style="margin-right: 0.4rem" onclick={() => {modalSave()}}>Save</button>
-            <button style="background: #999" onclick={() => $showModal = ""}>Cancel</button>
+            <button style="margin-right: auto; background: #e00" onclick={modalDelete}>Delete</button>
+            <button style="margin-right: 0.4rem" onclick={modalSave}>Save</button>
+            <button style="background: #999" onclick={() => dialog.close()}>Cancel</button>
         </div>
     </div>
 </dialog>

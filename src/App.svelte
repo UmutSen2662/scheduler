@@ -1,10 +1,11 @@
 <script>
     import Modal from "./Modal.svelte";
+    import Header from "./Header.svelte";
     import Schedule from "./Schedule.svelte";
-    import { getSchedule } from "./supabase.svelte";
 </script>
 
 <main>
+    <Header/>
     <Modal/>
     <Schedule/>
 </main>

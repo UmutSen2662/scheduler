@@ -1,4 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
+import { schedule } from "./store.js";
+import { get } from "svelte/store";
 
 export const supabase = createClient(
     "https://gpprfxmjjjowyuqgvwzr.supabase.co",
@@ -6,36 +8,7 @@ export const supabase = createClient(
 );
 
 export const userid = await checkSession();
-
-async function signIn(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
-    if (error) {
-        console.error("Sign In Error:", error.message);
-        alert("Error signing in: " + error.message);
-    } else if (data) {
-        window.location.href = "/Scheduler/"; // redirect to home page
-    } else {
-        console.log("User could not be signed in.");
-    }
-}
-
-async function signUp(email, password) {
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-    });
-    if (error) {
-        console.error("Sign Up Error:", error.message);
-        alert("Error signing up: " + error.message);
-    } else if (data) {
-        window.location.href = "/Scheduler/"; // redirect to home page
-    } else {
-        console.log("User could not be signed up.");
-    }
-}
+schedule.set(await getSchedule());
 
 // Check if a user is signed in
 async function checkSession() {
@@ -45,7 +18,31 @@ async function checkSession() {
     return null;
 }
 
-export async function getSchedule() {
+export async function signOut() {
+    const { error } = await supabase.auth.signOut();
+    if (error) alert("Error signing out: " + error.message);
+    else window.location.reload();
+}
+
+export async function signIn(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+    });
+    if (error) alert("Error signing in: " + error.message);
+    else window.location.reload();
+}
+
+export async function signUp(email, password) {
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+    if (error) alert("Error signing up: " + error.message);
+    else window.location.reload();
+}
+
+async function getSchedule() {
     const { data: course } = await supabase.from("course").select("*");
     if (course)
         if (course.length > 0) {
@@ -57,7 +54,6 @@ export async function getSchedule() {
                 row: c.row.toString(16),
                 col: c.col.toString(16),
             }));
-            localStorage.setItem("course", JSON.stringify(mapped));
             return mapped;
         }
     return [];
