@@ -7,7 +7,9 @@ export const supabase = createClient(
 );
 
 export const userid = await checkSession();
-getSchedule().then((s) => schedule.set(s));
+getSchedule().then((s) => {
+    if (s) schedule.set(s);
+});
 
 // Check if a user is signed in
 export async function checkSession() {
@@ -89,5 +91,5 @@ async function getSchedule() {
             }));
             return mapped;
         }
-    return [];
+    return null;
 }
