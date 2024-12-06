@@ -12,7 +12,8 @@
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^5.0.0",
         "svelte": "^5.2.7",
-        "vite": "^6.0.1"
+        "vite": "^6.0.1",
+        "vite-plugin-pwa": "^0.21.1"
     },
     "dependencies": {
         "@supabase/supabase-js": "^2.46.2"
