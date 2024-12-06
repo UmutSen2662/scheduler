@@ -10,6 +10,7 @@
     color: #000000;
     color-scheme: light;
     background-color: #f5f5f5;
+    --borderSize: 2px;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -24,6 +25,23 @@ body {
 
 input {
     font-size: 1rem;
+    border: var(--borderSize) solid #000;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 0.3em;
+    border: var(--borderSize) solid #000;
+}
+tr:nth-child(even) {
+    background: #ddd;
+}
+thead {
+    background-color: #ddd;
 }
 
 button {
@@ -49,4 +67,21 @@ button:active {
 }
 button:active::before {
     background: rgba(0, 0, 0, 0.1);
+}
+
+dialog {
+    padding: 0;
+    width: 18rem;
+    border: var(--borderSize) solid #000;
+    background-color: #fefefe;
+}
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        font-size: 14px;
+        --borderSize: 1px;
+    }
 }

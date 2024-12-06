@@ -119,9 +119,9 @@
 >
     <div class="modal">
         <div class="inside">
-            <input type="text" bind:value={name} placeholder="Name">
-            <input type="text" bind:value={section} placeholder="Section">
-            <input type="text" bind:value={room} placeholder="Room">
+            <input type="text" list="courseCodes" bind:value={name} placeholder="Name">
+            <input type="text" list="sections" bind:value={section} placeholder="Section">
+            <input type="text" list="classrooms" bind:value={room} placeholder="Room">
         </div>
         <div class="color">
             {#each ["rgb(240, 240, 240)", "rgb(255, 42, 42)", "rgb(255, 149, 21)", "rgb(255, 255, 0)", "rgb(182, 255, 0)", "rgb(0, 176, 32)", "rgb(0, 255, 192)", "rgb(64, 208, 255)", "rgb(48, 128, 255)", "rgb(151, 82, 203)"] as bColor}
@@ -138,16 +138,6 @@
 </dialog>
 
 <style>
-	dialog {
-        padding: 0;
-        width: 18rem;
-        border: 2px solid #000;
-        background-color: #fefefe;
-	}
-	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
-	}
-
     .modal {
         padding: 1rem;
     }
@@ -160,7 +150,6 @@
 
     .inside input {
         padding: 0.4rem;
-        border: 2px solid #222;
     }
 
     .color {
@@ -172,17 +161,17 @@
     }
 
     .colorBtn {
-        border: 2px solid #222;
+        border: var(--borderSize) solid #000;
         height: 2rem;
         outline: none;
     }
     .colorBtn:hover,
     .colorBtn:focus {
-        border: 4px dashed rgba(32, 32, 32, 0.6);
+        border: calc(var(--borderSize) * 2) dashed rgba(32, 32, 32, 0.6);
     }
     .colorBtn:active,
     .color .selected {
-        border: 4px dashed #222;
+        border: calc(var(--borderSize) * 2) dashed #000;
     }
     .colorBtn:hover::before,
     .colorBtn:focus::before,

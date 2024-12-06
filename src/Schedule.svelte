@@ -5,7 +5,7 @@
     function fillTable(schedule) {
         let data = [];
         for (let i = 0; i < 12; i++) {
-            let row: any[] = [`${i + 8}:40`]
+            let row: any[] = [`${(i + 8).toString().padStart(2, "0")}:40`]
             
             for (let j = 0; j < 5; j++) {
                 let found = false;
@@ -61,23 +61,12 @@
     table {
         font-weight: 700;
         font-size: min(1rem, 2.4vw);
-        border-collapse: collapse;
         width: min(40rem, 96%);
     }
 
     th, td {
-        border: 2px solid #000;
         text-align: center;
-        padding: 0.3em;
         width: 18%;
-    }
-
-    thead {
-        background-color: #ddd;
-    }
-
-    tr:nth-child(even) {
-        background-color: #ddd;
     }
 
     th:first-child, td:first-child {

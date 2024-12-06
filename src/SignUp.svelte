@@ -50,16 +50,6 @@
 </dialog>
 
 <style>
-	dialog {
-        padding: 0;
-        width: 18rem;
-        border: 2px solid #000;
-        background-color: #fefefe;
-	}
-	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
-	}
-
     h2 {
         margin: 0;
     }
@@ -78,7 +68,6 @@
 
     form input {
         padding: 0.4rem;
-        border: 2px solid #222;
         width: 100%;
     }
 

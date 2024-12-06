@@ -16,7 +16,6 @@
 
 <style>
     td {
-        border: 2px solid #000;
         text-align: center;
         padding: 0.3em;
         width: 18%;
