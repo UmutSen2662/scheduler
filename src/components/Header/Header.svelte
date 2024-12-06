@@ -8,7 +8,7 @@
 <div>
     <SignIn />
     <SignUp />
-    <h2>METU Schedule and CEF</h2>
+    <h2>METU Scheduler and CEF</h2>
     <button class="{userid ? "signout" : "signin"}" onclick={userid ? signOut : () => {$signInModal = true}}>{userid ? "Sign Out" : "Sign In"}</button>
 </div>
 
