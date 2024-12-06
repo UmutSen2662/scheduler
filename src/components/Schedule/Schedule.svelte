@@ -1,6 +1,6 @@
 <script>
     import Cell from "./Cell.svelte";
-    import { schedule } from "../store";
+    import { schedule } from "../../store";
 
     function fillTable(schedule) {
         let data = [];

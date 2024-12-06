@@ -1,6 +1,6 @@
 <script>
     import { SvelteSet } from "svelte/reactivity";
-    import { schedule } from "./store";
+    import { schedule } from "../store";
 
     let course_codes = $state(new SvelteSet());
     let sections = $state(new SvelteSet());

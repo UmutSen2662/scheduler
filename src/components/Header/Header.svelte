@@ -1,6 +1,6 @@
 <script>
-    import { signOut, userid } from "../supabase.svelte";
-    import { signInModal } from "../store";
+    import { signOut, userid } from "../../supabase.svelte";
+    import { signInModal } from "../../store";
     import SignIn from "./SignIn.svelte";
     import SignUp from "./SignUp.svelte";
 </script>

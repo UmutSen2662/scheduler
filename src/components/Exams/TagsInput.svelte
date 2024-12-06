@@ -1,7 +1,7 @@
 <script>
-    import { getCourseCodes, updateCourseCodes } from "../supabase.svelte";
+    import { getCourseCodes, updateCourseCodes } from "../../supabase.svelte";
     import { SvelteSet } from "svelte/reactivity";
-    import { tags } from "../store";
+    import { tags } from "../../store";
 
     let input = $state("");
     getCourseCodes().then((data) => {

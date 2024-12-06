@@ -1,6 +1,6 @@
 <script>
-    import { supabase, userid } from "./supabase.svelte";
-    import { showModal, schedule } from "./store";
+    import { supabase, userid } from "../supabase.svelte";
+    import { showModal, schedule } from "../store";
 
     let color = $state("");
     let name = $state("");

@@ -1,9 +1,9 @@
 <script>
-    import Modal from "./Modal.svelte";
-    import Header from "./Header/Header.svelte";
-    import Schedule from "./Schedule/Schedule.svelte";
-    import ExamList from "./Exams/ExamList.svelte";
-    import DataList from "./DataList.svelte";
+    import Modal from "./components/Modal.svelte";
+    import DataList from "./components/DataList.svelte";
+    import Header from "./components/Header/Header.svelte";
+    import ExamList from "./components/Exams/ExamList.svelte";
+    import Schedule from "./components/Schedule/Schedule.svelte";
 </script>
 
 <main>
