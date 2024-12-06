@@ -1,5 +1,5 @@
 <script>
-    import { showModal } from "./store";
+    import { showModal } from "../store";
     let { course } = $props();
 
     let id = course;

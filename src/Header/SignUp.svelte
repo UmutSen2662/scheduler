@@ -1,6 +1,6 @@
 <script>
-    import { signInModal, signUpModal } from "./store";
-    import { signUp } from "./supabase.svelte";
+    import { signInModal, signUpModal } from "../store";
+    import { signUp } from "../supabase.svelte";
 
     let dialog = $state();
     let email = $state("");

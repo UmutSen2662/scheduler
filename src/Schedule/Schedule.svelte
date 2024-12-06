@@ -1,11 +1,11 @@
-<script lang="ts">
+<script>
     import Cell from "./Cell.svelte";
-    import { schedule } from "./store";
+    import { schedule } from "../store";
 
     function fillTable(schedule) {
         let data = [];
         for (let i = 0; i < 12; i++) {
-            let row: any[] = [`${(i + 8).toString().padStart(2, "0")}:40`]
+            let row = [`${(i + 8).toString().padStart(2, "0")}:40`]
             
             for (let j = 0; j < 5; j++) {
                 let found = false;

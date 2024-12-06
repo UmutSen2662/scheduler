@@ -72,7 +72,7 @@ button:active::before {
 dialog {
     padding: 0;
     width: 18rem;
-    border: var(--borderSize) solid #000;
+    border: calc(var(--borderSize) * 2) solid #000;
     background-color: #fefefe;
 }
 dialog::backdrop {

@@ -1,7 +1,7 @@
 <script>
-    import { getExamList } from "./supabase.svelte";
+    import { getExamList } from "../supabase.svelte";
     import TagsInput from "./TagsInput.svelte";
-    import { tags } from "./store";
+    import { tags } from "../store";
     
     let examList = [];
     let exams = $state(examList);
