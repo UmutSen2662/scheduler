@@ -13,6 +13,7 @@
     })
 
     getExamList().then((data) => {
+        if (!data) return;
         examList = data;
         const codes = Array.from($tags);
         const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));

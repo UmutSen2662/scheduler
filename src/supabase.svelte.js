@@ -44,11 +44,14 @@ export async function signUp(email, password) {
 }
 
 export async function getExamList() {
-    const { data: data } = supabase
-        ? await supabase.from("exams").select("course_exam, start_time, classrooms")
-        : { data: JSON.parse(localStorage.getItem("exams")) };
-    if (data) localStorage.setItem("exams", JSON.stringify(data));
-    return data;
+    const { data: data } = await supabase
+        .from("exams")
+        .select("course_exam, start_time, classrooms");
+    if (data) {
+        localStorage.setItem("exams", JSON.stringify(data));
+        return data;
+    }
+    return JSON.parse(localStorage.getItem("exams"));
 }
 
 export async function getCourseCodes() {
