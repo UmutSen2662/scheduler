@@ -12,6 +12,7 @@
     <Schedule/>
     <ExamList />
     <DataList />
+    <a href="https://github.com/UmutSen2662/Scheduler" target="_blank">Github Page</a>
 </main>
 
 <style>
@@ -20,6 +21,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-bottom: 18rem;
+    }
+    
+    a {
+        margin: 1rem;
+        text-align: end;
+        margin-left: auto;
     }
 </style>
