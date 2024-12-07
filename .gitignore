@@ -1,3 +1,4 @@
 examlists/venv
 *.csv
 .env
+node_modules
