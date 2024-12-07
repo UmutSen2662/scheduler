@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { schedule } from "./store.js";
+import isOnline from "is-online";
 
-export const online = !window.navigator.onLine;
+export const online = await isOnline();
 
 export const supabase = online
     ? createClient(
