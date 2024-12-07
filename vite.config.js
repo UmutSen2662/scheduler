@@ -12,6 +12,14 @@ export default defineConfig({
                 name: "METU Scheduler and CEF",
                 short_name: "Scheduler",
                 theme_color: "#f0f0f0",
+                display_override: [
+                    "standalone",
+                    "minimal-ui",
+                    "browser",
+                    "window-controls-overlay",
+                ],
+                orientation: "natural",
+                lang: "en",
                 icons: [
                     {
                         src: "./scheduler any.png",
@@ -26,6 +34,9 @@ export default defineConfig({
                         purpose: "maskable",
                     },
                 ],
+                categories: ["productivity", "utilities"],
+                description:
+                    "Scheduler is an app that allows you to create a schedule and see current exams",
             },
         }),
     ],
