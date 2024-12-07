@@ -1,22 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { schedule } from "./store.js";
 
-async function isOnline() {
-    if (!window.navigator.onLine) return false;
-
-    // avoid CORS errors with a request to your own origin
-    const url = new URL(window.location.origin + "./isOnline");
-
-    // random value to prevent cached responses
-    url.searchParams.set("rand", Math.random().toString(36).substring(2, 15));
-    try {
-        const response = await fetch(url.toString(), { method: "HEAD" });
-        return response.ok;
-    } catch {
-        return false;
-    }
-}
-export const online = await isOnline();
+export const online = !window.navigator.onLine;
 
 export const supabase = online
     ? createClient(
@@ -71,14 +56,14 @@ export async function signUp(email, password) {
 }
 
 export async function getExamList() {
-    if (!online) return null;
-
-    const { data: data } = await supabase
-        .from("exams")
-        .select("course_exam, start_time, classrooms");
-    if (data) {
-        localStorage.setItem("exams", JSON.stringify(data));
-        return data;
+    if (online) {
+        const { data: data } = await supabase
+            .from("exams")
+            .select("course_exam, start_time, classrooms");
+        if (data) {
+            localStorage.setItem("exams", JSON.stringify(data));
+            return data;
+        }
     }
     return JSON.parse(localStorage.getItem("exams"));
 }
