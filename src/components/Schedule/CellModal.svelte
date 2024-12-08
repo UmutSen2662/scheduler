@@ -134,11 +134,11 @@
             {/each}
         </div>
         <div class="buttons">
-            <button style="margin-right: auto; background: var(--red)" onclick={modalDelete}
+            <button style="margin-right: auto; color: var(--red)" onclick={modalDelete}
                 >Delete</button
             >
             <button style="margin-right: 0.4rem" onclick={modalSave}>Save</button>
-            <button style="background: var(--grey)" onclick={() => dialog.close()}>Cancel</button>
+            <button style="color: var(--acccent)" onclick={() => dialog.close()}>Cancel</button>
         </div>
     </div>
 </dialog>
@@ -187,7 +187,6 @@
 
     .buttons {
         display: flex;
-        height: 2rem;
     }
     .buttons button {
         width: 4rem;

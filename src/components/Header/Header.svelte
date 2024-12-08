@@ -5,7 +5,7 @@
     import SignIn from "./SignIn.svelte";
     import SignUp from "./SignUp.svelte";
 
-    const button = online ? userid ? "Sign_Out" : "Sign_In" : "Offline";
+    const button = online ? (userid ? "Sign_Out" : "Sign_In") : "Offline";
 </script>
 
 <div>
@@ -13,7 +13,14 @@
     <SignIn />
     <SignUp />
     <h2>METU Scheduler and CEF</h2>
-    <button class="{button}" onclick={userid ? signOut : () => {$signInModal = true}}>{button.replace("_", " ")}</button>
+    <button
+        class={button}
+        onclick={userid
+            ? signOut
+            : () => {
+                  $signInModal = true;
+              }}>{button.replace("_", " ")}</button
+    >
 </div>
 
 <style>
@@ -28,12 +35,8 @@
         margin: 0;
     }
 
-    button {
-        padding: 0.6rem;
-    }
-
     .Sign_Out {
-        background: var(--grey);
+        background: var(--acccent);
     }
 
     .Offline {

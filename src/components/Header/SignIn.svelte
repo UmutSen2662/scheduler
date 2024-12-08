@@ -57,17 +57,13 @@
         width: 100%;
     }
 
-    form button {
-        padding: 0.6rem;
-    }
-
     p {
         margin: 0;
     }
 
     span {
         padding: 0;
-        color: var(--blue);
+        color: var(--main);
         border: none;
         background: none;
         cursor: pointer;

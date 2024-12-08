@@ -7,7 +7,7 @@
     getCourseCodes().then((data) => {
         input = data;
         addTags();
-    })
+    });
 
     let lastLen = 0;
     $effect(() => {
@@ -18,12 +18,15 @@
             addTags();
         }
         lastLen = input.length;
-    })
+    });
 
     function addTags() {
         let inputValid = false;
         Array.from(input.matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)).forEach((r) => {
-            tags.update((n) => {n.add(r[1] + " " + r[2]); return n});
+            tags.update((n) => {
+                n.add(r[1] + " " + r[2]);
+                return n;
+            });
             inputValid = true;
         });
         updateCourseCodes($tags);
@@ -42,13 +45,34 @@
 
 <div>
     <label for="tagsInput">Write course codes then press enter</label>
-    <form onsubmit={(e) => {e.preventDefault(); addTags()}}>
+    <form
+        onsubmit={(e) => {
+            e.preventDefault();
+            addTags();
+        }}
+    >
         {#each $tags as tag}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
             <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <span onclick={() => {tags.update((n) => {n.delete(tag); return n}); updateCourseCodes($tags)}}>{tag}</span>
+            <span
+                onclick={() => {
+                    tags.update((n) => {
+                        n.delete(tag);
+                        return n;
+                    });
+                    updateCourseCodes($tags);
+                }}>{tag}</span
+            >
         {/each}
-        <input type="text" id="tagsInput" list="courseCodes" bind:value={input} onkeydown={(e) => {removeTag(e)}}>
+        <input
+            type="text"
+            id="tagsInput"
+            list="courseCodes"
+            bind:value={input}
+            onkeydown={(e) => {
+                removeTag(e);
+            }}
+        />
     </form>
 </div>
 
@@ -61,12 +85,12 @@
         padding-left: 0.4rem;
     }
 
-    form {    
+    form {
         gap: 0.6rem;
         display: flex;
         flex-wrap: wrap;
         padding: 0.4rem;
-        border: var(--borderSize) solid #222;
+        border: var(--borderSize) solid #000;
     }
 
     input {
@@ -76,14 +100,13 @@
         font-size: 1rem;
         min-width: 6rem;
         line-height: 160%;
-        background: #f5f5f5;
     }
     span {
         display: flex;
         color: #fff;
         cursor: pointer;
         padding: 0.4rem;
-        background: var(--grey);
+        background: var(--acccent);
     }
     span:hover {
         background: var(--red);
