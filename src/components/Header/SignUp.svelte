@@ -33,18 +33,34 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
-	bind:this={dialog}
-    onclose={() => $signUpModal = false}
-	onclick={(e) => { if (e.target === dialog) dialog.close(); }}
+    bind:this={dialog}
+    onclose={() => ($signUpModal = false)}
+    onclick={(e) => {
+        if (e.target === dialog) dialog.close();
+    }}
 >
     <div class="modal">
-        <form onsubmit={(e) => {e.preventDefault(); validate(email, password, password2)}}>
+        <form
+            onsubmit={(e) => {
+                e.preventDefault();
+                validate(email, password, password2);
+            }}
+        >
             <h2>Sign Up</h2>
-            <input type="email" bind:value={email} placeholder="Email">
-            <input type="password" bind:value={password} placeholder="Password">
-            <input type="password" bind:value={password2} placeholder="Confirm Password">
+            <input type="email" bind:value={email} placeholder="Email" />
+            <input type="password" bind:value={password} placeholder="Password" />
+            <input type="password" bind:value={password2} placeholder="Confirm Password" />
             <button>Sign Up</button>
-            <p>Already have an account? <span role="button" tabindex="0" onclick={() => {dialog.close(); $signInModal = true}}>Sign in</span></p>
+            <p>
+                Already have an account? <span
+                    role="button"
+                    tabindex="0"
+                    onclick={() => {
+                        dialog.close();
+                        $signInModal = true;
+                    }}>Sign in</span
+                >
+            </p>
         </form>
     </div>
 </dialog>
@@ -81,7 +97,7 @@
 
     span {
         padding: 0;
-        color: #2070d0;
+        color: var(--blue);
         border: none;
         background: none;
         cursor: pointer;

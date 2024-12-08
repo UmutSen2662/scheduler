@@ -67,7 +67,7 @@
 
     span {
         padding: 0;
-        color: #2070d0;
+        color: var(--blue);
         border: none;
         background: none;
         cursor: pointer;

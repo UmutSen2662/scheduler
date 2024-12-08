@@ -33,10 +33,10 @@
     }
 
     .Sign_Out {
-        background: #666;
+        background: var(--grey);
     }
 
     .Offline {
-        background: #d22;
+        background: var(--red);
     }
 </style>

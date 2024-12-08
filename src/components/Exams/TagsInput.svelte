@@ -83,9 +83,9 @@
         color: #fff;
         cursor: pointer;
         padding: 0.4rem;
-        background: #888;
+        background: var(--grey);
     }
     span:hover {
-        background: #e00;
+        background: var(--red);
     }
 </style>

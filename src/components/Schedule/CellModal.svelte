@@ -134,11 +134,11 @@
             {/each}
         </div>
         <div class="buttons">
-            <button style="margin-right: auto; background: #e00" onclick={modalDelete}
+            <button style="margin-right: auto; background: var(--red)" onclick={modalDelete}
                 >Delete</button
             >
             <button style="margin-right: 0.4rem" onclick={modalSave}>Save</button>
-            <button style="background: #999" onclick={() => dialog.close()}>Cancel</button>
+            <button style="background: var(--grey)" onclick={() => dialog.close()}>Cancel</button>
         </div>
     </div>
 </dialog>

@@ -12,6 +12,7 @@
     $effect(() => {
         localStorage.setItem("startTime", startTime);
         localStorage.setItem("rowNum", rowNum.toString());
+        tableData = fillTable($schedule);
     });
 
     function fillTable(schedule) {

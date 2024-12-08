@@ -9,7 +9,6 @@
 
     getOptions().then((options) => {
         if (!options) return;
-        console.log(options);
         startTime = options.time;
         rowNum = options.rows;
     });
@@ -63,6 +62,16 @@
                 />
             </label>
         </form>
+        <input
+            class="reset"
+            type="button"
+            value="Restore defaults"
+            onclick={() => {
+                startTime = "08:40";
+                rowNum = 12;
+                dialog.close();
+            }}
+        />
     </div>
 </dialog>
 
@@ -88,5 +97,18 @@
     .rows label {
         display: flex;
         justify-content: space-between;
+    }
+
+    .reset {
+        margin-top: 1rem;
+        background: transparent;
+        cursor: pointer;
+        padding: 0.2rem;
+        padding-bottom: 0;
+        color: var(--red);
+        border: none;
+    }
+    .reset:hover {
+        text-decoration: underline;
     }
 </style>

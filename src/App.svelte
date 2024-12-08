@@ -22,7 +22,7 @@
     }
 
     a {
-        margin: 1rem;
+        margin: 1.2rem;
         text-align: end;
         margin-left: auto;
     }
