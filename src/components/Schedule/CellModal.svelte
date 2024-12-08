@@ -1,6 +1,6 @@
 <script>
-    import { supabase, userid } from "../supabase.svelte";
-    import { showModal, schedule } from "../store";
+    import { supabase, userid } from "../../supabase.svelte";
+    import { showCellModal, schedule } from "../../store";
 
     let color = $state("");
     let name = $state("");
@@ -9,13 +9,13 @@
     let dialog = $state();
 
     $effect(() => {
-        if ($showModal == "") {
+        if ($showCellModal == "") {
             dialog.close();
             return;
-        };
+        }
         dialog.showModal();
-        
-        const id = $showModal.slice(1, 3);
+
+        const id = $showCellModal.slice(1, 3);
         name = "";
         section = "";
         room = "";
@@ -27,8 +27,8 @@
                 room = c.room;
                 color = c.color;
             }
-        })
-	});
+        });
+    });
 
     $effect(() => {
         name = name.toUpperCase();
@@ -48,7 +48,7 @@
     });
 
     async function modalSave() {
-        const id = $showModal.slice(1, 3);
+        const id = $showCellModal.slice(1, 3);
         if (userid) {
             const { error } = await supabase.from("course").upsert({
                 userid: userid,
@@ -56,8 +56,8 @@
                 section: section,
                 room: room,
                 color: color,
-                row: id[0],
-                col: id[1],
+                row: parseInt(id[0], 16),
+                col: parseInt(id[1], 16),
             });
             if (error) console.log(error);
         }
@@ -89,7 +89,7 @@
     }
 
     async function modalDelete() {
-        const id = $showModal.slice(1, 3);
+        const id = $showCellModal.slice(1, 3);
         if (userid) {
             const { error } = await supabase
                 .from("course")
@@ -100,11 +100,9 @@
             if (error) console.log(error);
         }
         schedule.update((s) => {
-            s = s.filter(
-                (c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16)
-            );
+            s = s.filter((c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16));
             return s;
-        })
+        });
 
         dialog.close();
     }
@@ -113,24 +111,32 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
-	bind:this={dialog}
-    onclose={() => $showModal = ""}
-	onclick={(e) => { if (e.target === dialog) dialog.close(); }}
+    bind:this={dialog}
+    onclose={() => ($showCellModal = "")}
+    onclick={(e) => {
+        if (e.target === dialog) dialog.close();
+    }}
 >
     <div class="modal">
         <div class="inside">
-            <input type="text" list="courseCodes" bind:value={name} placeholder="Name">
-            <input type="text" list="sections" bind:value={section} placeholder="Section">
-            <input type="text" list="classrooms" bind:value={room} placeholder="Room">
+            <input type="text" list="courseCodes" bind:value={name} placeholder="Name" />
+            <input type="text" list="sections" bind:value={section} placeholder="Section" />
+            <input type="text" list="classrooms" bind:value={room} placeholder="Room" />
         </div>
         <div class="color">
             {#each ["rgb(240, 240, 240)", "rgb(255, 42, 42)", "rgb(255, 149, 21)", "rgb(255, 255, 0)", "rgb(182, 255, 0)", "rgb(0, 176, 32)", "rgb(0, 255, 192)", "rgb(64, 208, 255)", "rgb(48, 128, 255)", "rgb(151, 82, 203)"] as bColor}
                 <!-- svelte-ignore a11y_consider_explicit_label -->
-                <button class="colorBtn {color == bColor ? 'selected' : ''}" style="background: {bColor}" onclick={() => color = bColor}></button>
+                <button
+                    class="colorBtn {color == bColor ? 'selected' : ''}"
+                    style="background: {bColor}"
+                    onclick={() => (color = bColor)}
+                ></button>
             {/each}
         </div>
         <div class="buttons">
-            <button style="margin-right: auto; background: #e00" onclick={modalDelete}>Delete</button>
+            <button style="margin-right: auto; background: #e00" onclick={modalDelete}
+                >Delete</button
+            >
             <button style="margin-right: 0.4rem" onclick={modalSave}>Save</button>
             <button style="background: #999" onclick={() => dialog.close()}>Cancel</button>
         </div>

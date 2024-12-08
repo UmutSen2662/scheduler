@@ -1,5 +1,4 @@
 <script>
-    import Modal from "./components/Modal.svelte";
     import DataList from "./components/DataList.svelte";
     import Header from "./components/Header/Header.svelte";
     import ExamList from "./components/Exams/ExamList.svelte";
@@ -7,9 +6,8 @@
 </script>
 
 <main>
-    <Header/>
-    <Modal/>
-    <Schedule/>
+    <Header />
+    <Schedule />
     <ExamList />
     <DataList />
     <a href="https://github.com/UmutSen2662/Scheduler" target="_blank">Github Page</a>
@@ -22,7 +20,7 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     a {
         margin: 1rem;
         text-align: end;

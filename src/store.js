@@ -1,7 +1,7 @@
 import { SvelteSet } from "svelte/reactivity";
 import { writable } from "svelte/store";
 
-export const showModal = writable("");
+export const showCellModal = writable("");
 export const signInModal = writable(false);
 export const signUpModal = writable(false);
 export const schedule = writable(JSON.parse(localStorage.getItem("schedule")) || []);

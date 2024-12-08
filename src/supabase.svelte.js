@@ -99,6 +99,30 @@ export async function updateCourseCodes(set) {
     }
 }
 
+export async function getOptions() {
+    if (!online) return null;
+
+    const { data: data } = await supabase.from("options").select("*");
+    if (data)
+        if (data.length > 0) {
+            return data[0];
+        }
+    return null;
+}
+
+export async function updateOptions(options) {
+    if (!online) return null;
+
+    if (userid) {
+        const { error } = await supabase
+            .from("options")
+            .upsert({ userid: userid, time: options.time, rows: options.rows });
+        if (error) {
+            console.error(error);
+        }
+    }
+}
+
 async function getSchedule() {
     if (!online) return null;
 
@@ -110,8 +134,8 @@ async function getSchedule() {
                 section: c.section,
                 room: c.room,
                 color: c.color,
-                row: c.row.toString(16),
-                col: c.col.toString(16),
+                row: c.row,
+                col: c.col,
             }));
             return mapped;
         }
