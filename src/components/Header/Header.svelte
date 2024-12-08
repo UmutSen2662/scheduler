@@ -36,10 +36,10 @@
     }
 
     .Sign_Out {
-        background: var(--acccent);
+        color: var(--acccent);
     }
 
     .Offline {
-        background: var(--red);
+        color: var(--red);
     }
 </style>
