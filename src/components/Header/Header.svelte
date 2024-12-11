@@ -19,8 +19,10 @@
             ? signOut
             : () => {
                   $signInModal = true;
-              }}>{button.replace("_", " ")}</button
+              }}
     >
+        {button.replace("_", " ")}
+    </button>
 </div>
 
 <style>

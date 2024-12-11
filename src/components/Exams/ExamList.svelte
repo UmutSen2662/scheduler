@@ -2,30 +2,33 @@
     import { getExamList } from "../../supabase.svelte";
     import TagsInput from "./TagsInput.svelte";
     import { tags } from "../../store";
-    
+
     let examList = [];
     let exams = $state(examList);
 
     tags.subscribe((value) => {
         const codes = Array.from(value);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
+        const arr = examList.filter((x) =>
+            codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0])
+        );
         exams = calculations(arr);
-    })
+    });
 
     getExamList().then((data) => {
         if (!data) return;
         examList = data;
         const codes = Array.from($tags);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
+        const arr = examList.filter((x) =>
+            codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0])
+        );
         exams = calculations(arr);
     });
-
 
     function calculations(exams) {
         let list = [];
         let prevDate = Date.now();
-        
-        exams.forEach(exam => {
+
+        exams.forEach((exam) => {
             const dateObj = new Date(exam.start_time);
             // Get the components of the date
             const year = dateObj.getFullYear();
@@ -39,26 +42,22 @@
             const now = Date.now() - new Date().getTimezoneOffset() * 60000;
             const today = now - (now % 86400000);
             const date = dateObj.getTime() - (dateObj.getTime() % 86400000);
-            
+
             list.push({
                 course_exam: exam.course_exam,
-                days_until: Math.max(
-                    Math.floor(date / 86400000) - Math.floor(today / 86400000),
-                    0
-                ),
+                days_until: Math.max(Math.floor(date / 86400000) - Math.floor(today / 86400000), 0),
                 days_between: Math.max(
                     Math.floor(date / 86400000) - Math.floor(prevDate / 86400000),
                     0
                 ),
                 start_time: formattedDate,
-                classrooms: exam.classrooms
+                classrooms: exam.classrooms,
             });
-            
+
             prevDate = date;
         });
         return list;
     }
-
 </script>
 
 <TagsInput />
@@ -86,14 +85,25 @@
         </tbody>
     </table>
 </div>
+<span>
+    Notice: The exam data may be out of date as CET system is updated farily randomly. Updated {Math.floor(
+        (Date.now() - new Date("11 Dec 2024").getTime()) / 86400000
+    )} days ago.
+</span>
 
 <style>
+    span {
+        width: 92%;
+        color: var(--red);
+        text-align: center;
+        margin-bottom: 3rem;
+    }
     div {
         width: 96%;
         z-index: 1000;
         display: flex;
         overflow-x: auto;
-        margin-bottom: 3rem;
+        margin-bottom: 0.2rem;
         justify-content: space-around;
     }
 
@@ -108,5 +118,4 @@
             text-wrap: nowrap;
         }
     }
-
 </style>
