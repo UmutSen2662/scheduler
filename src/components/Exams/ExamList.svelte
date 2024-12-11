@@ -25,8 +25,10 @@
     });
 
     function calculations(exams) {
+        const now = Date.now() - new Date().getTimezoneOffset() * 60000;
+        const today = now - (now % 86400000);
         let list = [];
-        let prevDate = Date.now();
+        let prevDate = now;
 
         exams.forEach((exam) => {
             const dateObj = new Date(exam.start_time);
@@ -39,8 +41,6 @@
             const minute = String(dateObj.getMinutes()).padStart(2, "0");
             // Format the string
             const formattedDate = `${year}-${month}-${day} ${weekday} ${hour}:${minute}`;
-            const now = Date.now() - new Date().getTimezoneOffset() * 60000;
-            const today = now - (now % 86400000);
             const date = dateObj.getTime() - (dateObj.getTime() % 86400000);
 
             list.push({
@@ -57,6 +57,17 @@
             prevDate = date;
         });
         return list;
+    }
+
+    function updateNotice() {
+        const now = Date.now() - new Date().getTimezoneOffset() * 60000;
+        const today = now - (now % 86400000);
+        const update = new Date("11 Dec 2024 15:42").getTime();
+        if (now - update > 172800000) {
+            let updateDays = update - (update % 86400000);
+            return Math.floor((today - updateDays) / 86400000) + " days ago.";
+        }
+        return Math.floor((now - update) / 3600000) + " hours ago.";
     }
 </script>
 
@@ -86,9 +97,7 @@
     </table>
 </div>
 <span>
-    Notice: The exam data may be out of date as CET system is updated farily randomly. Updated {Math.floor(
-        (Date.now() - new Date("11 Dec 2024").getTime()) / 86400000
-    )} days ago.
+    Notice: The exam data may be out of date as CET system is updated farily randomly. Updated {updateNotice()}
 </span>
 
 <style>
