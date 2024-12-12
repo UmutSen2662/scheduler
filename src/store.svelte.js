@@ -24,13 +24,12 @@ class Modals {
 export const modals = new Modals();
 
 class Tags {
-    tags = $state(
-        new SvelteSet(
-            localStorage.getItem("tags") != "" ? localStorage.getItem("tags").split(",") : []
-        )
-    );
+    tags = $state(new SvelteSet([]));
 
     constructor() {
+        const str = localStorage.getItem("tags");
+        if (str) this.tags = new SvelteSet(str.split(","));
+
         $effect(() => {
             localStorage.setItem("tags", Array.from(this.tags).join(","));
         });
