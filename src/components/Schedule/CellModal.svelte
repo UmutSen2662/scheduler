@@ -1,6 +1,6 @@
 <script>
     import { supabase, userid } from "../../supabase.svelte";
-    import { showCellModal, schedule } from "../../store";
+    import { modals, schedule } from "../../store.svelte";
 
     let color = $state("");
     let name = $state("");
@@ -9,18 +9,18 @@
     let dialog = $state();
 
     $effect(() => {
-        if ($showCellModal == "") {
+        if (modals.cellModalId == "") {
             dialog.close();
             return;
         }
         dialog.showModal();
 
-        const id = $showCellModal.slice(1, 3);
+        const id = modals.cellModalId.slice(1, 3);
         name = "";
         section = "";
         room = "";
         color = "";
-        $schedule.forEach((c) => {
+        schedule.schedule.forEach((c) => {
             if (c.row.toString(16) == id[0] && c.col.toString(16) == id[1]) {
                 name = c.name;
                 section = c.section;
@@ -47,8 +47,12 @@
         }
     });
 
+    $effect(() => {
+        localStorage.setItem("schedule", JSON.stringify(schedule.schedule));
+    });
+
     async function modalSave() {
-        const id = $showCellModal.slice(1, 3);
+        const id = modals.cellModalId.slice(1, 3);
         if (userid) {
             const { error } = await supabase.from("course").upsert({
                 userid: userid,
@@ -61,35 +65,34 @@
             });
             if (error) console.log(error);
         }
+
         let found = false;
-        schedule.update((s) => {
-            s.forEach((c) => {
-                if (c.col == parseInt(id[1], 16) && c.row == parseInt(id[0], 16)) {
-                    c.name = name;
-                    c.section = section;
-                    c.room = room;
-                    c.color = color;
-                    found = true;
-                }
-            });
-            if (!found) {
-                s.push({
-                    name: name,
-                    section: section,
-                    room: room,
-                    color: color,
-                    row: parseInt(id[0], 16),
-                    col: parseInt(id[1], 16),
-                });
+        schedule.schedule.forEach((c) => {
+            if (c.col == parseInt(id[1], 16) && c.row == parseInt(id[0], 16)) {
+                c.name = name;
+                c.section = section;
+                c.room = room;
+                c.color = color;
+                found = true;
             }
-            return s;
         });
+
+        if (!found) {
+            schedule.schedule.push({
+                name: name,
+                section: section,
+                room: room,
+                color: color,
+                row: parseInt(id[0], 16),
+                col: parseInt(id[1], 16),
+            });
+        }
 
         dialog.close();
     }
 
     async function modalDelete() {
-        const id = $showCellModal.slice(1, 3);
+        const id = modals.cellModalId.slice(1, 3);
         if (userid) {
             const { error } = await supabase
                 .from("course")
@@ -99,10 +102,10 @@
                 .eq("col", parseInt(id[1], 16));
             if (error) console.log(error);
         }
-        schedule.update((s) => {
-            s = s.filter((c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16));
-            return s;
-        });
+
+        schedule.schedule = schedule.schedule.filter(
+            (c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16)
+        );
 
         dialog.close();
     }
@@ -112,7 +115,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
     bind:this={dialog}
-    onclose={() => ($showCellModal = "")}
+    onclose={() => (modals.cellModalId = "")}
     onclick={(e) => {
         if (e.target === dialog) dialog.close();
     }}

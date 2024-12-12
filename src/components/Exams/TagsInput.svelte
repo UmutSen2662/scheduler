@@ -1,13 +1,8 @@
 <script>
-    import { getCourseCodes, updateCourseCodes } from "../../supabase.svelte";
-    import { SvelteSet } from "svelte/reactivity";
-    import { tags } from "../../store";
+    import { getTags } from "../../store.svelte";
 
+    const tags = getTags();
     let input = $state("");
-    getCourseCodes().then((data) => {
-        input = data;
-        addTags();
-    });
 
     let lastLen = 0;
     $effect(() => {
@@ -15,32 +10,10 @@
         let diff = input.length - lastLen;
         if (diff > 2) {
             lastLen = 0;
-            addTags();
+            if (tags.addTags(input)) input = "";
         }
         lastLen = input.length;
     });
-
-    function addTags() {
-        let inputValid = false;
-        Array.from(input.matchAll(/([A-Z]{3,4})\s?(\d{3,4})/g)).forEach((r) => {
-            tags.update((n) => {
-                n.add(r[1] + " " + r[2]);
-                return n;
-            });
-            inputValid = true;
-        });
-        updateCourseCodes($tags);
-
-        if (inputValid) input = "";
-    }
-
-    function removeTag(e) {
-        if (e.key === "Backspace" && input == "") {
-            let arr = Array.from($tags).slice(0, -1);
-            $tags = new SvelteSet(arr);
-        }
-        updateCourseCodes($tags);
-    }
 </script>
 
 <div>
@@ -48,19 +21,15 @@
     <form
         onsubmit={(e) => {
             e.preventDefault();
-            addTags();
+            if (tags.addTags(input)) input = "";
         }}
     >
-        {#each $tags as tag}
+        {#each tags.tags as tag}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
             <!-- svelte-ignore a11y_no_static_element_interactions -->
             <span
                 onclick={() => {
-                    tags.update((n) => {
-                        n.delete(tag);
-                        return n;
-                    });
-                    updateCourseCodes($tags);
+                    tags.removeTag(tag);
                 }}>{tag}</span
             >
         {/each}
@@ -70,7 +39,10 @@
             list="courseCodes"
             bind:value={input}
             onkeydown={(e) => {
-                removeTag(e);
+                if (e.key === "Backspace" && input == "") {
+                    let tag = Array.from(tags.tags).slice(-1);
+                    tags.removeTag(tag);
+                }
             }}
         />
     </form>

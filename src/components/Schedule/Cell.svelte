@@ -1,14 +1,18 @@
 <script>
-    import { showCellModal } from "../../store";
+    import { modals } from "../../store.svelte";
     let { course } = $props();
-
+    
     let id = course;
     if (typeof course != "string") {
         id = "c" + course.row.toString(16) + course.col.toString(16);
     }
 </script>
 
-<td draggable="true" onclick={() => ($showCellModal = id)} style="background-color: {course.color || 'transparent'}">
+<td
+    draggable="true"
+    onclick={() => (modals.cellModalId = id)}
+    style="background-color: {course.color || 'transparent'}"
+>
     {#if typeof course != "string"}
         {course.name} ({course.section}) [{course.room}]
     {/if}

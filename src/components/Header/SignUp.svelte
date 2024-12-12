@@ -1,5 +1,5 @@
 <script>
-    import { signInModal, signUpModal } from "../../store";
+    import { modals } from "../../store.svelte";
     import { signUp } from "../../supabase.svelte";
 
     let dialog = $state();
@@ -8,7 +8,7 @@
     let password2 = $state("");
 
     $effect(() => {
-        if (!$signUpModal) {
+        if (!modals.signUpModal) {
             dialog.close();
             return;
         }
@@ -34,7 +34,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
     bind:this={dialog}
-    onclose={() => ($signUpModal = false)}
+    onclose={() => (modals.signUpModal = false)}
     onclick={(e) => {
         if (e.target === dialog) dialog.close();
     }}
@@ -57,7 +57,7 @@
                     tabindex="0"
                     onclick={() => {
                         dialog.close();
-                        $signInModal = true;
+                        modals.signInModal = true;
                     }}>Sign in</span
                 >
             </p>

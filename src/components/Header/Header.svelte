@@ -1,6 +1,6 @@
 <script>
     import { signOut, userid, online } from "../../supabase.svelte";
-    import { signInModal } from "../../store";
+    import { modals } from "../../store.svelte";
     import Offline from "./Offline.svelte";
     import SignIn from "./SignIn.svelte";
     import SignUp from "./SignUp.svelte";
@@ -18,7 +18,7 @@
         onclick={userid
             ? signOut
             : () => {
-                  $signInModal = true;
+                  modals.signInModal = true;
               }}
     >
         {button.replace("_", " ")}

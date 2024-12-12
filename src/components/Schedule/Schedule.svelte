@@ -1,18 +1,18 @@
 <script>
     import OptionsModal from "./OptionsModal.svelte";
     import CellModal from "./CellModal.svelte";
-    import { schedule } from "../../store";
+    import { schedule } from "../../store.svelte";
     import Cell from "./Cell.svelte";
 
     let showOptionsModal = $state(false);
     let startTime = $state(localStorage.getItem("startTime") || "08:40");
     let rowNum = $state(parseInt(localStorage.getItem("rowNum")) || 12);
-    let tableData = $state(fillTable($schedule));
+    let tableData = $state(fillTable(schedule.schedule));
 
     $effect(() => {
         localStorage.setItem("startTime", startTime);
         localStorage.setItem("rowNum", rowNum.toString());
-        tableData = fillTable($schedule);
+        tableData = fillTable(schedule.schedule);
     });
 
     function fillTable(schedule) {
@@ -38,8 +38,8 @@
         return data;
     }
 
-    schedule.subscribe(() => {
-        tableData = fillTable($schedule);
+    $effect(() => {
+        tableData = fillTable(schedule.schedule);
     });
 </script>
 

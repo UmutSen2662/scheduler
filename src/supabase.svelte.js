@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { schedule } from "./store.js";
 import isOnline from "is-online";
 
 export const online = await isOnline();
@@ -12,12 +11,9 @@ export const supabase = online
     : null;
 
 export const userid = online ? await checkSession() : null;
-getSchedule().then((s) => {
-    if (s) schedule.set(s);
-});
 
 // Check if a user is signed in
-export async function checkSession() {
+async function checkSession() {
     if (!online) return null;
 
     const { data, error } = await supabase.auth.getUser();
@@ -123,7 +119,7 @@ export async function updateOptions(options) {
     }
 }
 
-async function getSchedule() {
+export async function getSchedule() {
     if (!online) return null;
 
     const { data: course } = await supabase.from("course").select("*");

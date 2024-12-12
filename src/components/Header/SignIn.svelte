@@ -1,5 +1,5 @@
 <script>
-    import { signInModal, signUpModal } from "../../store";
+    import { modals } from "../../store.svelte";
     import { signIn } from "../../supabase.svelte";
 
     let dialog = $state();
@@ -7,7 +7,7 @@
     let password = $state("");
 
     $effect(() => {
-        if (!$signInModal) {
+        if (!modals.signInModal) {
             dialog.close();
             return;
         }
@@ -20,17 +20,33 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
-	bind:this={dialog}
-    onclose={() => $signInModal = false}
-	onclick={(e) => { if (e.target === dialog) dialog.close(); }}
+    bind:this={dialog}
+    onclose={() => (modals.signInModal = false)}
+    onclick={(e) => {
+        if (e.target === dialog) dialog.close();
+    }}
 >
     <div class="modal">
-        <form onsubmit={(e) => {e.preventDefault(); signIn(email, password)}}>
+        <form
+            onsubmit={(e) => {
+                e.preventDefault();
+                signIn(email, password);
+            }}
+        >
             <h2>Sign In</h2>
-            <input type="email" bind:value={email} placeholder="Email">
-            <input type="password" bind:value={password} placeholder="Password">
+            <input type="email" bind:value={email} placeholder="Email" />
+            <input type="password" bind:value={password} placeholder="Password" />
             <button type="submit">Sign In</button>
-            <p>New to the app? <span role="button" tabindex="0" onclick={() => {dialog.close(); $signUpModal = true}}>Sign up</span></p>
+            <p>
+                New to the app? <span
+                    role="button"
+                    tabindex="0"
+                    onclick={() => {
+                        dialog.close();
+                        modals.signUpModal = true;
+                    }}>Sign up</span
+                >
+            </p>
         </form>
     </div>
 </dialog>
