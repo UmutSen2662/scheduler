@@ -62,7 +62,7 @@
         display: flex;
         flex-wrap: wrap;
         padding: 0.4rem;
-        border: var(--borderSize) solid #000;
+        border: var(--borderSize) solid var(--color);
     }
 
     input {
@@ -75,7 +75,8 @@
     }
     span {
         display: flex;
-        color: #fff;
+        font-weight: 700;
+        color: var(--anticolor);
         cursor: pointer;
         padding: 0.4rem;
         background: var(--acccent);

@@ -99,6 +99,7 @@
         cursor: pointer;
         border: none;
         padding: 0.2rem;
+        color: var(--color);
     }
     input:hover {
         text-decoration: underline;

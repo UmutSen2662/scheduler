@@ -2,7 +2,7 @@
     import { supabase, userid } from "../../supabase.svelte";
     import { modals, schedule } from "../../store.svelte";
 
-    let color = $state("");
+    let color = $state(0);
     let name = $state("");
     let section = $state("");
     let room = $state("");
@@ -17,9 +17,9 @@
 
         const id = modals.cellModalId.slice(1, 3);
         name = "";
-        section = "";
         room = "";
-        color = "";
+        color = 0;
+        section = "";
         schedule.schedule.forEach((c) => {
             if (c.row.toString(16) == id[0] && c.col.toString(16) == id[1]) {
                 name = c.name;
@@ -28,6 +28,7 @@
                 color = c.color;
             }
         });
+        console.log("color");
     });
 
     $effect(() => {
@@ -41,7 +42,7 @@
         for (let i = 0; i < colors.length; i++) {
             colors[i].classList.remove("selected");
             // @ts-ignore
-            if (colors[i].style.backgroundColor == color) {
+            if (colors[i].style.backgroundColor == "var(--{color})") {
                 colors[i].classList.add("selected");
             }
         }
@@ -127,11 +128,11 @@
             <input type="text" list="classrooms" bind:value={room} placeholder="Room" />
         </div>
         <div class="color">
-            {#each ["rgb(240, 240, 240)", "rgb(255, 42, 42)", "rgb(255, 149, 21)", "rgb(255, 255, 0)", "rgb(182, 255, 0)", "rgb(0, 176, 32)", "rgb(0, 255, 192)", "rgb(64, 208, 255)", "rgb(48, 128, 255)", "rgb(151, 82, 203)"] as bColor}
-                <!-- svelte-ignore a11y_consider_explicit_label -->
+            {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as bColor}
                 <button
+                    aria-label="Color {bColor}"
                     class="colorBtn {color == bColor ? 'selected' : ''}"
-                    style="background: {bColor}"
+                    style="background: var(--{bColor || 0})"
                     onclick={() => (color = bColor)}
                 ></button>
             {/each}
@@ -170,17 +171,17 @@
     }
 
     .colorBtn {
-        border: var(--borderSize) solid #000;
+        border: var(--borderSize) solid var(--color);
         height: 2rem;
         outline: none;
     }
     .colorBtn:hover,
     .colorBtn:focus {
-        border: calc(var(--borderSize) * 2) dashed rgba(32, 32, 32, 0.6);
+        border: calc(var(--borderSize) * 2) dashed var(--color);
     }
     .colorBtn:active,
     .color .selected {
-        border: calc(var(--borderSize) * 2) dashed #000;
+        border: calc(var(--borderSize) * 2) dashed var(--color);
     }
     .colorBtn:hover::before,
     .colorBtn:focus::before,
