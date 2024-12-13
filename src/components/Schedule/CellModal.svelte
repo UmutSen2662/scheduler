@@ -132,7 +132,8 @@
                 <button
                     aria-label="Color {bColor}"
                     class="colorBtn {color == bColor ? 'selected' : ''}"
-                    style="background: var(--{bColor || 0})"
+                    style="background: var(--{bColor || 0}); 
+                        outline: calc(var(--cellOutline) * 2) solid var(--o{bColor || 0});"
                     onclick={() => (color = bColor)}
                 ></button>
             {/each}
@@ -174,6 +175,7 @@
         border: var(--borderSize) solid var(--color);
         height: 2rem;
         outline: none;
+        outline-offset: calc(var(--cellOutline) * -5);
     }
     .colorBtn:hover,
     .colorBtn:focus {

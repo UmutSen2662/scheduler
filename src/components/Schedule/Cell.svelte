@@ -11,7 +11,9 @@
 <td
     draggable="true"
     onclick={() => (modals.cellModalId = id)}
-    style="background-color: var(--{course.color || 0})"
+    style="color: var(--o{course.color || 0});
+        outline: var(--cellOutline) solid var(--o{course.color || 0});
+        background-color: var(--{course.color || 0})"
 >
     {#if typeof course != "string"}
         {course.name} ({course.section}) [{course.room}]
@@ -26,6 +28,7 @@
         width: 18%;
         cursor: pointer;
         text-shadow: var(--cellFont);
+        outline-offset: calc(var(--cellOutline) * -1.5);
     }
     td::after {
         content: "";

@@ -27,25 +27,26 @@ html.light {
 html.dark {
     --background: #1d1d1d;
     --tableAccent: #303030;
-    --acccent: #999;
+    --acccent: #808080;
     --main: #2070d0;
-    --color: #f5f5f5;
+    --color: #a1a1a1;
     --anticolor: #1d1d1d;
     --red: #d22;
     --buttonHover: rgba(250, 250, 250, 0.1);
     --cellShadow: 0 0 0.6rem 0.1rem white;
     --cellFont: 0 0 calc(var(--borderSize) * 2) black;
     --svg: scale(1, 1);
-    --0: transparent;
-    --1: #a30000;
-    --2: #bc5d05;
-    --3: #c9c100;
-    --4: #36a300;
-    --5: #00c2b1;
-    --6: #0077bb;
-    --7: #4b3b9b;
-    --8: #8e0ea7;
-    --9: #bc0064;
+    --cellOutline: var(--borderSize);
+    --o0: transparent;
+    --o1: #c32020;
+    --o2: #bc5d05;
+    --o3: #c9c100;
+    --o4: #36a300;
+    --o5: #00c2b1;
+    --o6: #0077bb;
+    --o7: #4b3b9b;
+    --o8: #8e0ea7;
+    --o9: #bc0064;
 }
 
 html {
@@ -64,6 +65,16 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    --o0: var(--color);
+    --o1: var(--color);
+    --o2: var(--color);
+    --o3: var(--color);
+    --o4: var(--color);
+    --o5: var(--color);
+    --o6: var(--color);
+    --o7: var(--color);
+    --o8: var(--color);
+    --o9: var(--color);
 }
 
 body {

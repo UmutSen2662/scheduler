@@ -13,8 +13,7 @@
             codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0])
         );
         exams = calculations(arr);
-    
-    })
+    });
 
     getExamList().then((data) => {
         if (!data) return;
@@ -99,7 +98,7 @@
     </table>
 </div>
 <span>
-    Notice: The exam data may be out of date as CET system is updated farily randomly. Updated {updateNotice()}
+    Notice: The exam data may be out of date as CET system is updated fairly randomly. Updated {updateNotice()}
 </span>
 
 <style>
