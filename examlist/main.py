@@ -47,7 +47,7 @@ def update_exams(file_path):
 if __name__ == "__main__":
     file_path = sys.argv[1] if len(sys.argv) > 1 else None
     if file_path == None:
-        file_path = input("Enter path to csv file: ")
+        file_path = input("Enter path to csv file: ").strip('"')
     
     if not os.path.exists(file_path):
         print(f"File at path {file_path} does not exist\n")
