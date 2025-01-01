@@ -56,7 +56,8 @@ export async function getExamList() {
     if (online) {
         const { data: data } = await supabase
             .from("exams")
-            .select("course_exam, start_time, classrooms");
+            .select("course_exam, start_time, classrooms")
+            .order("start_time", { ascending: true });
         if (data) {
             localStorage.setItem("exams", JSON.stringify(data));
             return data;
