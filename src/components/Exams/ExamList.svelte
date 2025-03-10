@@ -63,7 +63,7 @@
     function updateNotice() {
         const now = Date.now() - new Date().getTimezoneOffset() * 60000;
         const today = now - (now % 86400000);
-        const update = new Date("02 Jan 2025 00:48").getTime();
+        const update = new Date("10 Mar 2025 13:24").getTime();
         if (now - update > 172800000) {
             let updateDays = update - (update % 86400000);
             return Math.floor((today - updateDays) / 86400000) + " days ago.";
