@@ -9,9 +9,7 @@
 
     $effect(() => {
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) =>
-            codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0])
-        );
+        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
         exams = calculations(arr);
     });
 
@@ -19,9 +17,7 @@
         if (!data) return;
         examList = data;
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) =>
-            codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0])
-        );
+        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
         exams = calculations(arr);
     });
 
@@ -37,7 +33,9 @@
             const year = dateObj.getFullYear();
             const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Month is zero-indexed, so add 1
             const day = String(dateObj.getDate()).padStart(2, "0");
-            const weekday = dateObj.toLocaleString("en-US", { weekday: "short" });
+            const weekday = dateObj.toLocaleString("en-US", {
+                weekday: "short",
+            });
             const hour = String(dateObj.getHours()).padStart(2, "0");
             const minute = String(dateObj.getMinutes()).padStart(2, "0");
             // Format the string
@@ -47,10 +45,7 @@
             list.push({
                 course_exam: exam.course_exam,
                 days_until: Math.max(Math.floor(date / 86400000) - Math.floor(today / 86400000), 0),
-                days_between: Math.max(
-                    Math.floor(date / 86400000) - Math.floor(prevDate / 86400000),
-                    0
-                ),
+                days_between: Math.max(Math.floor(date / 86400000) - Math.floor(prevDate / 86400000), 0),
                 start_time: formattedDate,
                 classrooms: exam.classrooms,
             });
@@ -63,7 +58,7 @@
     function updateNotice() {
         const now = Date.now() - new Date().getTimezoneOffset() * 60000;
         const today = now - (now % 86400000);
-        const update = new Date("02 Jan 2025 00:48").getTime();
+        const update = new Date("10 Mar 2025 12:34").getTime();
         if (now - update > 172800000) {
             let updateDays = update - (update % 86400000);
             return Math.floor((today - updateDays) / 86400000) + " days ago.";
