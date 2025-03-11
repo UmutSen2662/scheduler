@@ -1,11 +1,12 @@
 <script>
-    import { getExamList } from "../../supabase.svelte";
+    import { getExamList, getLastUpdate } from "../../supabase.svelte";
     import { getTags } from "../../store.svelte";
     import TagsInput from "./TagsInput.svelte";
 
     const tags = getTags();
     let examList = [];
     let exams = $state(examList);
+    let lastUpdate = $state("");
 
     $effect(() => {
         const codes = Array.from(tags.tags);
@@ -19,6 +20,19 @@
         const codes = Array.from(tags.tags);
         const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
         exams = calculations(arr);
+    });
+
+    getLastUpdate().then((data) => {
+        const now = Date.now();
+        const update = data;
+        const today = now - (now % 86400000);
+
+        if (now - update > 172800000) {
+            let updateDays = update - (update % 86400000);
+            lastUpdate = "Updated " + Math.floor((today - updateDays) / 86400000) + " days ago.";
+        } else {
+            lastUpdate = "Updated " + Math.floor((now - update) / 3600000) + " hours ago.";
+        }
     });
 
     function calculations(exams) {
@@ -54,17 +68,6 @@
         });
         return list;
     }
-
-    function updateNotice() {
-        const now = Date.now() - new Date().getTimezoneOffset() * 60000;
-        const today = now - (now % 86400000);
-        const update = new Date("10 Mar 2025 12:34").getTime();
-        if (now - update > 172800000) {
-            let updateDays = update - (update % 86400000);
-            return Math.floor((today - updateDays) / 86400000) + " days ago.";
-        }
-        return Math.floor((now - update) / 3600000) + " hours ago.";
-    }
 </script>
 
 <TagsInput />
@@ -93,7 +96,7 @@
     </table>
 </div>
 <span>
-    Notice: The exam data may be out of date as CET system is updated fairly randomly. Updated {updateNotice()}
+    Notice: The exam data may be out of date as CET system is updated fairly randomly. {lastUpdate}
 </span>
 
 <style>

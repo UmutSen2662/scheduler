@@ -22,7 +22,9 @@ def update_exams(file_path):
                 exams.append(
                     {
                         "course_exam": row[0],
-                        "start_time": datetime.strptime(row[1] + " " + row[2][:5], "%Y-%m-%d %A %H:%M").isoformat(),
+                        "start_time": datetime.strptime(
+                            row[1] + " " + row[2][:5], "%Y-%m-%d %A %H:%M"
+                        ).isoformat(),
                         "classrooms": row[3],
                         "is_final": True,
                     }
@@ -33,22 +35,42 @@ def update_exams(file_path):
                 exams.append(
                     {
                         "course_exam": row[0],
-                        "start_time": datetime.strptime(row[1], "%Y-%m-%d %A %H:%M").isoformat(),
+                        "start_time": datetime.strptime(
+                            row[1], "%Y-%m-%d %A %H:%M"
+                        ).isoformat(),
                         "classrooms": row[3],
                         "is_final": False,
                     }
                 )
 
         print("Updating exams...")
-        supabase.table("exams").insert(exams).execute()
-        print("Exams updated")
+        response = supabase.table("exams").insert(exams).execute()
+        if response.data:
+            print("Exams updated")
+            # Generate new timestamp (ISO 8601 format)
+            new_timestamp = datetime.now().isoformat()
+
+            # Update last_updated timestamp in metadata table
+            update_response = (
+                supabase.table("exams_update_date")
+                .update({"last_updated": new_timestamp})
+                .eq("id", 1)
+                .execute()
+            )
+
+            if update_response.data:
+                print("Date updated successfully:", new_timestamp)
+            else:
+                print("Failed to update date")
+        else:
+            print("Insert failed or returned no data")
 
 
 if __name__ == "__main__":
     file_path = sys.argv[1] if len(sys.argv) > 1 else None
     if file_path == None:
         file_path = input("Enter path to csv file: ").strip('"')
-    
+
     if not os.path.exists(file_path):
         print(f"File at path {file_path} does not exist\n")
         sys.exit(1)

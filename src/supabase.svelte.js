@@ -138,3 +138,12 @@ export async function getSchedule() {
         }
     return null;
 }
+
+export async function getLastUpdate() {
+    if (online) {
+        const { data } = await supabase.from("exams_update_date").select("last_updated").eq("id", 1).single();
+        const lastUpdated = new Date(data.last_updated);
+        return lastUpdated.getTime();
+    }
+    return 1741703246690;
+}
