@@ -13,40 +13,42 @@ html.light {
     --cellShadow: 0 0 0.6rem 0.1rem black;
     --cellFont: 0;
     --svg: scale(-1, 1);
-    --0: transparent;
-    --1: #ff2e2e;
-    --2: #ff8c19;
-    --3: #ffff33;
-    --4: #74ec06;
-    --5: #19ffd9;
-    --6: #00aaff;
-    --7: #7f66ff;
-    --8: #dd33ff;
-    --9: #ff198c;
+    --t: transparent;
+    --0: #42a4ff;
+    --1: #ff4255;
+    --2: #3fd55f;
+    --3: #ffc61a;
+    --4: #C49CE8;
+    --5: #0064d9;
+    --6: #e10920;
+    --7: #089d3c;
+    --8: #ff8c19;
+    --9: #8A5CE7;
 }
 html.dark {
-    --background: #1d1d1d;
-    --tableAccent: #303030;
-    --acccent: #808080;
+    --background: #121212;
+    --tableAccent: #242424;
+    --acccent: #909090;
     --main: #2070d0;
-    --color: #a1a1a1;
-    --anticolor: #1d1d1d;
+    --color: #b1b1b1;
+    --anticolor: #181818;
     --red: #d22;
     --buttonHover: rgba(250, 250, 250, 0.1);
     --cellShadow: 0 0 0.6rem 0.1rem white;
     --cellFont: 0 0 calc(var(--borderSize) * 2) black;
     --svg: scale(1, 1);
-    --cellOutline: var(--borderSize);
-    --o0: transparent;
-    --o1: #c32020;
-    --o2: #bc5d05;
-    --o3: #c9c100;
-    --o4: #36a300;
-    --o5: #00c2b1;
-    --o6: #0077bb;
-    --o7: #4b3b9b;
-    --o8: #8e0ea7;
-    --o9: #bc0064;
+    --cellOutline: calc(var(--borderSize) * 2);
+    --ot: transparent;
+    --o0: #42a4ff;
+    --o1: #ff4255;
+    --o2: #3fd55f;
+    --o3: #ffc61a;
+    --o4: #C49CE8;
+    --o5: #0064d9;
+    --o6: #e10920;
+    --o7: #089d3c;
+    --o8: #ff8c19;
+    --o9: #8A5CE7;
 }
 
 html {

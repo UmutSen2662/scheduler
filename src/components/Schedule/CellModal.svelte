@@ -2,7 +2,7 @@
     import { supabase, userid } from "../../supabase.svelte";
     import { modals, schedule } from "../../store.svelte";
 
-    let color = $state(0);
+    let color = $state("t");
     let name = $state("");
     let section = $state("");
     let room = $state("");
@@ -18,7 +18,7 @@
         const id = modals.cellModalId.slice(1, 3);
         name = "";
         room = "";
-        color = 0;
+        color = "0";
         section = "";
         schedule.schedule.forEach((c) => {
             if (c.row.toString(16) == id[0] && c.col.toString(16) == id[1]) {
@@ -53,6 +53,7 @@
     });
 
     async function modalSave() {
+        console.log(color);
         const id = modals.cellModalId.slice(1, 3);
         if (userid) {
             const { error } = await supabase.from("course").upsert({
@@ -128,20 +129,18 @@
             <input type="text" list="classrooms" bind:value={room} placeholder="Room" />
         </div>
         <div class="color">
-            {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as bColor}
+            {#each ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] as bColor}
                 <button
                     aria-label="Color {bColor}"
                     class="colorBtn {color == bColor ? 'selected' : ''}"
-                    style="background: var(--{bColor || 0}); 
-                        outline: calc(var(--cellOutline) * 2) solid var(--o{bColor || 0});"
+                    style="background: var(--{bColor || 't'}); 
+                        outline: calc(var(--cellOutline) * 2) solid var(--o{bColor || 't'});"
                     onclick={() => (color = bColor)}
                 ></button>
             {/each}
         </div>
         <div class="buttons">
-            <button style="margin-right: auto; color: var(--red)" onclick={modalDelete}
-                >Delete</button
-            >
+            <button style="margin-right: auto; color: var(--red)" onclick={modalDelete}>Delete</button>
             <button style="margin-right: 0.4rem" onclick={modalSave}>Save</button>
             <button style="color: var(--acccent)" onclick={() => dialog.close()}>Cancel</button>
         </div>

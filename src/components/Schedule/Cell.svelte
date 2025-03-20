@@ -11,9 +11,9 @@
 <td
     draggable="true"
     onclick={() => (modals.cellModalId = id)}
-    style="color: var(--o{course.color || 0});
-        outline: var(--cellOutline) solid var(--o{course.color || 0});
-        background-color: var(--{course.color || 0})"
+    style="color: var(--o{course.color || 't'});
+        outline: var(--cellOutline) solid var(--o{course.color || 't'});
+        background-color: var(--{course.color || 't'})"
 >
     {#if typeof course != "string"}
         {course.name} ({course.section}) [{course.room}]
@@ -24,6 +24,7 @@
     td {
         position: relative;
         text-align: center;
+        background-color: transparent;
         padding: 0.3em;
         width: 18%;
         cursor: pointer;
