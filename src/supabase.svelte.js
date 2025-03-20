@@ -130,7 +130,7 @@ export async function getSchedule() {
                 name: c.name,
                 section: c.section,
                 room: c.room,
-                color: c.color,
+                color: String(c.color),
                 row: c.row,
                 col: c.col,
             }));
