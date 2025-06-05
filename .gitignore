@@ -13,6 +13,7 @@ dist-ssr
 old
 examlist/venv
 examlist/.env
+examlist/__pycache__
 
 # Editor directories and files
 .vscode/*
