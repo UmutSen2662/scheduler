@@ -3,6 +3,13 @@
     import Header from "./components/Header/Header.svelte";
     import ExamList from "./components/Exams/ExamList.svelte";
     import Schedule from "./components/Schedule/Schedule.svelte";
+    import SecretComponent from "./components/SecretComponent.svelte";
+
+    let showSecretComponent = false;
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("admin") === "true") {
+        showSecretComponent = true;
+    }
 </script>
 
 <main>
@@ -10,6 +17,7 @@
     <Schedule />
     <ExamList />
     <DataList />
+    {#if showSecretComponent}<SecretComponent />{/if}
     <a href="https://github.com/UmutSen2662/Scheduler" target="_blank">Github Page</a>
 </main>
 

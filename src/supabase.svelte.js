@@ -87,9 +87,7 @@ export async function updateCourseCodes(set) {
 
     const str = Array.from(set).join(",");
     if (userid) {
-        const { error } = await supabase
-            .from("course_codes")
-            .upsert({ userid: userid, courses: str });
+        const { error } = await supabase.from("course_codes").upsert({ userid: userid, courses: str });
         if (error) {
             console.error(error);
         }
@@ -146,4 +144,57 @@ export async function getLastUpdate() {
         return lastUpdated.getTime();
     }
     return 1741703246690;
+}
+
+export async function updateExams(data) {
+    if (online) {
+        const isFinal = data.slice(0, 20).includes("Date");
+
+        const deleteResponse = await supabase.from("exams").delete().eq("is_final", isFinal);
+        if (deleteResponse.error) {
+            console.error("Error deleting old exams:", deleteResponse.error.message);
+            return;
+        }
+
+        const examlist = parseExamData(data, isFinal);
+        const insertResponse = await supabase.from("exams").insert(examlist);
+        if (insertResponse.error) {
+            console.error("Failed to insert exams:", insertResponse.error.message);
+            return;
+        }
+
+        const { error } = await supabase.from("exams_update_date").upsert({ id: 1, last_updated: new Date() });
+        if (error) console.log(error);
+    }
+}
+
+function parseExamData(data, isFinal) {
+    const rows = data.split("\n").slice(1);
+    const parsed = [];
+
+    if (isFinal) {
+        for (const row of rows) {
+            const columns = row.split("\t");
+            parsed.push({
+                course_exam: columns[0],
+                start_time: columns[1].split(" ")[0] + "T" + columns[2].slice(0, 5) + ":00",
+                classrooms: columns[3],
+                is_final: true,
+            });
+        }
+    } else {
+        for (const row of rows) {
+            const columns = row.split("\t");
+            let time = columns[1].split(" ");
+            parsed.push({
+                course_exam: columns[0],
+                start_time: time[0] + "T" + time[2] + ":00",
+                classrooms: columns[3],
+                is_final: false,
+            });
+        }
+    }
+    console.log(parsed);
+
+    return parsed;
 }
