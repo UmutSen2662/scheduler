@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://umutsen2662.github.io/Scheduler/",
+    "homepage": "https://umutsen2662.github.io/scheduler/",
     "scripts": {
         "dev": "vite",
         "build": "vite build",

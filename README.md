@@ -11,7 +11,7 @@ It is basically a different version of the CET systems student schedule and midt
 -   And then you clone the repository:
 
 ```bash
-git clone https://github.com/UmutSen2662/Scheduler.git
+git clone https://github.com/UmutSen2662/scheduler.git
 cd scheduler
 ```
 
