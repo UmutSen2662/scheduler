@@ -17,13 +17,13 @@ export default defineConfig({
                 lang: "en",
                 icons: [
                     {
-                        src: "./scheduler/any.png",
+                        src: "./scheduler-any.png",
                         sizes: "192x192",
                         type: "image/png",
                         purpose: "any",
                     },
                     {
-                        src: "./scheduler/maskable.png",
+                        src: "./scheduler-maskable.png",
                         sizes: "512x512",
                         type: "image/png",
                         purpose: "maskable",
