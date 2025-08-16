@@ -1,11 +1,7 @@
 <script>
     import { getOptions, updateOptions } from "../../supabase.svelte";
 
-    let {
-        showOptionsModal = $bindable(false),
-        startTime = $bindable("08:40"),
-        rowNum = $bindable(12),
-    } = $props();
+    let { showOptionsModal = $bindable(false), startTime = $bindable("08:40"), rowNum = $bindable(10) } = $props();
 
     getOptions().then((options) => {
         if (!options) return;
@@ -49,17 +45,9 @@
                 <span>Start Time</span>
                 <input type="time" name="startTime" id="startTime" bind:value={startTime} />
             </label>
-            <label for="rowNum">
-                <span>Number of Rows</span>
-                <input
-                    style="width: 5rem"
-                    type="number"
-                    name="rowNum"
-                    id="rowNum"
-                    min="2"
-                    max="16"
-                    bind:value={rowNum}
-                />
+            <label for="rowNum" id="rowNumLabel">
+                <span>Number of Rows: {rowNum}</span>
+                <input type="range" name="rowNum" id="rowNum" min="4" max="16" bind:value={rowNum} />
             </label>
         </form>
         <input
@@ -68,7 +56,7 @@
             value="Restore defaults"
             onclick={() => {
                 startTime = "08:40";
-                rowNum = 12;
+                rowNum = 10;
                 dialog.close();
             }}
         />
@@ -110,5 +98,36 @@
     }
     .reset:hover {
         text-decoration: underline;
+    }
+
+    #rowNumLabel {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 100%;
+    }
+
+    #rowNum {
+        -webkit-appearance: none; /* Override default CSS styles */
+        appearance: none;
+        width: 100%;
+        height: 1.2rem;
+        background: var(--background);
+        border: none;
+        outline: solid var(--borderSize) var(--color);
+    }
+    #rowNum::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 1.2rem;
+        height: 1.2rem;
+        background: var(--main);
+        cursor: pointer;
+    }
+    #rowNum::-moz-range-thumb {
+        width: 1.2rem;
+        height: 1.2rem;
+        background: var(--main);
+        cursor: pointer;
     }
 </style>
