@@ -3,9 +3,7 @@ import { SvelteSet } from "svelte/reactivity";
 
 class Schedule {
     schedule = $state(
-        JSON.parse(localStorage.getItem("schedule")) != ""
-            ? JSON.parse(localStorage.getItem("schedule")) || []
-            : []
+        JSON.parse(localStorage.getItem("schedule")) != "" ? JSON.parse(localStorage.getItem("schedule")) || [] : []
     );
 
     constructor() {
@@ -59,7 +57,11 @@ export function getTags() {
         tags = new Tags();
 
         getCourseCodes().then((data) => {
-            tags.addTags(data);
+            if (data != "") {
+                tags.tags = new SvelteSet(data.split(","));
+            } else {
+                tags.tags = new SvelteSet([]);
+            }
         });
 
         return tags;
