@@ -5,6 +5,7 @@
     import Schedule from "./components/Schedule/Schedule.svelte";
     import SecretComponent from "./components/SecretComponent.svelte";
 
+    // test
     let showSecretComponent = false;
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("admin") === "true") {
