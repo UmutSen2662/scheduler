@@ -2,7 +2,8 @@
     import { onMount } from "svelte";
     import { updateExams } from "../supabase.svelte";
     let dialog = $state();
-    let data = $state("");
+    let midterms = $state("");
+    let finals = $state("");
 
     onMount(async () => {
         dialog.showModal();
@@ -19,11 +20,13 @@
 >
     <div class="modal">
         <h2>Update Exams</h2>
-        <textarea bind:value={data} placeholder="Paste exam data"></textarea>
+        <textarea bind:value={midterms} placeholder="Paste midterm exams"></textarea>
+        <textarea bind:value={finals} placeholder="Paste final exams"></textarea>
         <button
             onclick={() => {
-                updateExams(data);
-                data = "";
+                updateExams(midterms.trim(), finals.trim());
+                midterms = "";
+                finals = "";
             }}>Update</button
         >
     </div>

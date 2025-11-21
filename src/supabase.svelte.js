@@ -146,33 +146,52 @@ export async function getLastUpdate() {
     return 1741703246690;
 }
 
-export async function updateExams(data) {
+export async function updateExams(midterms, finals) {
     if (online) {
-        const isFinal = data.slice(0, 20).includes("Date");
+        if (midterms.length > 0) {
+            const deleteResponse = await supabase.from("exams").delete().eq("is_final", false);
+            if (deleteResponse.error) {
+                console.error("Error deleting old exams:", deleteResponse.error.message);
+                return;
+            }
 
-        const deleteResponse = await supabase.from("exams").delete().eq("is_final", isFinal);
-        if (deleteResponse.error) {
-            console.error("Error deleting old exams:", deleteResponse.error.message);
-            return;
+            const examlist = parseExamData(midterms);
+            const insertResponse = await supabase.from("exams").insert(examlist);
+            if (insertResponse.error) {
+                console.error("Failed to insert exams:", insertResponse.error.message);
+                return;
+            }
+
+            const { error } = await supabase.from("exams_update_date").upsert({ id: 1, last_updated: new Date() });
+            if (error) console.log(error);
         }
 
-        const examlist = parseExamData(data, isFinal);
-        const insertResponse = await supabase.from("exams").insert(examlist);
-        if (insertResponse.error) {
-            console.error("Failed to insert exams:", insertResponse.error.message);
-            return;
-        }
+        if (finals.length > 0) {
+            const deleteResponse = await supabase.from("exams").delete().eq("is_final", true);
+            if (deleteResponse.error) {
+                console.error("Error deleting old exams:", deleteResponse.error.message);
+                return;
+            }
 
-        const { error } = await supabase.from("exams_update_date").upsert({ id: 1, last_updated: new Date() });
-        if (error) console.log(error);
+            const examlist = parseExamData(finals);
+            const insertResponse = await supabase.from("exams").insert(examlist);
+            if (insertResponse.error) {
+                console.error("Failed to insert exams:", insertResponse.error.message);
+                return;
+            }
+
+            const { error } = await supabase.from("exams_update_date").upsert({ id: 1, last_updated: new Date() });
+            if (error) console.log(error);
+        }
     }
 }
 
-function parseExamData(data, isFinal) {
+function parseExamData(data) {
+    const formatting = data.slice(0, 20).includes("Date");
     const rows = data.split("\n").slice(1);
     const parsed = [];
 
-    if (isFinal) {
+    if (formatting) {
         for (const row of rows) {
             const columns = row.split("\t");
             parsed.push({
