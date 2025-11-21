@@ -155,7 +155,7 @@ export async function updateExams(midterms, finals) {
                 return;
             }
 
-            const examlist = parseExamData(midterms);
+            const examlist = parseExamData(midterms, false);
             const insertResponse = await supabase.from("exams").insert(examlist);
             if (insertResponse.error) {
                 console.error("Failed to insert exams:", insertResponse.error.message);
@@ -173,7 +173,7 @@ export async function updateExams(midterms, finals) {
                 return;
             }
 
-            const examlist = parseExamData(finals);
+            const examlist = parseExamData(finals, true);
             const insertResponse = await supabase.from("exams").insert(examlist);
             if (insertResponse.error) {
                 console.error("Failed to insert exams:", insertResponse.error.message);
@@ -186,7 +186,7 @@ export async function updateExams(midterms, finals) {
     }
 }
 
-function parseExamData(data) {
+function parseExamData(data, isFinal) {
     const formatting = data.slice(0, 20).includes("Date");
     const rows = data.split("\n").slice(1);
     const parsed = [];
@@ -198,7 +198,7 @@ function parseExamData(data) {
                 course_exam: columns[0],
                 start_time: columns[1].split(" ")[0] + "T" + columns[2].slice(0, 5) + ":00",
                 classrooms: columns[3],
-                is_final: true,
+                is_final: isFinal,
             });
         }
     } else {
@@ -209,7 +209,7 @@ function parseExamData(data) {
                 course_exam: columns[0],
                 start_time: time[0] + "T" + time[2] + ":00",
                 classrooms: columns[3],
-                is_final: false,
+                is_final: isFinal,
             });
         }
     }
