@@ -34,9 +34,7 @@ export default defineConfig({
             },
         }),
     ],
-    base: "/scheduler/",
     build: {
         target: "esnext", // Enables modern JavaScript features
-        outDir: "docs",
     },
 });
