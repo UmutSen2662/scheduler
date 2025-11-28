@@ -39,4 +39,4 @@ To create a production-ready build, run:
 npm run build
 ```
 
-The build output will be located in the docs directory because I am currently serving it using github pages.
+The build output will be located in the dist directory
