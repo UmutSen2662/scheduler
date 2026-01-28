@@ -19,7 +19,7 @@
     <ExamList />
     <DataList />
     {#if showSecretComponent}<SecretComponent />{/if}
-    <a href="https://github.com/UmutSen2662/scheduler" target="_blank">Github Page a</a>
+    <a href="https://github.com/UmutSen2662/scheduler" target="_blank">Github Page aa</a>
 </main>
 
 <style>
