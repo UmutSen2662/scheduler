@@ -14,19 +14,21 @@ html.light {
     --cellFont: 0;
     --svg: scale(-1, 1);
     --t: transparent;
-    --0: #ff4848;
-    --1: #16f46d;
-    --2: #6988ff;
-    --3: #00f6f0;
-    --4: #fd8af2;
-    --5: #f2f200;
+    --0: #fb7b77;
+    --1: #fdc170;
+    --2: #f3f87f;
+    --3: #98f786;
+    --4: #69ebfc;
+    --5: #7290fa;
+    --6: #f78ef0;
 
-    --6: #cc3939;
-    --7: #11c156;
-    --8: #546ccc;
-    --9: #00c3be;
-    --10: #ca6ec1;
-    --11: #bfbf00;
+    --7: #ec5656;
+    --8: #e7a33c;
+    --9: #dfe347;
+    --10: #7ae566;
+    --11: #00cce2;
+    --12: #5875e9;
+    --13: #e169da;
 }
 html.dark {
     --background: #181818;
@@ -42,19 +44,21 @@ html.dark {
     --svg: scale(1, 1);
     --cellOutline: calc(var(--borderSize) * 2);
     --ot: transparent;
-    --o0: #ff4848;
-    --o1: #16f46d;
-    --o2: #6988ff;
-    --o3: #00f6f0;
-    --o4: #fd8af2;
-    --o5: #f2f200;
+    --o0: #fb7b77;
+    --o1: #fdc170;
+    --o2: #f3f87f;
+    --o3: #98f786;
+    --o4: #69ebfc;
+    --o5: #7290fa;
+    --o6: #f78ef0;
 
-    --o6: #cc3939;
-    --o7: #11c156;
-    --o8: #546ccc;
-    --o9: #00c3be;
-    --o10: #ca6ec1;
-    --o11: #bfbf00;
+    --o7: #ec5656;
+    --o8: #e7a33c;
+    --o9: #dfe347;
+    --o10: #7ae566;
+    --o11: #00cce2;
+    --o12: #5875e9;
+    --o13: #e169da;
 }
 
 html {
@@ -139,7 +143,7 @@ button:active::before {
 
 dialog {
     padding: 0;
-    width: 18rem;
+    width: 19.4rem;
     border: calc(var(--borderSize) * 2) solid var(--color);
     background-color: var(--background);
     color: var(--color);

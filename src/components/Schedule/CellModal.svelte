@@ -106,7 +106,7 @@
         }
 
         schedule.schedule = schedule.schedule.filter(
-            (c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16)
+            (c) => c.col != parseInt(id[1], 16) || c.row != parseInt(id[0], 16),
         );
 
         dialog.close();
@@ -129,7 +129,7 @@
             <input type="text" list="classrooms" bind:value={room} placeholder="Room" />
         </div>
         <div class="color">
-            {#each ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"] as bColor}
+            {#each ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"] as bColor}
                 <button
                     aria-label="Color {bColor}"
                     class="colorBtn {color == bColor ? 'selected' : ''}"
@@ -164,7 +164,7 @@
 
     .color {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         grid-template-rows: repeat(2, 1fr);
         gap: 0.5rem;
         margin: 1rem 0;
