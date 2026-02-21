@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script>
+            const t = localStorage.getItem("theme");
+            if (t === "true") document.documentElement.className = "dark";
+            else document.documentElement.className = "light";
+        </script>
         <link rel="icon" type="image/png" href="/scheduler-any.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
@@ -10,8 +15,73 @@
         />
         <title>Scheduler</title>
     </head>
+    <style>
+        body { margin: 0; background-color: #f2f2f2; }
+        html.dark body { background-color: #181818; }
+        .initial-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .spinner {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            background-color: transparent;
+        }
+        .spinner span {
+            position: absolute;
+            background-color: #2070d0; /* var(--main) */
+        }
+        .spinner span:nth-child(1) {
+            top: 0; left: 0; width: 100%; height: 5px;
+            animation: snake1 1.25s linear infinite;
+        }
+        .spinner span:nth-child(2) {
+            top: 0; right: 0; width: 5px; height: 100%;
+            animation: snake2 1.25s linear infinite;
+        }
+        .spinner span:nth-child(3) {
+            bottom: 0; right: 0; width: 100%; height: 5px;
+            animation: snake3 1.25s linear infinite;
+        }
+        .spinner span:nth-child(4) {
+            bottom: 0; left: 0; width: 5px; height: 100%;
+            animation: snake4 1.25s linear infinite;
+        }
+
+        @keyframes snake1 {
+            0%   { transform: translateX(-100%); }
+            50%, 100% { transform: translateX(100%); }
+        }
+        @keyframes snake2 {
+            0%, 25% { transform: translateY(-100%); }
+            75%, 100% { transform: translateY(100%); }
+        }
+        @keyframes snake3 {
+            0%, 50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes snake4 {
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-100%); }
+            25.01%, 75% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+    </style>
     <body>
-        <div id="app"></div>
+        <div id="app">
+            <div class="initial-loader">
+                <div class="spinner">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
         <script type="module" src="/src/main.js"></script>
     </body>
 </html>

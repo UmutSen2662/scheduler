@@ -2,10 +2,7 @@
     import { modals } from "../../store.svelte";
     let { course } = $props();
 
-    let id = course;
-    if (typeof course != "string") {
-        id = "c" + course.row.toString(16) + course.col.toString(16);
-    }
+    let id = $derived(typeof course === "string" ? course : "c" + course.row.toString(16) + course.col.toString(16));
 </script>
 
 <td
