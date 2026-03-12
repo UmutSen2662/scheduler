@@ -10,7 +10,7 @@
 
     $effect(() => {
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
+        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0]));
         exams = calculations(arr);
     });
 
@@ -18,7 +18,7 @@
         if (!data) return;
         examList = data;
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)[0]));
+        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0]));
         exams = calculations(arr);
     });
 
