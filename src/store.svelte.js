@@ -57,10 +57,12 @@ export function getTags() {
         tags = new Tags();
 
         getCourseCodes().then((data) => {
-            if (data != "") {
-                tags.tags = new SvelteSet(data.split(","));
-            } else {
-                tags.tags = new SvelteSet([]);
+            if (data !== null) {
+                if (data != "") {
+                    tags.tags = new SvelteSet(data.split(","));
+                } else {
+                    tags.tags = new SvelteSet([]);
+                }
             }
         });
 

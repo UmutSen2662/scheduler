@@ -67,7 +67,7 @@ export async function getExamList() {
 }
 
 export async function getCourseCodes() {
-    if (!online) return null;
+    if (!online || !userid) return null;
 
     const { data: data } = await supabase.from("course_codes").select("courses");
     if (data)
@@ -95,13 +95,12 @@ export async function updateCourseCodes(set) {
 }
 
 export async function getOptions() {
-    if (!online) return null;
+    if (!online || !userid) return null;
 
     const { data: data } = await supabase.from("options").select("*");
-    if (data)
-        if (data.length > 0) {
-            return data[0];
-        }
+    if (data && data.length > 0) {
+        return data[0];
+    }
     return null;
 }
 
@@ -119,21 +118,20 @@ export async function updateOptions(options) {
 }
 
 export async function getSchedule() {
-    if (!online) return null;
+    if (!online || !userid) return null;
 
     const { data: course } = await supabase.from("course").select("*");
-    if (course)
-        if (course.length > 0) {
-            const mapped = course.map((c) => ({
-                name: c.name,
-                section: c.section,
-                room: c.room,
-                color: String(c.color),
-                row: c.row,
-                col: c.col,
-            }));
-            return mapped;
-        }
+    if (course) {
+        const mapped = course.map((c) => ({
+            name: c.name,
+            section: c.section,
+            room: c.room,
+            color: String(c.color),
+            row: c.row,
+            col: c.col,
+        }));
+        return mapped;
+    }
     return null;
 }
 
