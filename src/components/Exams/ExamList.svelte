@@ -10,7 +10,11 @@
 
     $effect(() => {
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0]));
+        const arr = examList.filter((x) =>
+            codes.includes(
+                x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0],
+            ),
+        );
         exams = calculations(arr);
     });
 
@@ -18,7 +22,11 @@
         if (!data) return;
         examList = data;
         const codes = Array.from(tags.tags);
-        const arr = examList.filter((x) => codes.includes(x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0]));
+        const arr = examList.filter((x) =>
+            codes.includes(
+                x.course_exam.match(/([A-Z]{3,4})\s?(\d{3,4})/g)?.[0],
+            ),
+        );
         exams = calculations(arr);
     });
 
@@ -29,9 +37,15 @@
 
         if (now - update > 172800000) {
             let updateDays = update - (update % 86400000);
-            lastUpdate = "Updated " + Math.floor((today - updateDays) / 86400000) + " days ago.";
+            lastUpdate =
+                "Updated " +
+                Math.floor((today - updateDays) / 86400000) +
+                " days ago.";
         } else {
-            lastUpdate = "Updated " + Math.floor((now - update) / 3600000) + " hours ago.";
+            lastUpdate =
+                "Updated " +
+                Math.floor((now - update) / 3600000) +
+                " hours ago.";
         }
     });
 
@@ -58,8 +72,15 @@
 
             list.push({
                 course_exam: exam.course_exam,
-                days_until: Math.max(Math.floor(date / 86400000) - Math.floor(today / 86400000), 0),
-                days_between: Math.max(Math.floor(date / 86400000) - Math.floor(prevDate / 86400000), 0),
+                days_until: Math.max(
+                    Math.floor(date / 86400000) - Math.floor(today / 86400000),
+                    0,
+                ),
+                days_between: Math.max(
+                    Math.floor(date / 86400000) -
+                        Math.floor(prevDate / 86400000),
+                    0,
+                ),
                 start_time: formattedDate,
                 classrooms: exam.classrooms,
             });
@@ -96,7 +117,8 @@
     </table>
 </div>
 <span>
-    Notice: The exam data may be out of date as CET system is updated fairly randomly. {lastUpdate}
+    Notice: The exam data may be out of date as CET system is updated fairly
+    randomly. {lastUpdate}
 </span>
 
 <style>
