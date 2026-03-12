@@ -10,6 +10,7 @@
     });
 
     let dialog = $state();
+    let backdropClick = false;
 
     $effect(() => {
         if (!showOptionsModal) {
@@ -28,8 +29,11 @@
         showOptionsModal = false;
         updateOptions({ time: startTime, rows: rowNum });
     }}
+    onmousedown={(e) => {
+        backdropClick = e.target === dialog;
+    }}
     onclick={(e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog && backdropClick) dialog.close();
     }}
 >
     <div class="modal">

@@ -5,6 +5,7 @@
     let dialog = $state();
     let email = $state("");
     let password = $state("");
+    let backdropClick = false;
 
     $effect(() => {
         if (!modals.signInModal) {
@@ -22,8 +23,11 @@
 <dialog
     bind:this={dialog}
     onclose={() => (modals.signInModal = false)}
+    onmousedown={(e) => {
+        backdropClick = e.target === dialog;
+    }}
     onclick={(e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog && backdropClick) dialog.close();
     }}
 >
     <div class="modal">

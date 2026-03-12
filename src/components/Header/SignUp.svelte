@@ -6,6 +6,7 @@
     let email = $state("");
     let password = $state("");
     let password2 = $state("");
+    let backdropClick = false;
 
     $effect(() => {
         if (!modals.signUpModal) {
@@ -15,6 +16,7 @@
         dialog.showModal();
         email = "";
         password = "";
+        password2 = "";
     });
 
     function validate(email, password, password2) {
@@ -35,8 +37,11 @@
 <dialog
     bind:this={dialog}
     onclose={() => (modals.signUpModal = false)}
+    onmousedown={(e) => {
+        backdropClick = e.target === dialog;
+    }}
     onclick={(e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog && backdropClick) dialog.close();
     }}
 >
     <div class="modal">

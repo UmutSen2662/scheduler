@@ -4,6 +4,7 @@
     let dialog = $state();
     let midterms = $state("");
     let finals = $state("");
+    let backdropClick = false;
 
     onMount(async () => {
         dialog.showModal();
@@ -14,8 +15,11 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
     bind:this={dialog}
+    onmousedown={(e) => {
+        backdropClick = e.target === dialog;
+    }}
     onclick={(e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog && backdropClick) dialog.close();
     }}
 >
     <div class="modal">

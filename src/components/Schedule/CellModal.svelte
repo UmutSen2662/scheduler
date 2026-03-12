@@ -7,6 +7,7 @@
     let section = $state("");
     let room = $state("");
     let dialog = $state();
+    let backdropClick = false;
 
     $effect(() => {
         if (modals.cellModalId == "") {
@@ -118,8 +119,11 @@
 <dialog
     bind:this={dialog}
     onclose={() => (modals.cellModalId = "")}
+    onmousedown={(e) => {
+        backdropClick = e.target === dialog;
+    }}
     onclick={(e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog && backdropClick) dialog.close();
     }}
 >
     <div class="modal">
