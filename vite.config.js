@@ -8,6 +8,11 @@ export default defineConfig({
         svelte(),
         VitePWA({
             registerType: "autoUpdate",
+            workbox: {
+                cleanupOutdatedCaches: true,
+                skipWaiting: true,
+                clientsClaim: true,
+            },
             manifest: {
                 name: "METU Scheduler and CEF",
                 short_name: "Scheduler",
