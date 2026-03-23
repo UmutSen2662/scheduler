@@ -13,7 +13,16 @@
         localStorage.setItem("theme", JSON.stringify(theme));
     });
 
-    const button = online ? (userid ? "Sign_Out" : "Sign_In") : "Offline";
+    const button = $derived(online() ? (userid() ? "Sign_Out" : "Sign_In") : "Offline");
+
+    function handleAuthButtonClick() {
+        if (!online()) return;
+        if (userid()) {
+            signOut();
+            return;
+        }
+        modals.signInModal = true;
+    }
 </script>
 
 <div>
@@ -36,11 +45,7 @@
     </svg>
     <button
         class={button}
-        onclick={userid
-            ? signOut
-            : () => {
-                  modals.signInModal = true;
-              }}
+        onclick={handleAuthButtonClick}
     >
         {button.replace("_", " ")}
     </button>

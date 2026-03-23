@@ -1,29 +1,87 @@
 import { createClient } from "@supabase/supabase-js";
-import isOnline from "is-online";
+const SUPABASE_URL = "https://gpprfxmjjjowyuqgvwzr.supabase.co";
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q";
+const ONLINE_CHECK_TIMEOUT = 1500;
 
-export const online = await isOnline();
+let onlineState = $state(typeof navigator === "undefined" ? true : navigator.onLine);
+let useridState = $state(null);
 
-export const supabase = online
-    ? createClient(
-          "https://gpprfxmjjjowyuqgvwzr.supabase.co",
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwcHJmeG1qampvd3l1cWd2d3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDU0NTQsImV4cCI6MjA0NjQyMTQ1NH0.e_RwbQVTsd4ggnH79bcX8gWL8o61pZ_wan5ypQjB77Q"
-      )
-    : null;
+export function online() {
+    return onlineState;
+}
 
-export const userid = online ? await checkSession() : null;
+export function userid() {
+    return useridState;
+}
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let sessionInitialized = false;
+
+if (typeof window !== "undefined") {
+    window.addEventListener("online", async () => {
+        onlineState = true;
+        useridState = await checkSession(ONLINE_CHECK_TIMEOUT);
+    });
+
+    window.addEventListener("offline", () => {
+        onlineState = false;
+        useridState = null;
+    });
+
+    initializeSession();
+}
 
 // Check if a user is signed in
-async function checkSession() {
-    if (!online) return null;
+async function checkSession(timeoutMs = 0) {
+    if (!onlineState) return null;
 
-    const { data, error } = await supabase.auth.getUser();
+    try {
+        const getUserRequest = supabase.auth.getUser();
+        const { data, error } = timeoutMs
+            ? await withTimeout(getUserRequest, timeoutMs)
+            : await getUserRequest;
 
-    if (!error) return data.user.id;
+        if (!error && data?.user) return data.user.id;
+    } catch {
+        onlineState = false;
+    }
     return null;
 }
 
+async function initializeSession() {
+    if (sessionInitialized) return;
+    sessionInitialized = true;
+
+    onlineState = typeof navigator === "undefined" ? true : navigator.onLine;
+    if (!onlineState) {
+        useridState = null;
+        return;
+    }
+
+    useridState = await checkSession(ONLINE_CHECK_TIMEOUT);
+}
+
+async function withTimeout(promise, timeoutMs) {
+    let timeoutId;
+
+    try {
+        return await Promise.race([
+            promise,
+            new Promise((_, reject) => {
+                timeoutId = setTimeout(() => {
+                    reject(new Error("timeout"));
+                }, timeoutMs);
+            }),
+        ]);
+    } finally {
+        clearTimeout(timeoutId);
+    }
+}
+
 export async function signOut() {
-    if (!online) return null;
+    if (!onlineState) return null;
 
     const { error } = await supabase.auth.signOut();
     if (error) alert("Error signing out: " + error.message);
@@ -31,7 +89,7 @@ export async function signOut() {
 }
 
 export async function signIn(email, password) {
-    if (!online) return null;
+    if (!onlineState) return null;
 
     const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
@@ -42,7 +100,7 @@ export async function signIn(email, password) {
 }
 
 export async function signUp(email, password) {
-    if (!online) return null;
+    if (!onlineState) return null;
 
     const { data, error } = await supabase.auth.signUp({
         email: email,
@@ -53,7 +111,7 @@ export async function signUp(email, password) {
 }
 
 export async function getExamList() {
-    if (online) {
+    if (onlineState) {
         const { data: data } = await supabase
             .from("exams")
             .select("course_exam, start_time, classrooms")
@@ -67,7 +125,7 @@ export async function getExamList() {
 }
 
 export async function getCourseCodes() {
-    if (!online || !userid) return null;
+    if (!onlineState || !useridState) return null;
 
     const { data: data } = await supabase.from("course_codes").select("courses");
     if (data)
@@ -83,11 +141,11 @@ export async function getCourseCodes() {
 }
 
 export async function updateCourseCodes(set) {
-    if (!online) return null;
+    if (!onlineState) return null;
 
     const str = Array.from(set).join(",");
-    if (userid) {
-        const { error } = await supabase.from("course_codes").upsert({ userid: userid, courses: str });
+    if (useridState) {
+        const { error } = await supabase.from("course_codes").upsert({ userid: useridState, courses: str });
         if (error) {
             console.error(error);
         }
@@ -95,7 +153,7 @@ export async function updateCourseCodes(set) {
 }
 
 export async function getOptions() {
-    if (!online || !userid) return null;
+    if (!onlineState || !useridState) return null;
 
     const { data: data } = await supabase.from("options").select("*");
     if (data && data.length > 0) {
@@ -105,12 +163,12 @@ export async function getOptions() {
 }
 
 export async function updateOptions(options) {
-    if (!online) return null;
+    if (!onlineState) return null;
 
-    if (userid) {
+    if (useridState) {
         const { error } = await supabase
             .from("options")
-            .upsert({ userid: userid, time: options.time, rows: options.rows });
+            .upsert({ userid: useridState, time: options.time, rows: options.rows });
         if (error) {
             console.error(error);
         }
@@ -118,7 +176,7 @@ export async function updateOptions(options) {
 }
 
 export async function getSchedule() {
-    if (!online || !userid) return null;
+    if (!onlineState || !useridState) return null;
 
     const { data: course } = await supabase.from("course").select("*");
     if (course) {
@@ -136,7 +194,7 @@ export async function getSchedule() {
 }
 
 export async function getLastUpdate() {
-    if (online) {
+    if (onlineState) {
         const { data } = await supabase.from("exams_update_date").select("last_updated").eq("id", 1).single();
         const lastUpdated = new Date(data.last_updated);
         return lastUpdated.getTime();
@@ -145,7 +203,7 @@ export async function getLastUpdate() {
 }
 
 export async function updateExams(midterms, finals) {
-    if (online) {
+    if (onlineState) {
         if (midterms.length > 0) {
             const deleteResponse = await supabase.from("exams").delete().eq("is_final", false);
             if (deleteResponse.error) {

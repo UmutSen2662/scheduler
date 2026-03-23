@@ -56,9 +56,9 @@
     async function modalSave() {
         console.log(color);
         const id = modals.cellModalId.slice(1, 3);
-        if (userid) {
+        if (userid()) {
             const { error } = await supabase.from("course").upsert({
-                userid: userid,
+                userid: userid(),
                 name: name,
                 section: section,
                 room: room,
@@ -96,11 +96,11 @@
 
     async function modalDelete() {
         const id = modals.cellModalId.slice(1, 3);
-        if (userid) {
+        if (userid()) {
             const { error } = await supabase
                 .from("course")
                 .delete()
-                .eq("userid", userid)
+                .eq("userid", userid())
                 .eq("row", parseInt(id[0], 16))
                 .eq("col", parseInt(id[1], 16));
             if (error) console.log(error);
