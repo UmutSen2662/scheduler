@@ -1,5 +1,5 @@
 <script>
-    import { supabase, userid } from "../../supabase.svelte";
+    import { supabase, getUserId } from "../../supabase.svelte";
     import { modals, schedule } from "../../store.svelte";
 
     let color = $state("t");
@@ -56,9 +56,10 @@
     async function modalSave() {
         console.log(color);
         const id = modals.cellModalId.slice(1, 3);
-        if (userid()) {
+        const uid = await getUserId();
+        if (uid) {
             const { error } = await supabase.from("course").upsert({
-                userid: userid(),
+                userid: uid,
                 name: name,
                 section: section,
                 room: room,
@@ -96,11 +97,12 @@
 
     async function modalDelete() {
         const id = modals.cellModalId.slice(1, 3);
-        if (userid()) {
+        const uid = await getUserId();
+        if (uid) {
             const { error } = await supabase
                 .from("course")
                 .delete()
-                .eq("userid", userid())
+                .eq("userid", uid)
                 .eq("row", parseInt(id[0], 16))
                 .eq("col", parseInt(id[1], 16));
             if (error) console.log(error);

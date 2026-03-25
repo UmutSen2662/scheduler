@@ -30,6 +30,10 @@ if (typeof window !== "undefined") {
         useridState = null;
     });
 
+    supabase.auth.onAuthStateChange((_event, session) => {
+        useridState = session?.user?.id ?? null;
+    });
+
     initializeSession();
 }
 
@@ -45,9 +49,21 @@ async function checkSession(timeoutMs = 0) {
 
         if (!error && data?.user) return data.user.id;
     } catch {
-        onlineState = false;
+        return null;
     }
     return null;
+}
+
+async function ensureUserId() {
+    if (!onlineState) return null;
+    if (useridState) return useridState;
+
+    useridState = await checkSession(ONLINE_CHECK_TIMEOUT);
+    return useridState;
+}
+
+export async function getUserId() {
+    return await ensureUserId();
 }
 
 async function initializeSession() {
@@ -125,9 +141,12 @@ export async function getExamList() {
 }
 
 export async function getCourseCodes() {
-    if (!onlineState || !useridState) return null;
+    if (!onlineState) return null;
 
-    const { data: data } = await supabase.from("course_codes").select("courses");
+    const uid = await ensureUserId();
+    if (!uid) return null;
+
+    const { data: data } = await supabase.from("course_codes").select("courses").eq("userid", uid).limit(1);
     if (data)
         if (data.length > 0) {
             const str = data[0].courses;
@@ -144,8 +163,9 @@ export async function updateCourseCodes(set) {
     if (!onlineState) return null;
 
     const str = Array.from(set).join(",");
-    if (useridState) {
-        const { error } = await supabase.from("course_codes").upsert({ userid: useridState, courses: str });
+    const uid = await ensureUserId();
+    if (uid) {
+        const { error } = await supabase.from("course_codes").upsert({ userid: uid, courses: str });
         if (error) {
             console.error(error);
         }
@@ -153,9 +173,12 @@ export async function updateCourseCodes(set) {
 }
 
 export async function getOptions() {
-    if (!onlineState || !useridState) return null;
+    if (!onlineState) return null;
 
-    const { data: data } = await supabase.from("options").select("*");
+    const uid = await ensureUserId();
+    if (!uid) return null;
+
+    const { data: data } = await supabase.from("options").select("*").eq("userid", uid).limit(1);
     if (data && data.length > 0) {
         return data[0];
     }
@@ -165,10 +188,11 @@ export async function getOptions() {
 export async function updateOptions(options) {
     if (!onlineState) return null;
 
-    if (useridState) {
+    const uid = await ensureUserId();
+    if (uid) {
         const { error } = await supabase
             .from("options")
-            .upsert({ userid: useridState, time: options.time, rows: options.rows });
+            .upsert({ userid: uid, time: options.time, rows: options.rows });
         if (error) {
             console.error(error);
         }
@@ -176,9 +200,12 @@ export async function updateOptions(options) {
 }
 
 export async function getSchedule() {
-    if (!onlineState || !useridState) return null;
+    if (!onlineState) return null;
 
-    const { data: course } = await supabase.from("course").select("*");
+    const uid = await ensureUserId();
+    if (!uid) return null;
+
+    const { data: course } = await supabase.from("course").select("*").eq("userid", uid);
     if (course) {
         const mapped = course.map((c) => ({
             name: c.name,
